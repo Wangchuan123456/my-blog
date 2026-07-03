@@ -1,0 +1,25 @@
+{
+  "name": "my-blog",
+  "version": "1.0.0",
+  "description": "个人前端学习博客 — 记录成长，展示项目",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "keywords": [
+    "blog",
+    "frontend",
+    "astro"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@astrojs/mdx": "^4.3.14",
+    "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.3",
+    "astro": "^5.18.2"
+  }
+}

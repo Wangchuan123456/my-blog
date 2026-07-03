@@ -1,0 +1,101 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map(entry => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const { title, description, pubDate, repo, demo, techStack } = entry.data;
+---
+
+<Layout title={`${title} · 项目 · 前端日志`} description={description}>
+  <article class="project-detail">
+    <header class="project-header">
+      <h1>{title}</h1>
+      <p class="project-desc">{description}</p>
+      <div class="project-meta">
+        <time>📅 {pubDate.toLocaleDateString('zh-CN')}</time>
+        {repo && <a href={repo} target="_blank">🔗 GitHub 仓库</a>}
+        {demo && <a href={demo} target="_blank">🌐 在线演示</a>}
+      </div>
+      {techStack.length > 0 && (
+        <div class="project-techs">
+          {techStack.map(tech => <span class="tech-badge">{tech}</span>)}
+        </div>
+      )}
+    </header>
+
+    <div class="project-content">
+      <Content />
+    </div>
+
+    <nav class="project-footer">
+      <a href="/projects">← 返回项目列表</a>
+    </nav>
+  </article>
+</Layout>
+
+<style>
+  .project-detail {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 4rem;
+  }
+  .project-header {
+    margin-bottom: 2.5rem;
+  }
+  .project-header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .project-desc {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+  }
+  .project-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+  }
+  .project-meta a { font-weight: 500; }
+  .project-techs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+  .tech-badge {
+    background: var(--accent-light);
+    color: var(--accent);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+  .project-content {
+    line-height: 1.8;
+  }
+  .project-content h2 { font-size: 1.4rem; margin: 2rem 0 0.8rem; }
+  .project-content h3 { font-size: 1.15rem; margin: 1.5rem 0 0.6rem; }
+  .project-content p { margin-bottom: 1rem; }
+  .project-content ul { margin: 0.5rem 0 1rem 1.5rem; }
+  .project-content img { margin: 1.5rem 0; border-radius: var(--radius); }
+
+  .project-footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+</style>

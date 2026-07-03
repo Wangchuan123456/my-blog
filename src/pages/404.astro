@@ -1,0 +1,40 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="页面未找到 · 前端日志">
+  <div class="not-found">
+    <h1>404</h1>
+    <p>这个页面还没有写，或者它不存在。</p>
+    <a href="/" class="btn btn-primary">🏠 回到首页</a>
+  </div>
+</Layout>
+
+<style>
+  .not-found {
+    text-align: center;
+    padding: 6rem 1.5rem;
+  }
+  .not-found h1 {
+    font-size: 5rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .not-found p {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.7rem 1.6rem;
+    border-radius: 8px;
+    font-weight: 600;
+    background: var(--accent);
+    color: #fff;
+  }
+</style>

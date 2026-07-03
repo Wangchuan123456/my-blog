@@ -1,0 +1,241 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const blogPosts = await getCollection('blog');
+const projects = await getCollection('projects');
+const recentPosts = blogPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()).slice(0, 5);
+const featuredProjects = projects.filter(p => p.data.featured);
+---
+
+<Layout title="前端日志 · 记录学习与成长">
+  <!-- Hero 区 -->
+  <section class="hero-section">
+    <div class="container hero-content">
+      <h1 class="hero-greeting">👋 你好，我是 <span class="highlight">前端学习者</span></h1>
+      <p class="hero-sub">
+        这里是我学习前端的 <strong>成长记录</strong>。<br />
+        从 HTML 到框架，从 demo 到完整项目——每一步都留下脚印。
+      </p>
+      <div class="hero-actions">
+        <a href="/blog" class="btn btn-primary">📚 阅读文章</a>
+        <a href="/projects" class="btn btn-secondary">🚀 查看项目</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 最新文章 -->
+  <section class="section">
+    <div class="container-wide">
+      <h2 class="section-title">📝 最新文章</h2>
+      <div class="card-list">
+        {recentPosts.map(post => (
+          <a href={`/blog/${post.id}`} class="card">
+            <div class="card-meta">
+              <time>{post.data.pubDate.toLocaleDateString('zh-CN')}</time>
+              <span class="card-category">{post.data.category}</span>
+            </div>
+            <h3 class="card-title">{post.data.title}</h3>
+            <p class="card-desc">{post.data.description}</p>
+            {post.data.tags.length > 0 && (
+              <div class="card-tags">
+                {post.data.tags.slice(0, 3).map(tag => <span class="mini-tag">{tag}</span>)}
+              </div>
+            )}
+          </a>
+        ))}
+      </div>
+      {blogPosts.length > 5 && (
+        <div class="section-footer">
+          <a href="/blog" class="text-link">查看全部文章 →</a>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- 精选项目 -->
+  {featuredProjects.length > 0 && (
+    <section class="section bg-alt">
+      <div class="container-wide">
+        <h2 class="section-title">🌟 精选项目</h2>
+        <div class="card-list">
+          {featuredProjects.map(project => (
+            <a href={`/projects/${project.id}`} class="card">
+              <h3 class="card-title">{project.data.title}</h3>
+              <p class="card-desc">{project.data.description}</p>
+              {project.data.techStack.length > 0 && (
+                <div class="card-tags">
+                  {project.data.techStack.map(tech => <span class="mini-tag">{tech}</span>)}
+                </div>
+              )}
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- 关于我简版 -->
+  <section class="section">
+    <div class="container about-box">
+      <h2>🧑‍💻 关于这个博客</h2>
+      <p>
+        我是一个正在转型前端的开发者。这个博客记录了我的学习路径、踩过的坑、做过的项目。
+        希望通过分享，能帮助到同样在路上的你。同时也用这些内容向未来的雇主证明：<strong>我有持续学习的热情和交付项目的能力</strong>。
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* ===== Hero ===== */
+  .hero-section {
+    padding: 4rem 0 3rem;
+    text-align: center;
+  }
+  .hero-greeting {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  .highlight {
+    color: var(--accent);
+    background: linear-gradient(135deg, var(--accent), #b8a9ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero-sub {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    max-width: 540px;
+    margin: 0 auto 2rem;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* ===== Buttons ===== */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.7rem 1.6rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+  }
+  .btn-primary:hover {
+    box-shadow: 0 4px 14px rgba(108, 99, 255, 0.35);
+  }
+  .btn-secondary {
+    background: var(--bg-secondary);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+
+  /* ===== Section ===== */
+  .section {
+    padding: 3rem 0;
+  }
+  .bg-alt {
+    background: var(--bg-secondary);
+  }
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+  }
+  .section-footer {
+    text-align: center;
+    margin-top: 1.5rem;
+  }
+  .text-link {
+    font-weight: 500;
+  }
+
+  /* ===== Card ===== */
+  .card-list {
+    display: grid;
+    gap: 1rem;
+  }
+  .card {
+    display: block;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    transition: box-shadow 0.2s, transform 0.2s;
+    color: var(--text);
+  }
+  .card:hover {
+    box-shadow: var(--card-shadow);
+    transform: translateY(-3px);
+    opacity: 1;
+  }
+  .card-meta {
+    display: flex;
+    gap: 0.6rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+  }
+  .card-category {
+    background: var(--accent-light);
+    color: var(--accent);
+    padding: 0.1rem 0.5rem;
+    border-radius: 10px;
+    font-weight: 500;
+  }
+  .card-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+  .card-desc {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.7rem;
+  }
+  .mini-tag {
+    background: var(--bg-secondary);
+    padding: 0.15rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+  }
+
+  /* ===== About ===== */
+  .about-box {
+    text-align: center;
+    padding: 2rem 0;
+  }
+  .about-box h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+  .about-box p {
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+</style>
