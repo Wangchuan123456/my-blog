@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h2>
+    视频标签的基本使用
+    <!-- 在html5中，键和值是相同的，则可以省略值，直接写键即可 -->
+    <!-- controls属性：添加视频控制器 -->
+    <!-- autoplay属性：自动播放 -->
+    <!-- 想要自动播放，必须添加muted属性 -->
+    <!-- muted属性：静音播放 -->
+    <!-- loop属性：视频播放循环播放 -->
+    <!-- loop属性必须添加在autoplay属性后面 -->
+    <!-- poster属性：视频封面 -->
+    <!-- 视频封面：视频播放前显示的图片 -->
+  </h2>
+  <video src="./media/test1.mp4" width="600" controls autoplay muted loop poster="./img/test1.png"></video>
+  <!-- 兼容性写法 -->
+  <video src="./media/test1.mp4" width="600" controls autoplay muted loop poster="./img/test1.png">
+    <source src="./media/test1.mp4" type="video/mp4">
+    <p>您的浏览器不支持 video 标签。</p>
+  </video>
+  <h2>
+    音频标签的基本使用
+  </h2>
+  <!-- 音频标签浏览器不让自动播放后续可以通过JS实现 -->
+  <audio src="./media/horse.mp3" controls autoplay muted loop></audio>
+  <!-- 兼容性写法 -->
+  <audio src="./media/horse.mp3" controls autoplay muted loop>
+    <source src="./media/horse.mp3" type="audio/mpeg">
+    <p>您的浏览器不支持 audio 标签。</p>
+  </audio>
+</body>
+
+</html>
