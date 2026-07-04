@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>&lt;div&gt; 与 &lt;span&gt; · 综合演示</title>
+  <title>网页结构标签 · 综合演示</title>
   <style>
     body {
-      max-width: 800px;
+      max-width: 860px;
       margin: 0 auto;
       padding: 1.5rem;
       font-family: system-ui, sans-serif;
@@ -26,178 +26,6 @@
       border-radius: 3px;
       font-size: 0.9em;
     }
-    .demo-box {
-      background: #f8f9fa;
-      border: 1px solid #e9ecef;
-      border-radius: 8px;
-      padding: 1rem 1.5rem;
-      margin: 1rem 0;
-    }
-    .demo-box p { margin: 0.5rem 0; }
-
-    /* ===== div 布局演示 ===== */
-    .div-container {
-      display: flex;
-      gap: 1rem;
-      margin: 1rem 0;
-    }
-    .div-box {
-      flex: 1;
-      background: #e8f4fd;
-      border: 2px dashed #6c63ff;
-      border-radius: 8px;
-      padding: 1rem;
-      text-align: center;
-    }
-    .div-box h4 {
-      margin: 0 0 0.5rem 0;
-      color: #6c63ff;
-    }
-    .div-box p {
-      margin: 0;
-      font-size: 0.9rem;
-      color: #555;
-    }
-
-    /* ===== span 修饰演示 ===== */
-    .text-red { color: #e74c3c; }
-    .text-green { color: #27ae60; }
-    .text-bold { font-weight: bold; }
-    .text-line-through { text-decoration: line-through; }
-    .text-highlight { background: #fff3cd; padding: 0.1rem 0.2rem; }
-    .text-big { font-size: 1.3em; }
-    .text-icon { color: #f39c12; }
-
-    /* ===== 卡片组合演示 ===== */
-    .card {
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      padding: 1.2rem 1.5rem;
-      margin: 1rem 0;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-      max-width: 320px;
-    }
-    .card h3 {
-      margin: 0 0 0.8rem 0;
-      border: none;
-      padding: 0;
-    }
-    .card .price {
-      margin: 0.5rem 0;
-    }
-    .card .price .old {
-      text-decoration: line-through;
-      color: #999;
-      margin-right: 0.5rem;
-    }
-    .card .price .current {
-      color: #e74c3c;
-      font-weight: bold;
-      font-size: 1.4em;
-    }
-    .card .tag {
-      display: inline-block;
-      background: #6c63ff;
-      color: #fff;
-      padding: 0.15rem 0.6rem;
-      border-radius: 4px;
-      font-size: 0.8rem;
-    }
-    .card .desc {
-      color: #666;
-      font-size: 0.9rem;
-      margin-top: 0.5rem;
-    }
-
-    /* ===== 语义 vs 无语义对比 ===== */
-    .compare-row {
-      display: flex;
-      gap: 1rem;
-      margin: 1rem 0;
-    }
-    .compare-col {
-      flex: 1;
-      border-radius: 8px;
-      padding: 0.8rem;
-    }
-    .compare-col.semantic {
-      background: #eafaf1;
-      border: 1px solid #27ae60;
-    }
-    .compare-col.non-semantic {
-      background: #fef9e7;
-      border: 1px solid #f1c40f;
-    }
-    .compare-col h4 {
-      margin: 0 0 0.5rem 0;
-      text-align: center;
-    }
-    .compare-col .tag-box {
-      background: rgba(255,255,255,0.7);
-      border-radius: 4px;
-      padding: 0.4rem 0.6rem;
-      margin: 0.3rem 0;
-      font-size: 0.9rem;
-    }
-    .compare-col .tag-label {
-      font-size: 0.75rem;
-      color: #888;
-    }
-    .sample-header {
-      background: #d5f5e3;
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
-      font-weight: bold;
-    }
-    .sample-nav {
-      background: #a9dfbf;
-      padding: 0.3rem 1rem;
-      border-radius: 4px;
-      display: flex;
-      gap: 1rem;
-    }
-    .sample-nav a { color: #1a5276; }
-    .sample-main {
-      background: #eafaf1;
-      padding: 0.8rem 1rem;
-      border-radius: 4px;
-    }
-    .sample-footer {
-      background: #d5f5e3;
-      padding: 0.3rem 1rem;
-      border-radius: 4px;
-      font-size: 0.85rem;
-      color: #666;
-      text-align: center;
-    }
-    .ns-header {
-      background: #f9e79f;
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
-      font-weight: bold;
-    }
-    .ns-nav {
-      background: #f7dc6f;
-      padding: 0.3rem 1rem;
-      border-radius: 4px;
-      display: flex;
-      gap: 1rem;
-    }
-    .ns-nav a { color: #1a5276; }
-    .ns-main {
-      background: #fef9e7;
-      padding: 0.8rem 1rem;
-      border-radius: 4px;
-    }
-    .ns-footer {
-      background: #f9e79f;
-      padding: 0.3rem 1rem;
-      border-radius: 4px;
-      font-size: 0.85rem;
-      color: #666;
-      text-align: center;
-    }
-
     .note {
       background: #fff3cd;
       border-left: 4px solid #ffc107;
@@ -206,6 +34,204 @@
       border-radius: 0 4px 4px 0;
       font-size: 0.9rem;
     }
+    .tag-label {
+      display: inline-block;
+      background: #6c63ff;
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 0.1rem 0.5rem;
+      border-radius: 3px;
+      margin-bottom: 0.3rem;
+    }
+
+    /* ===== 左右对比布局 ===== */
+    .compare-row {
+      display: flex;
+      gap: 1rem;
+      margin: 1.5rem 0;
+      flex-wrap: wrap;
+    }
+    .compare-col {
+      flex: 1;
+      min-width: 280px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid #ddd;
+    }
+    .compare-col .col-header {
+      padding: 0.5rem 1rem;
+      font-weight: bold;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+    .compare-col .col-body {
+      padding: 1rem;
+    }
+    .compare-col.traditional .col-header {
+      background: #fef9e7;
+      color: #b7950b;
+      border-bottom: 1px solid #f9e79f;
+    }
+    .compare-col.semantic .col-header {
+      background: #eafaf1;
+      color: #1e8449;
+      border-bottom: 1px solid #a9dfbf;
+    }
+
+    /* ===== 传统 div 样式 ===== */
+    .trad-header {
+      background: #f9e79f;
+      padding: 0.8rem 1rem;
+      border-radius: 4px;
+      margin-bottom: 0.4rem;
+      font-weight: bold;
+    }
+    .trad-nav {
+      background: #f7dc6f;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      margin-bottom: 0.4rem;
+      display: flex;
+      gap: 1rem;
+      font-size: 0.9rem;
+    }
+    .trad-nav a { color: #1a5276; }
+    .trad-main {
+      display: flex;
+      gap: 0.4rem;
+      margin-bottom: 0.4rem;
+    }
+    .trad-article {
+      background: #fef9e7;
+      padding: 0.6rem 1rem;
+      border-radius: 4px;
+      flex: 2;
+    }
+    .trad-aside {
+      background: #fef9e7;
+      padding: 0.6rem 1rem;
+      border-radius: 4px;
+      flex: 1;
+    }
+    .trad-section {
+      background: #fef9e7;
+      padding: 0.6rem 1rem;
+      border-radius: 4px;
+      margin-bottom: 0.4rem;
+    }
+    .trad-footer {
+      background: #f9e79f;
+      padding: 0.4rem 1rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      text-align: center;
+      color: #666;
+    }
+
+    /* ===== 语义标签样式 ===== */
+    .sem-header {
+      background: #d5f5e3;
+      padding: 0.8rem 1rem;
+      border-radius: 4px;
+      margin-bottom: 0.4rem;
+      font-weight: bold;
+    }
+    .sem-nav {
+      background: #a9dfbf;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      margin-bottom: 0.4rem;
+      display: flex;
+      gap: 1rem;
+      font-size: 0.9rem;
+    }
+    .sem-nav a { color: #1a5276; }
+    .sem-main {
+      display: flex;
+      gap: 0.4rem;
+      margin-bottom: 0.4rem;
+    }
+    .sem-article {
+      background: #eafaf1;
+      padding: 0.6rem 1rem;
+      border-radius: 4px;
+      flex: 2;
+    }
+    .sem-aside {
+      background: #eafaf1;
+      padding: 0.6rem 1rem;
+      border-radius: 4px;
+      flex: 1;
+    }
+    .sem-section {
+      background: #eafaf1;
+      padding: 0.6rem 1rem;
+      border-radius: 4px;
+      margin-bottom: 0.4rem;
+    }
+    .sem-footer {
+      background: #d5f5e3;
+      padding: 0.4rem 1rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      text-align: center;
+      color: #666;
+    }
+
+    /* ===== 单个标签卡片 ===== */
+    .tag-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .tag-card {
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      padding: 1rem;
+      background: #fafafa;
+    }
+    .tag-card .tag-name {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #6c63ff;
+      margin-bottom: 0.3rem;
+    }
+    .tag-card .tag-desc {
+      font-size: 0.9rem;
+      color: #555;
+    }
+    .tag-card .tag-old {
+      font-size: 0.8rem;
+      color: #999;
+      margin-top: 0.3rem;
+      padding-top: 0.3rem;
+      border-top: 1px dashed #e9ecef;
+    }
+
+    /* ===== div/span 用法示例 ===== */
+    .demo-box {
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      padding: 1rem 1.5rem;
+      margin: 1rem 0;
+    }
+    .flex-demo {
+      display: flex;
+      gap: 0.8rem;
+      margin: 0.8rem 0;
+    }
+    .flex-item {
+      flex: 1;
+      background: #e8f4fd;
+      border: 2px dashed #6c63ff;
+      border-radius: 6px;
+      padding: 0.8rem;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
     hr {
       border: none;
       border-top: 1px solid #e9ecef;
@@ -221,210 +247,209 @@
       border-radius: 6px;
     }
     .back-top:hover { opacity: 0.85; }
+    pre {
+      background: #f4f4f4;
+      padding: 0.8rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      overflow-x: auto;
+    }
   </style>
 </head>
 <body>
 
-  <h1>📦 &lt;div&gt; 与 &lt;span&gt; 综合演示</h1>
-  <p>看 <code>&lt;div&gt;</code> 和 <code>&lt;span&gt;</code> 在实际页面中怎么用，和语义标签有什么区别。</p>
+  <h1>📐 网页结构标签综合演示</h1>
+  <p>对比 HTML5 语义结构标签和传统 div 布局方式，以及 div/span 现在怎么用。</p>
 
-  <!-- ===================================================== -->
-  <!-- 1. div 布局容器演示 -->
-  <!-- ===================================================== -->
-  <h2>1️⃣ &lt;div&gt; 布局容器</h2>
-  <p>三个 <code>&lt;div&gt;</code> 并排展示（用 flex 布局排列），每个 <code>&lt;div&gt;</code> 都是一个独立的区块：</p>
-
-  <div class="demo-box">
-    <div class="div-container">
-      <div class="div-box">
-        <h4>📌 区块 A</h4>
-        <p>这是第一个 div</p>
-      </div>
-      <div class="div-box">
-        <h4>📌 区块 B</h4>
-        <p>这是第二个 div</p>
-      </div>
-      <div class="div-box">
-        <h4>📌 区块 C</h4>
-        <p>这是第三个 div</p>
-      </div>
-    </div>
-    <p style="font-size: 0.85rem; color: #888; margin-top: 0.5rem;">
-      ← 每个灰色虚线框都是一个 &lt;div&gt;，用来分组内容
-    </p>
-  </div>
-
-  <p><strong>HTML 结构：</strong></p>
-  <pre style="background: #f4f4f4; padding: 0.8rem; border-radius: 4px; font-size: 0.85rem; overflow-x: auto;">
-&lt;div style="display: flex;"&gt;          &lt;!-- 外层 div：flex 容器 --&gt;
-  &lt;div class="div-box"&gt;               &lt;!-- 里层 div：区块 A --&gt;
-    &lt;h4&gt;📌 区块 A&lt;/h4&gt;
-    &lt;p&gt;这是第一个 div&lt;/p&gt;
-  &lt;/div&gt;
-  &lt;div class="div-box"&gt;               &lt;!-- 里层 div：区块 B --&gt;
-    &lt;h4&gt;📌 区块 B&lt;/h4&gt;
-    &lt;p&gt;这是第二个 div&lt;/p&gt;
-  &lt;/div&gt;
-  &lt;div class="div-box"&gt;               &lt;!-- 里层 div：区块 C --&gt;
-    &lt;h4&gt;📌 区块 C&lt;/h4&gt;
-    &lt;p&gt;这是第三个 div&lt;/p&gt;
-  &lt;/div&gt;
-&lt;/div&gt;</pre>
-
-  <!-- ===================================================== -->
-  <!-- 2. span 文本修饰演示 -->
-  <!-- ===================================================== -->
-  <h2>2️⃣ &lt;span&gt; 修饰文本</h2>
-  <p><code>&lt;span&gt;</code> 可以包住部分文字，单独改变样式：</p>
-
-  <div class="demo-box">
-    <p>🔴 <strong>改变颜色：</strong>
-      今天天气 <span class="text-red text-bold">非常炎热</span>，注意防暑。
-    </p>
-    <p>💰 <strong>价格效果：</strong>
-      原价 <span class="text-line-through">¥199</span>
-      <span class="text-green text-bold text-big">¥99</span>
-    </p>
-    <p>⭐ <strong>高亮标记：</strong>
-      这是一条 <span class="text-highlight">重要消息</span>，请仔细阅读。
-    </p>
-    <p>🏷️ <strong>图标标记：</strong>
-      <span class="text-icon">★</span> 推荐
-      <span class="text-icon">★</span> 热门
-      <span class="text-icon">●</span> 新品
-    </p>
-  </div>
-
-  <p><strong>HTML 结构：</strong></p>
-  <pre style="background: #f4f4f4; padding: 0.8rem; border-radius: 4px; font-size: 0.85rem; overflow-x: auto;">
-&lt;p&gt;
-  原价 &lt;span style="text-decoration: line-through; color: #999;"&gt;¥199&lt;/span&gt;
-  &lt;span style="color: red; font-weight: bold; font-size: 1.4em;"&gt;¥99&lt;/span&gt;
-&lt;/p&gt;</pre>
-
-  <!-- ===================================================== -->
-  <!-- 3. div + span 组合实战 -->
-  <!-- ===================================================== -->
-  <h2>3️⃣ 🤝 &lt;div&gt; + &lt;span&gt; 组合实战</h2>
-  <p>商品卡片：<code>&lt;div&gt;</code> 做整体布局，<code>&lt;span&gt;</code> 修饰价格文字：</p>
-
-  <div class="demo-box">
-    <div class="card">
-      <h3>🎧 无线蓝牙耳机</h3>
-      <div class="price">
-        <span class="tag">限时特惠</span>
-      </div>
-      <div class="price">
-        <span class="old">¥299</span>
-        <span class="current">¥129</span>
-      </div>
-      <p class="desc">续航 30 小时 · 降噪版 · 现货直发</p>
-    </div>
-  </div>
-
-  <p><strong>HTML 结构：</strong></p>
-  <pre style="background: #f4f4f4; padding: 0.8rem; border-radius: 4px; font-size: 0.85rem; overflow-x: auto;">
-&lt;div class="card"&gt;                          &lt;!-- div：整个卡片容器 --&gt;
-  &lt;h3&gt;🎧 无线蓝牙耳机&lt;/h3&gt;
-  &lt;div class="price"&gt;
-    &lt;span class="tag"&gt;限时特惠&lt;/span&gt;        &lt;!-- span：标签 --&gt;
-  &lt;/div&gt;
-  &lt;div class="price"&gt;
-    &lt;span class="old"&gt;¥299&lt;/span&gt;           &lt;!-- span：旧价（删除线） --&gt;
-    &lt;span class="current"&gt;¥129&lt;/span&gt;        &lt;!-- span：现价（红色加粗） --&gt;
-  &lt;/div&gt;
-  &lt;p class="desc"&gt;续航 30 小时 · 降噪版 · 现货直发&lt;/p&gt;
-&lt;/div&gt;</pre>
-
-  <!-- ===================================================== -->
-  <!-- 4. 语义标签 vs 无语义标签 对比 -->
-  <!-- ===================================================== -->
-  <h2>4️⃣ 🔄 语义标签 vs 无语义标签</h2>
-  <p>同样的页面结构，左边用语义标签，右边全部用 <code>&lt;div&gt;</code>——效果一样，但含义不同：</p>
+  <!-- ============================================= -->
+  <!-- 第一部分：左右对比 -->
+  <!-- ============================================= -->
+  <h2>1️⃣ 同一页面 · 两种写法</h2>
+  <p>左边全部用 <code>&lt;div&gt;</code>，右边用 HTML5 语义标签——<strong>看起来一样，含义不一样</strong>。</p>
 
   <div class="compare-row">
+
+    <!-- 左侧：传统 div -->
+    <div class="compare-col traditional">
+      <div class="col-header">🟡 传统 div 方式</div>
+      <div class="col-body">
+        <span class="tag-label">&lt;div id="header"&gt;</span>
+        <div class="trad-header">📰 我的博客</div>
+
+        <span class="tag-label">&lt;div id="nav"&gt;</span>
+        <div class="trad-nav">
+          <a href="#">首页</a>
+          <a href="#">文章</a>
+          <a href="#">关于</a>
+        </div>
+
+        <span class="tag-label">&lt;div id="main"&gt;</span>
+        <div class="trad-main">
+          <span class="tag-label">&lt;div class="article"&gt;</span>
+          <div class="trad-article">
+            <strong>文章标题</strong>
+            <p style="margin:0.3rem 0;font-size:0.85rem;">这是文章内容...</p>
+          </div>
+          <span class="tag-label">&lt;div class="sidebar"&gt;</span>
+          <div class="trad-aside">
+            <strong>侧边栏</strong>
+            <p style="margin:0.3rem 0;font-size:0.85rem;">相关链接</p>
+          </div>
+        </div>
+
+        <span class="tag-label">&lt;div id="footer"&gt;</span>
+        <div class="trad-footer">© 2026 版权所有</div>
+      </div>
+    </div>
+
+    <!-- 右侧：语义标签 -->
     <div class="compare-col semantic">
-      <h4>✅ 语义标签</h4>
-      <div class="tag-box">
-        <span class="tag-label">页头</span><br>
-        <code>&lt;header&gt;</code>
-      </div>
-      <div class="tag-box">
-        <span class="tag-label">导航</span><br>
-        <code>&lt;nav&gt;</code>
-      </div>
-      <div class="tag-box">
-        <span class="tag-label">主内容</span><br>
-        <code>&lt;main&gt;</code>
-      </div>
-      <div class="tag-box">
-        <span class="tag-label">页脚</span><br>
-        <code>&lt;footer&gt;</code>
-      </div>
+      <div class="col-header">🟢 HTML5 语义方式</div>
+      <div class="col-body">
+        <span class="tag-label">&lt;header&gt;</span>
+        <div class="sem-header">📰 我的博客</div>
 
-      <p style="font-size: 0.85rem; margin-top: 0.8rem;">实际渲染效果：</p>
-      <div class="sample-header">📰 网站标题</div>
-      <div class="sample-nav">
-        <a href="#">首页</a>
-        <a href="#">关于</a>
-        <a href="#">联系</a>
+        <span class="tag-label">&lt;nav&gt;</span>
+        <div class="sem-nav">
+          <a href="#">首页</a>
+          <a href="#">文章</a>
+          <a href="#">关于</a>
+        </div>
+
+        <span class="tag-label">&lt;main&gt;</span>
+        <div class="sem-main">
+          <span class="tag-label">&lt;article&gt;</span>
+          <div class="sem-article">
+            <strong>文章标题</strong>
+            <p style="margin:0.3rem 0;font-size:0.85rem;">这是文章内容...</p>
+          </div>
+          <span class="tag-label">&lt;aside&gt;</span>
+          <div class="sem-aside">
+            <strong>侧边栏</strong>
+            <p style="margin:0.3rem 0;font-size:0.85rem;">相关链接</p>
+          </div>
+        </div>
+
+        <span class="tag-label">&lt;footer&gt;</span>
+        <div class="sem-footer">© 2026 版权所有</div>
       </div>
-      <div class="sample-main">
-        <p style="margin: 0.3rem 0;">这里是文章内容...</p>
-      </div>
-      <div class="sample-footer">© 2026 版权所有</div>
     </div>
 
-    <div class="compare-col non-semantic">
-      <h4>⚠️ 无语义标签</h4>
-      <div class="tag-box">
-        <span class="tag-label">页头</span><br>
-        <code>&lt;div class="header"&gt;</code>
-      </div>
-      <div class="tag-box">
-        <span class="tag-label">导航</span><br>
-        <code>&lt;div class="nav"&gt;</code>
-      </div>
-      <div class="tag-box">
-        <span class="tag-label">主内容</span><br>
-        <code>&lt;div class="main"&gt;</code>
-      </div>
-      <div class="tag-box">
-        <span class="tag-label">页脚</span><br>
-        <code>&lt;div class="footer"&gt;</code>
-      </div>
-
-      <p style="font-size: 0.85rem; margin-top: 0.8rem;">实际渲染效果：</p>
-      <div class="ns-header">📰 网站标题</div>
-      <div class="ns-nav">
-        <a href="#">首页</a>
-        <a href="#">关于</a>
-        <a href="#">联系</a>
-      </div>
-      <div class="ns-main">
-        <p style="margin: 0.3rem 0;">这里是文章内容...</p>
-      </div>
-      <div class="ns-footer">© 2026 版权所有</div>
-    </div>
   </div>
 
   <div class="note">
-    <strong>💡 结论：</strong>两种写法在浏览器里看起来完全一样。区别在于——
-    <strong>语义标签</strong>让代码"自解释"（看标签就知道是什么区域），
-    <strong>无语义标签</strong>完全靠 class 名字来区分，可读性差一些。
-    所以有合适的语义标签时优先用语义标签。
+    <strong>💡 关键区别：</strong>左边全是 <code>&lt;div&gt;</code>，只能靠 id/class 名字猜区域含义；右边看标签名就知道每个区域是什么。
   </div>
 
-  <!-- ===================================================== -->
-  <!-- 5. 回到顶部 -->
-  <!-- ===================================================== -->
+  <!-- ============================================= -->
+  <!-- 第二部分：逐个标签讲解 -->
+  <!-- ============================================= -->
+  <h2>2️⃣ 每个标签逐个讲解</h2>
+
+  <div class="tag-cards">
+    <div class="tag-card">
+      <div class="tag-name">&lt;header&gt;</div>
+      <div class="tag-desc">页头/头部区域。通常放网站 Logo、标题、搜索框。</div>
+      <div class="tag-old">← 以前写 <code>&lt;div id="header"&gt;</code></div>
+    </div>
+    <div class="tag-card">
+      <div class="tag-name">&lt;nav&gt;</div>
+      <div class="tag-desc">导航栏。放页面主要的导航链接。</div>
+      <div class="tag-old">← 以前写 <code>&lt;div id="nav"&gt;</code></div>
+    </div>
+    <div class="tag-card">
+      <div class="tag-name">&lt;main&gt;</div>
+      <div class="tag-desc">页面核心内容。一个页面只能有一个。</div>
+      <div class="tag-old">← 以前写 <code>&lt;div id="main"&gt;</code></div>
+    </div>
+    <div class="tag-card">
+      <div class="tag-name">&lt;article&gt;</div>
+      <div class="tag-desc">独立内容单元。如博客文章、新闻、评论。</div>
+      <div class="tag-old">← 以前写 <code>&lt;div class="article"&gt;</code></div>
+    </div>
+    <div class="tag-card">
+      <div class="tag-name">&lt;section&gt;</div>
+      <div class="tag-desc">内容区块。文档中的一个章节，通常带标题。</div>
+      <div class="tag-old">← 以前写 <code>&lt;div class="section"&gt;</code></div>
+    </div>
+    <div class="tag-card">
+      <div class="tag-name">&lt;aside&gt;</div>
+      <div class="tag-desc">侧边栏/附属内容。与主内容间接相关。</div>
+      <div class="tag-old">← 以前写 <code>&lt;div class="sidebar"&gt;</code></div>
+    </div>
+    <div class="tag-card">
+      <div class="tag-name">&lt;footer&gt;</div>
+      <div class="tag-desc">页脚。版权信息、联系方式等。</div>
+      <div class="tag-old">← 以前写 <code>&lt;div id="footer"&gt;</code></div>
+    </div>
+    <div class="tag-card">
+      <div class="tag-name">&lt;div&gt;</div>
+      <div class="tag-desc">无语义块级容器。现在用来做布局容器、样式分组。</div>
+      <div class="tag-old">以前用来搭整个页面结构（现已不推荐）</div>
+    </div>
+    <div class="tag-card">
+      <div class="tag-name">&lt;span&gt;</div>
+      <div class="tag-desc">无语义行内容器。用来单独修饰部分文字。</div>
+      <div class="tag-old">始终是无语义的，没变过</div>
+    </div>
+  </div>
+
+  <!-- ============================================= -->
+  <!-- 第三部分：div 和 span 现在的正确用法 -->
+  <!-- ============================================= -->
+  <h2>3️⃣ &lt;div&gt; 和 &lt;span&gt; 现在怎么用？</h2>
+  <p>页面大结构交给语义标签后，<code>&lt;div&gt;</code> 和 <code>&lt;span&gt;</code> 回归了它们真正的角色——<strong>纯粹的容器</strong>。</p>
+
+  <h3>&lt;div&gt; — 布局容器</h3>
+  <p>用 flex 或 grid 排列元素时，需要一个父容器来包裹：</p>
+
+  <div class="demo-box">
+    <div class="flex-demo">
+      <div class="flex-item">卡片 1</div>
+      <div class="flex-item">卡片 2</div>
+      <div class="flex-item">卡片 3</div>
+    </div>
+  </div>
+
+  <pre>&lt;div style="display: flex; gap: 0.8rem;"&gt;   &lt;!-- div 做 flex 容器 --&gt;
+  &lt;div class="flex-item"&gt;卡片 1&lt;/div&gt;
+  &lt;div class="flex-item"&gt;卡片 2&lt;/div&gt;
+  &lt;div class="flex-item"&gt;卡片 3&lt;/div&gt;
+&lt;/div&gt;</pre>
+
+  <h3>&lt;span&gt; — 文本修饰</h3>
+  <p>给一段文字中的部分内容单独设置样式：</p>
+
+  <div class="demo-box">
+    <p>
+      今日特价：
+      <span style="color: #999; text-decoration: line-through;">原价 ¥199</span>
+      <span style="color: #e74c3c; font-weight: bold; font-size: 1.3em;">¥99</span>
+    </p>
+    <p>
+      <span style="color: #f39c12;">★</span> 好评如潮
+      <span style="background: #fff3cd; padding: 0.1rem 0.3rem;">限时抢购</span>
+    </p>
+  </div>
+
+  <pre>&lt;p&gt;
+  今日特价：
+  &lt;span style="color: #999; text-decoration: line-through;"&gt;原价 ¥199&lt;/span&gt;
+  &lt;span style="color: #e74c3c; font-weight: bold; font-size: 1.3em;"&gt;¥99&lt;/span&gt;
+&lt;/p&gt;</pre>
+
+  <div class="note">
+    <strong>📌 总结：</strong>页面的大结构用 <code>&lt;header&gt;</code>、<code>&lt;nav&gt;</code>、<code>&lt;main&gt;</code> 等语义标签来搭建；
+    内部的样式细节和布局容器用 <code>&lt;div&gt;</code> 和 <code>&lt;span&gt;</code>。
+    两者互补，不是替代关系。
+  </div>
 
   <hr>
   <p style="text-align: center;">
     <a href="#" class="back-top">⬆ 回到页面顶部</a>
   </p>
   <p style="margin-top: 2rem; color: #6c757d; font-size: 0.85rem; text-align: center;">
-    &lt;div&gt; 与 &lt;span&gt; 综合演示 · 前端学习笔记
+    网页结构标签综合演示 · 前端学习笔记
   </p>
 
 </body>

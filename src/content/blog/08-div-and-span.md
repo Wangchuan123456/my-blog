@@ -1,8 +1,8 @@
 ---
-title: '&lt;div&gt; 与 &lt;span&gt;：无语义标签，却是最灵活的容器'
-description: '语义结构标签（header/nav/main）和 div/span 是一起学的——前者有含义，后者没含义，但布局和样式全靠它们。'
+title: '网页结构标签：HTML5 语义标签 vs 传统 div 布局'
+description: 'HTML5 新增了 header、nav、main 等语义化结构标签，但在这之前网页都是用 div 搭结构的——两种方式都讲清楚。'
 pubDate: 2026-07-04
-tags: ['HTML', 'div', 'span', '无语义标签', '容器标签']
+tags: ['HTML', '网页结构', '语义化标签', 'header', 'nav', 'main', 'div']
 category: '学习笔记'
 order: 8
 demo: '/examples/div-span/index.html'
@@ -10,176 +10,245 @@ demo: '/examples/div-span/index.html'
 
 ## 前言
 
-前一篇刚学了 `<header>`、`<nav>`、`<main>` 等**语义化结构标签**——它们有明确的含义，告诉浏览器和开发者"这个区域是导航栏"、"这是主要内容"。
+一个网页通常有页头、导航栏、主要内容区、侧边栏、页脚等区域。怎样用 HTML 把这种结构写出来？
 
-但实际开发中，我们经常需要**单纯的容器**来包裹元素，给它们统一设置样式或布局。这时就该 `<div>` 和 `<span>` 出场了。
+有两种方式：
 
-**它们没有任何语义**——不表示"导航"、"文章"、"页脚"，就是一个无标签的"盒子"。但正是因为没有语义，它们非常灵活，想怎么用就怎么用。
+1. **传统方式** — 全部用 `<div>` 加 class/id 名字来区分
+2. **HTML5 语义方式** — 用 `<header>`、`<nav>`、`<main>` 等有含义的标签
 
-## &lt;div&gt; — 块级容器
+这一篇把两种方式都讲清楚，逐个标签说明。
 
-`<div>` 是 **division（分区）** 的缩写，是一个**块级元素**。
+## 一、传统的 div 布局方式
 
-### 特点
-
-1. **独占一行**，前后有换行
-2. 默认宽度占满父容器
-3. 可以设置宽高
-4. **没有任何语义**，纯粹用来分组和布局
-
-### 基本用法
+在 HTML5 出现之前（2014 年以前），网页结构全靠 `<div>` 搭出来。
 
 ```html
-<div>
-  <h2>文章标题</h2>
-  <p>这是一段内容。</p>
+<div id="header">
+  <h1>网站标题</h1>
+</div>
+
+<div id="nav">
+  <a href="#">首页</a>
+  <a href="#">关于</a>
+  <a href="#">联系</a>
+</div>
+
+<div id="main">
+  <div class="article">
+    <h2>文章标题</h2>
+    <p>文章内容...</p>
+  </div>
+  <div class="sidebar">
+    <h3>侧边栏</h3>
+    <p>侧边栏内容...</p>
+  </div>
+</div>
+
+<div id="footer">
+  <p>版权信息</p>
 </div>
 ```
 
-`<div>` 把标题和段落包在一起，方便整体控制样式（比如加背景色、边框、间距）。
+所有区域都用 `<div>`，靠 `id` 或 `class` 的名字来区分"这是页头"、"这是导航"。**浏览器并不能理解这些 div 分别代表什么**——只有人看代码时通过 id 名字才能猜出来。
 
-### 对比语义化标签
+### 这样写的问题
 
-```
-语义化标签：  <header>   <nav>    <article>   <footer>
-含义：        页头       导航      文章区域    页脚
+- 代码可读性差 — 满屏都是 `<div>`
+- 搜索引擎、屏幕阅读器无法识别页面结构
+- 开发时需要自己维护命名规范
 
-无语义标签：  <div>     <div>      <div>      <div>
-含义：        无        无         无         无
-```
+## 二、HTML5 语义结构标签
 
-**什么时候用 div，什么时候用语义标签？**
+HTML5 引入了一组**语义化结构标签**，每个标签都有明确的含义，让代码"自解释"。
 
-| 场景 | 推荐 | 原因 |
-|------|------|------|
-| 导航栏 | `<nav>` | 告诉浏览器这是导航区域 |
-| 文章内容 | `<article>` | 表示独立的内容单元 |
-| **单纯想包一组元素来设样式** | **`<div>`** | 没有合适语义标签时，div 最合适 |
-| **布局容器（flex/grid 父容器）** | **`<div>`** | 布局容器不需要语义 |
+下面是它们的含义和用法，逐个来看：
 
-**原则：** 有合适的语义标签就用语义标签，没有就用 `<div>`。
+---
 
-## &lt;span&gt; — 行内容器
+### &lt;header&gt; — 页头
 
-`<span>` 是一个**行内元素**。
-
-### 特点
-
-1. **不会换行**，多个 span 排在一行
-2. 宽度由内容决定
-3. **不能设置宽高**
-4. **没有任何语义**，纯粹用来给部分文本设置样式
-
-### 基本用法
+表示页面或某个区块的**头部区域**，通常包含网站 Logo、标题、搜索框等。
 
 ```html
-<p>
-  今天天气<span>非常好</span>，适合出去走走。
-</p>
+<header>
+  <h1>我的博客</h1>
+  <p>记录学习前端的每一天</p>
+</header>
 ```
 
-`<span>` 把"非常好"三个字包起来，就可以单独给它设置颜色、字号、背景等样式，而不影响周围的文字。
+**对比传统 div 写法：** `<div id="header">` → `<header>`
 
-### span 的典型场景
+---
 
-**改变部分文字的颜色：**
+### &lt;nav&gt; — 导航栏
+
+表示**导航链接**的区域，用于页面内主要的导航菜单。
 
 ```html
-<p>
-  价格：<span style="color: red; font-weight: bold;">¥99</span>（原价 ¥199）
-</p>
+<nav>
+  <ul>
+    <li><a href="/">首页</a></li>
+    <li><a href="/blog">文章</a></li>
+    <li><a href="/about">关于</a></li>
+  </ul>
+</nav>
 ```
 
-效果：价格：**¥99**（原价 ¥199）
+**对比传统 div 写法：** `<div id="nav">` → `<nav>`
 
-**给文字加图标标记：**
+---
+
+### &lt;main&gt; — 主要内容
+
+表示页面的**核心内容**，一个页面只能有一个 `<main>`。
 
 ```html
-<p>
-  <span style="color: orange;">★</span> 重要通知
-</p>
+<main>
+  <h2>今日要闻</h2>
+  <p>这里是页面最重要的内容...</p>
+</main>
 ```
 
-## &lt;div&gt; 与 &lt;span&gt; 的核心区别
+**对比传统 div 写法：** `<div id="main">` → `<main>`
 
-| 对比项 | `<div>` | `<span>` |
-|--------|---------|----------|
-| 显示类型 | 块级元素 | 行内元素 |
-| 是否换行 | 独占一行 ✅ | 不换行 ❌ |
-| 宽高设置 | 可以设置 ✅ | 不能设置 ❌ |
-| 默认宽度 | 占满父容器 | 由内容决定 |
-| 适用场景 | 大块布局、分组容器 | 小范围文本样式 |
+---
+
+### &lt;article&gt; — 独立文章
+
+表示一个**独立、完整的内容单元**，比如一篇博客文章、一条新闻、一个用户评论。
 
 ```html
-<!-- div 独占一行 -->
-<div>第一个 div</div>
-<div>第二个 div</div>
-<div>第三个 div</div>
-
-<!-- span 排在一行 -->
-<span>第一个 span</span>
-<span>第二个 span</span>
-<span>第三个 span</span>
+<article>
+  <h2>如何学习 HTML</h2>
+  <p>HTML 是网页的骨架...</p>
+  <footer>发布于 2026-07-04</footer>
+</article>
 ```
 
-上面这段代码在浏览器里：
+---
 
-```
-第一个 div
-第二个 div
-第三个 div
+### &lt;section&gt; — 内容区块
 
-第一个 span 第二个 span 第三个 span
-```
-
-## 结合起来用：div 套 span
-
-实际开发中最常见的组合：**`<div>` 做容器布局，`<span>` 在内部修饰文字**。
+表示一个**主题分组**，通常带标题。和 `<article>` 的区别：`<article>` 是独立完整的单元，`<section>` 是文档中的一个章节。
 
 ```html
-<div class="card">
-  <h3>今日特价</h3>
-  <p>
-    原价 <span style="text-decoration: line-through; color: #999;">¥199</span>
-    现价 <span style="color: red; font-weight: bold; font-size: 1.4em;">¥99</span>
-  </p>
+<section>
+  <h2>学习路线</h2>
+  <p>第一阶段：HTML + CSS</p>
+  <p>第二阶段：JavaScript</p>
+</section>
+```
+
+---
+
+### &lt;aside&gt; — 侧边栏 / 附属内容
+
+表示与主内容**间接相关**的内容，比如侧边栏、广告、相关文章推荐。
+
+```html
+<aside>
+  <h3>相关文章</h3>
+  <ul>
+    <li><a href="#">CSS 入门</a></li>
+    <li><a href="#">JavaScript 基础</a></li>
+  </ul>
+</aside>
+```
+
+---
+
+### &lt;footer&gt; — 页脚
+
+表示页面或某个区块的**底部区域**，通常包含版权信息、联系方式等。
+
+```html
+<footer>
+  <p>© 2026 我的博客 · 保留所有权利</p>
+</footer>
+```
+
+**对比传统 div 写法：** `<div id="footer">` → `<footer>`
+
+---
+
+## 三、完整结构对比
+
+同样一个页面，用两种方式写出来对比：
+
+### 传统 div 方式
+
+```html
+<div id="header">网站标题</div>
+<div id="nav">导航链接</div>
+<div id="main">
+  <div class="article">文章内容</div>
+  <div class="sidebar">侧边栏</div>
+</div>
+<div id="footer">版权信息</div>
+```
+
+### HTML5 语义方式
+
+```html
+<header>网站标题</header>
+<nav>导航链接</nav>
+<main>
+  <article>文章内容</article>
+  <aside>侧边栏</aside>
+</main>
+<footer>版权信息</footer>
+```
+
+功能完全一样，但语义方式的代码**一看就知道每个区域是什么**。
+
+## 四、那 &lt;div&gt; 和 &lt;span&gt; 现在干什么用？
+
+有了语义标签，不代表 `<div>` 和 `<span>` 就没用了。它们的定位变了：
+
+### &lt;div&gt; — 无语义块级容器
+
+适合用来做**纯粹的样式容器**和**布局容器**——比如用 flex 或 grid 排列一组卡片时，需要一个容器来包裹它们，但这里没有合适的语义标签，就用 `<div>`。
+
+```html
+<!-- div 做 flex 布局容器 -->
+<div style="display: flex; gap: 1rem;">
+  <div class="card">卡片 1</div>
+  <div class="card">卡片 2</div>
+  <div class="card">卡片 3</div>
 </div>
 ```
 
-这里的布局：
+### &lt;span&gt; — 无语义行内容器
 
+适合用来**修饰部分文字**——给某几个字单独设置颜色、加粗、背景等。
+
+```html
+<p>
+  今日特价：<span style="color: red; font-weight: bold;">¥99</span>
+</p>
 ```
-┌─────────────────────────┐  ← div.card（块级容器）
-│  今日特价                │
-│  原价 ¥199  现价 ¥99    │  ← span（行内）修饰价格文字
-└─────────────────────────┘
-```
+
+### 原则
+
+> **页面的大结构用语义标签，样式和布局的细节用 div/span。**
 
 ## 我练习的演示页面
 
-我做了一个综合演示，把语义结构标签和 `<div>` / `<span>` 放在一起对比展示：
+我做了一个对比演示页面，展示了传统 div 布局和 HTML5 语义布局的差异，以及 div/span 现在的实际用法。
 
-```
-div 与 span 综合演示
-├── 📦 div 布局容器示例
-│   ├── 三个 div 盒子并排（将来用 flex 布局）
-│   └── 每个盒子里有标题和文字
-├── ✏️ span 文本修饰示例
-│   ├── 改变颜色 → <span style="color: red">
-│   ├── 删除线效果 → <span style="text-decoration: line-through">
-│   └── 高亮效果 → <span style="background: yellow">
-├�── 🤝 div + span 组合实战
-│   └── 商品卡片：div 布局 + span 修饰价格
-└── 🔄 对比：语义标签 vs 无语义标签
-    └── header/nav/main  vs  div/div/div
-```
-
-点击文章上方的「🌐 在线演示」查看实际效果。
+点击文章上方的「🌐 在线演示」查看。
 
 ## 小结
 
-- `<div>` 是**块级无语义容器**，用来分组和布局
-- `<span>` 是**行内无语义容器**，用来修饰部分文本
-- 它们没有含义，但正因为没有含义，所以**哪里都能用**
-- **优先使用语义化标签**（如 `<nav>`、`<article>`），没有合适的才用 `<div>`
-- 实际开发中 `<div>` 居多是正常现象——它和语义标签是互补关系，不是替代关系
+| 标签 | 含义 | 传统写法 |
+|------|------|---------|
+| `<header>` | 页头 | `<div id="header">` |
+| `<nav>` | 导航栏 | `<div id="nav">` |
+| `<main>` | 主内容 | `<div id="main">` |
+| `<article>` | 独立文章 | `<div class="article">` |
+| `<section>` | 内容区块 | `<div class="section">` |
+| `<aside>` | 侧边栏 | `<div class="sidebar">` |
+| `<footer>` | 页脚 | `<div id="footer">` |
+| `<div>` | 无语义块级容器（现用于布局/样式） | — |
+| `<span>` | 无语义行内容器（现用于文本修饰） | — |
