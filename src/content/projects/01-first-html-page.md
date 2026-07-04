@@ -1,7 +1,7 @@
 ---
 title: '第一个 HTML 页面'
 description: '跟着黑马教程写的第一个 HTML 页面，练习了文档结构、标题段落、文本格式化标签和实体字符。'
-pubDate: 2025-03-01
+pubDate: 2026-07-03
 techStack: ['HTML5']
 featured: true
 ---
@@ -33,7 +33,7 @@ featured: true
   <p>今天我学习了 <strong>HTML 文档结构</strong>、<em>标签关系</em>、标题段落、文本格式化标签。</p>
   <hr />
   <p>特殊字符练习：&lt;div&gt; 是块级标签</p>
-  <p>&copy; 2025 持续学习中</p>
+  <p>&copy; 2026 持续学习中</p>
 </body>
 </html>
 ```
@@ -47,4 +47,3 @@ featured: true
 ## 下一步
 
 - [ ] 学完图片和链接标签后更新页面
-- [ ] 开始学 CSS，给页面加上样式

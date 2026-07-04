@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://your-blog.vercel.app',
+  site: 'https://my-blog-psi-mauve.vercel.app',
   integrations: [mdx(), sitemap()],
   markdown: {
     shikiConfig: {
