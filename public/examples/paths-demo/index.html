@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>路径演示</title>
+</head>
+<body>
+  <h1>路径引用演示</h1>
+
+  <h2>1. 同级引用（直接写文件名）</h2>
+  <p>图片和 HTML 在同一目录下：</p>
+  <img src="1.jpg" alt="同级图片" width="200">
+
+  <h2>2. 子目录引用</h2>
+  <p>图片在 images/ 文件夹里：</p>
+  <img src="images/photo.jpg" alt="子目录图片" width="200">
+
+  <h2>3. 根相对路径</h2>
+  <p>从根目录开始引用：</p>
+  <img src="/examples/paths-demo/images/photo.jpg" alt="根路径图片" width="200">
+
+  <h2>4. 链接到另一个页面</h2>
+  <a href="about/page.html">关于页面（用相对路径）</a>
+</body>
+</html>
