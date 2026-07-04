@@ -56,13 +56,13 @@ my-blog/
 
 | 对应文章 | 路径 |
 |---------|------|
-| ① HTML 入门 | `public/examples/html-basics.html` |
-| ② 文本格式化标签 | `public/examples/text-tags.html` |
-| ③ 块级 vs 行内 | `public/examples/test.html` |
-| ④ 图片标签 | `public/examples/图片标签的基本使用.html` |
-| ⑤ 路径详解 | `public/examples/paths-demo/index.html` |
-| ⑥ 音视频标签 | `public/examples/音视频标签/index.html` |
-| ⑦ 超链接 | `public/examples/超链接/index.html` |
+| ① HTML 入门 | `public/examples/html-basics.html` | `C:\Users\gly\Desktop\前端学习\Html5\代码1\` |
+| ② 文本格式化标签 | `public/examples/text-tags.html` | 同上 |
+| ③ 块级 vs 行内 | `public/examples/test.html` | 同上 |
+| ④ 图片标签 | `public/examples/图片标签的基本使用.html` | 同上 |
+| ⑤ 路径详解 | `public/examples/paths-demo/index.html` | 无独立练习文件 |
+| ⑥ 音视频标签 | `public/examples/音视频标签/index.html` | 同上 |
+| ⑦ 超链接 | `public/examples/超链接/index.html` | 无独立练习文件 |
 
 这些文件部署后可以通过 `https://my-blog-psi-mauve.vercel.app/examples/xxx` 直接访问。
 
