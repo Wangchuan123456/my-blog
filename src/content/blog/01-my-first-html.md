@@ -1,9 +1,10 @@
 ---
 title: '跟着黑马学 HTML：第一天，我终于看懂了网页的骨架'
 description: '从 HTML 是什么到第一个页面，从标签关系到语义化——记录我前端学习的第一课。'
-pubDate: 2026-07-03
+pubDate: 2026-07-01
 tags: ['HTML', '入门', '黑马教程']
 category: '学习笔记'
+order: 1
 ---
 
 ## 前言

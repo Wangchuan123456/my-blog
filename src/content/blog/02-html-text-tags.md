@@ -1,9 +1,10 @@
 ---
 title: 'HTML 文本标签大合集：加粗、斜体、上下标一次搞懂'
 description: '学习常用的文本格式化标签、特殊符号、以及何时用 <strong> 而不是 <b>。'
-pubDate: 2026-07-03
+pubDate: 2026-07-02
 tags: ['HTML', '文本标签', '语义化']
 category: '学习笔记'
+order: 2
 ---
 
 ## 引言

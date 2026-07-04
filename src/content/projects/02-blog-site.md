@@ -3,7 +3,6 @@ title: '个人前端学习博客'
 description: '用 Astro 搭建的个人博客，记录前端学习过程，Markdown 写文章，部署在 Vercel。'
 pubDate: 2026-07-03
 repo: 'https://github.com/Wangchuan123456/my-blog'
-demo: 'https://my-blog-psi-mauve.vercel.app'
 techStack: ['Astro', 'Markdown', 'CSS3', 'Vercel']
 featured: true
 ---

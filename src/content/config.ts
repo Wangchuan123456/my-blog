@@ -10,6 +10,8 @@ const blog = defineCollection({
     heroImage: z.string().optional(),
     tags: z.array(z.string()).default([]),
     category: z.enum(['学习笔记', '项目总结', '面试准备', '随笔']).default('学习笔记'),
+    order: z.number().optional(),
+    demo: z.string().optional(),
   }),
 });
 

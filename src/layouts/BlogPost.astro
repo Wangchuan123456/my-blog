@@ -8,7 +8,7 @@ export interface Props {
 
 const { entry } = Astro.props;
 const { Content } = await entry.render();
-const { title, description, pubDate, updatedDate, tags, heroImage } = entry.data;
+const { title, description, pubDate, updatedDate, tags, heroImage, demo } = entry.data;
 ---
 
 <Layout title={title} description={description}>
@@ -34,6 +34,9 @@ const { title, description, pubDate, updatedDate, tags, heroImage } = entry.data
         <div class="tags">
           {tags.map(tag => <span class="tag">{tag}</span>)}
         </div>
+      )}
+      {demo && (
+        <a href={demo} target="_blank" class="demo-btn">🌐 在线演示</a>
       )}
     </header>
 
@@ -101,6 +104,18 @@ const { title, description, pubDate, updatedDate, tags, heroImage } = entry.data
     width: 100%;
     border-radius: var(--radius);
     margin-bottom: 2.5rem;
+  }
+  .demo-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1rem;
+    padding: 0.5rem 1.2rem;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
   }
 
   /* 文章正文排版 */
