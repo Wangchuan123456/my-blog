@@ -4,7 +4,7 @@ import { getCollection } from 'astro:content';
 
 const blogPosts = await getCollection('blog');
 const projects = await getCollection('projects');
-const recentPosts = blogPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()).slice(0, 5);
+const recentPosts = blogPosts.sort((a, b) => (b.data.order ?? 0) - (a.data.order ?? 0)).slice(0, 5);
 const featuredProjects = projects.filter(p => p.data.featured);
 ---
 
