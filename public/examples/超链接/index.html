@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>超链接与锚点链接 · 综合演示</title>
+  <style>
+    body {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 1.5rem;
+      font-family: system-ui, sans-serif;
+      line-height: 1.8;
+    }
+    h1 { color: #6c63ff; }
+    h2 {
+      margin-top: 2.5rem;
+      border-bottom: 2px solid #e9ecef;
+      padding-bottom: 0.3rem;
+    }
+    .long-text {
+      color: #6c757d;
+      font-size: 0.95rem;
+    }
+    .example {
+      background: #f8f9fa;
+      border-left: 3px solid #6c63ff;
+      padding: 0.8rem 1.2rem;
+      margin: 1rem 0;
+      border-radius: 0 8px 8px 0;
+    }
+    .back-top {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.5rem 1rem;
+      background: #6c63ff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+    }
+    .back-top:hover { opacity: 0.85; }
+    .nav-links { margin-bottom: 1.5rem; }
+    .nav-links a {
+      margin-right: 1rem;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🔗 超链接与锚点链接演示</h1>
+
+  <!-- ===== 锚点链接：目录导航 ===== -->
+  <div class="nav-links">
+    <a href="#links-section">📌 跳转到超链接示例</a>
+    <a href="#top-anchor">📌 跳转到锚点示例</a>
+  </div>
+
+  <p>点击上面的锚点链接，页面会滚动到对应的标题位置。</p>
+
+  <!-- ===== 超长文本（填充页面，让滚动效果明显） ===== -->
+  <div class="long-text">
+    <h2>前言：为什么要学超链接？</h2>
+    <p>超链接是互联网的基石。没有超链接，网页之间就无法互相跳转，互联网也就不成为"网"了。在 HTML 中，使用 <code>&lt;a&gt;</code> 标签来创建超链接。</p>
+    <p>下面的内容会详细讲解各种类型的超链接以及锚点链接的用法。为了演示锚点链接的滚动效果，这里先填充一些文字让页面变得足够长。</p>
+
+    <p>—————— 以下为填充内容，可跳过 ——————</p>
+
+    <p>前端开发是指构建网站用户界面的过程，包括 HTML、CSS 和 JavaScript 等技术。HTML 负责页面结构，CSS 负责样式表现，JavaScript 负责交互逻辑。这三者共同构成了现代 Web 开发的基础。</p>
+    <p>学习前端开发是一个循序渐进的过程。首先要掌握 HTML 的基本标签和语义化，然后学习 CSS 布局和样式，接着是 JavaScript 编程语言和 DOM 操作。之后再学习框架如 Vue 或 React，以及工程化工具如 Webpack 或 Vite。</p>
+    <p>在实际开发中，你还需要了解版本控制（Git）、包管理（npm）、构建工具、浏览器开发者工具等。前端技术更新很快，保持学习的习惯非常重要。</p>
+    <p>超链接的 href 属性可以指向各种资源：网页、图片、文件、邮箱地址等。不同种类的链接适用于不同的场景，合理使用能让用户体验更好。</p>
+    <p>锚点链接是同一页面内跳转的链接，适合用在长页面中实现"目录导航"或"回到顶部"功能。它的实现方式是在目标元素上设置 id 属性，然后在链接的 href 中使用 #id 来指向它。</p>
+
+    <p>—————— 填充结束 ——————</p>
+  </div>
+
+  <!-- ===== 超链接示例目标 ===== -->
+  <h2 id="links-section">🔗 超链接示例</h2>
+
+  <h3>1. 内部链接</h3>
+  <p>指向同一网站内的其他页面：</p>
+  <div class="example">
+    <a href="sub/other-page.html">跳转到内部页面（sub/other-page.html）</a>
+  </div>
+
+  <h3>2. 外部链接</h3>
+  <p>指向其他网站的链接：</p>
+  <div class="example">
+    <a href="https://www.baidu.com" target="_blank">去百度搜索（新窗口打开）</a>
+    <br><br>
+    <a href="https://github.com" target="_blank">去 GitHub（新窗口打开）</a>
+  </div>
+  <p><small>提示：使用 <code>target="_blank"</code> 可以在新窗口/新标签页中打开链接。</small></p>
+
+  <h3>3. 空链接</h3>
+  <p>用于占位，点击后不会跳转（通常配合 JavaScript 使用）：</p>
+  <div class="example">
+    <a href="#">空链接（占位用，点击不跳转）</a>
+    <br><br>
+    <a href="javascript:;">空链接（另一种写法）</a>
+  </div>
+  <p><small>两种写法：<code>href="#"</code> 会跳转到页面顶部；<code>href="javascript:;"</code> 不会产生任何效果。</small></p>
+
+  <h3>4. 下载链接</h3>
+  <p>点击后直接下载文件（需要添加 <code>download</code> 属性）：</p>
+  <div class="example">
+    <a href="../1.jpg" download>下载示例图片（1.jpg）</a>
+    <br><br>
+    <a href="../horse.mp3" download>下载示例音频（horse.mp3）</a>
+  </div>
+  <p><small><code>download</code> 属性告诉浏览器不要打开文件，而是直接下载。</small></p>
+
+  <h3>5. 邮件链接</h3>
+  <p>点击后打开系统默认的邮件客户端：</p>
+  <div class="example">
+    <a href="mailto:example@example.com">发送邮件给 example@example.com</a>
+    <br><br>
+    <a href="mailto:example@example.com?subject=前端学习咨询&body=你好，我想咨询一下前端学习的问题。">
+      发送邮件（带主题和正文）
+    </a>
+  </div>
+  <p><small>可以在 <code>mailto:</code> 后面加 <code>?subject=主题&body=正文</code> 来预填邮件内容。</small></p>
+
+  <!-- ===== 锚点链接示例 ===== -->
+  <h2 id="top-anchor">📌 锚点链接示例</h2>
+  <p>锚点链接可以在同一页面内跳转到任意设置了 id 的元素位置。</p>
+
+  <div class="example">
+    <p><strong>用法：</strong></p>
+    <p>目标位置设置 id：<code>&lt;h2 id="links-section"&gt;超链接示例&lt;/h2&gt;</code></p>
+    <p>链接指向目标：<code>&lt;a href="#links-section"&gt;跳转到超链接示例&lt;/a&gt;</code></p>
+  </div>
+
+  <p>常见的锚点链接场景：</p>
+  <ul>
+    <li>页面顶部目录 → 跳转到各个章节</li>
+    <li>长文章底部 → "回到顶部"</li>
+    <li>多步骤表单 → 跳转到当前步骤</li>
+  </ul>
+
+  <!-- 回到顶部 -->
+  <a href="#" class="back-top">⬆ 回到页面顶部</a>
+
+  <p style="margin-top: 3rem; color: #6c757d; font-size: 0.85rem; text-align: center;">
+    超链接与锚点链接演示 · 前端学习笔记
+  </p>
+
+</body>
+</html>
