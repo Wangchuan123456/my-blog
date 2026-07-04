@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>&lt;div&gt; 与 &lt;span&gt; · 综合演示</title>
+  <style>
+    body {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 1.5rem;
+      font-family: system-ui, sans-serif;
+      line-height: 1.8;
+      color: #333;
+    }
+    h1 { color: #6c63ff; }
+    h2 {
+      margin-top: 2.5rem;
+      border-bottom: 2px solid #e9ecef;
+      padding-bottom: 0.3rem;
+    }
+    h3 { margin-top: 1.5rem; }
+    code {
+      background: #f0f0f0;
+      padding: 0.15rem 0.4rem;
+      border-radius: 3px;
+      font-size: 0.9em;
+    }
+    .demo-box {
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      padding: 1rem 1.5rem;
+      margin: 1rem 0;
+    }
+    .demo-box p { margin: 0.5rem 0; }
+
+    /* ===== div 布局演示 ===== */
+    .div-container {
+      display: flex;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .div-box {
+      flex: 1;
+      background: #e8f4fd;
+      border: 2px dashed #6c63ff;
+      border-radius: 8px;
+      padding: 1rem;
+      text-align: center;
+    }
+    .div-box h4 {
+      margin: 0 0 0.5rem 0;
+      color: #6c63ff;
+    }
+    .div-box p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    /* ===== span 修饰演示 ===== */
+    .text-red { color: #e74c3c; }
+    .text-green { color: #27ae60; }
+    .text-bold { font-weight: bold; }
+    .text-line-through { text-decoration: line-through; }
+    .text-highlight { background: #fff3cd; padding: 0.1rem 0.2rem; }
+    .text-big { font-size: 1.3em; }
+    .text-icon { color: #f39c12; }
+
+    /* ===== 卡片组合演示 ===== */
+    .card {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 1.2rem 1.5rem;
+      margin: 1rem 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      max-width: 320px;
+    }
+    .card h3 {
+      margin: 0 0 0.8rem 0;
+      border: none;
+      padding: 0;
+    }
+    .card .price {
+      margin: 0.5rem 0;
+    }
+    .card .price .old {
+      text-decoration: line-through;
+      color: #999;
+      margin-right: 0.5rem;
+    }
+    .card .price .current {
+      color: #e74c3c;
+      font-weight: bold;
+      font-size: 1.4em;
+    }
+    .card .tag {
+      display: inline-block;
+      background: #6c63ff;
+      color: #fff;
+      padding: 0.15rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+    }
+    .card .desc {
+      color: #666;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+
+    /* ===== 语义 vs 无语义对比 ===== */
+    .compare-row {
+      display: flex;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .compare-col {
+      flex: 1;
+      border-radius: 8px;
+      padding: 0.8rem;
+    }
+    .compare-col.semantic {
+      background: #eafaf1;
+      border: 1px solid #27ae60;
+    }
+    .compare-col.non-semantic {
+      background: #fef9e7;
+      border: 1px solid #f1c40f;
+    }
+    .compare-col h4 {
+      margin: 0 0 0.5rem 0;
+      text-align: center;
+    }
+    .compare-col .tag-box {
+      background: rgba(255,255,255,0.7);
+      border-radius: 4px;
+      padding: 0.4rem 0.6rem;
+      margin: 0.3rem 0;
+      font-size: 0.9rem;
+    }
+    .compare-col .tag-label {
+      font-size: 0.75rem;
+      color: #888;
+    }
+    .sample-header {
+      background: #d5f5e3;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+    .sample-nav {
+      background: #a9dfbf;
+      padding: 0.3rem 1rem;
+      border-radius: 4px;
+      display: flex;
+      gap: 1rem;
+    }
+    .sample-nav a { color: #1a5276; }
+    .sample-main {
+      background: #eafaf1;
+      padding: 0.8rem 1rem;
+      border-radius: 4px;
+    }
+    .sample-footer {
+      background: #d5f5e3;
+      padding: 0.3rem 1rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      color: #666;
+      text-align: center;
+    }
+    .ns-header {
+      background: #f9e79f;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+    .ns-nav {
+      background: #f7dc6f;
+      padding: 0.3rem 1rem;
+      border-radius: 4px;
+      display: flex;
+      gap: 1rem;
+    }
+    .ns-nav a { color: #1a5276; }
+    .ns-main {
+      background: #fef9e7;
+      padding: 0.8rem 1rem;
+      border-radius: 4px;
+    }
+    .ns-footer {
+      background: #f9e79f;
+      padding: 0.3rem 1rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      color: #666;
+      text-align: center;
+    }
+
+    .note {
+      background: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 0.5rem 1rem;
+      margin: 1rem 0;
+      border-radius: 0 4px 4px 0;
+      font-size: 0.9rem;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #e9ecef;
+      margin: 2rem 0;
+    }
+    .back-top {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.5rem 1rem;
+      background: #6c63ff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+    }
+    .back-top:hover { opacity: 0.85; }
+  </style>
+</head>
+<body>
+
+  <h1>📦 &lt;div&gt; 与 &lt;span&gt; 综合演示</h1>
+  <p>看 <code>&lt;div&gt;</code> 和 <code>&lt;span&gt;</code> 在实际页面中怎么用，和语义标签有什么区别。</p>
+
+  <!-- ===================================================== -->
+  <!-- 1. div 布局容器演示 -->
+  <!-- ===================================================== -->
+  <h2>1️⃣ &lt;div&gt; 布局容器</h2>
+  <p>三个 <code>&lt;div&gt;</code> 并排展示（用 flex 布局排列），每个 <code>&lt;div&gt;</code> 都是一个独立的区块：</p>
+
+  <div class="demo-box">
+    <div class="div-container">
+      <div class="div-box">
+        <h4>📌 区块 A</h4>
+        <p>这是第一个 div</p>
+      </div>
+      <div class="div-box">
+        <h4>📌 区块 B</h4>
+        <p>这是第二个 div</p>
+      </div>
+      <div class="div-box">
+        <h4>📌 区块 C</h4>
+        <p>这是第三个 div</p>
+      </div>
+    </div>
+    <p style="font-size: 0.85rem; color: #888; margin-top: 0.5rem;">
+      ← 每个灰色虚线框都是一个 &lt;div&gt;，用来分组内容
+    </p>
+  </div>
+
+  <p><strong>HTML 结构：</strong></p>
+  <pre style="background: #f4f4f4; padding: 0.8rem; border-radius: 4px; font-size: 0.85rem; overflow-x: auto;">
+&lt;div style="display: flex;"&gt;          &lt;!-- 外层 div：flex 容器 --&gt;
+  &lt;div class="div-box"&gt;               &lt;!-- 里层 div：区块 A --&gt;
+    &lt;h4&gt;📌 区块 A&lt;/h4&gt;
+    &lt;p&gt;这是第一个 div&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="div-box"&gt;               &lt;!-- 里层 div：区块 B --&gt;
+    &lt;h4&gt;📌 区块 B&lt;/h4&gt;
+    &lt;p&gt;这是第二个 div&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="div-box"&gt;               &lt;!-- 里层 div：区块 C --&gt;
+    &lt;h4&gt;📌 区块 C&lt;/h4&gt;
+    &lt;p&gt;这是第三个 div&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+
+  <!-- ===================================================== -->
+  <!-- 2. span 文本修饰演示 -->
+  <!-- ===================================================== -->
+  <h2>2️⃣ &lt;span&gt; 修饰文本</h2>
+  <p><code>&lt;span&gt;</code> 可以包住部分文字，单独改变样式：</p>
+
+  <div class="demo-box">
+    <p>🔴 <strong>改变颜色：</strong>
+      今天天气 <span class="text-red text-bold">非常炎热</span>，注意防暑。
+    </p>
+    <p>💰 <strong>价格效果：</strong>
+      原价 <span class="text-line-through">¥199</span>
+      <span class="text-green text-bold text-big">¥99</span>
+    </p>
+    <p>⭐ <strong>高亮标记：</strong>
+      这是一条 <span class="text-highlight">重要消息</span>，请仔细阅读。
+    </p>
+    <p>🏷️ <strong>图标标记：</strong>
+      <span class="text-icon">★</span> 推荐
+      <span class="text-icon">★</span> 热门
+      <span class="text-icon">●</span> 新品
+    </p>
+  </div>
+
+  <p><strong>HTML 结构：</strong></p>
+  <pre style="background: #f4f4f4; padding: 0.8rem; border-radius: 4px; font-size: 0.85rem; overflow-x: auto;">
+&lt;p&gt;
+  原价 &lt;span style="text-decoration: line-through; color: #999;"&gt;¥199&lt;/span&gt;
+  &lt;span style="color: red; font-weight: bold; font-size: 1.4em;"&gt;¥99&lt;/span&gt;
+&lt;/p&gt;</pre>
+
+  <!-- ===================================================== -->
+  <!-- 3. div + span 组合实战 -->
+  <!-- ===================================================== -->
+  <h2>3️⃣ 🤝 &lt;div&gt; + &lt;span&gt; 组合实战</h2>
+  <p>商品卡片：<code>&lt;div&gt;</code> 做整体布局，<code>&lt;span&gt;</code> 修饰价格文字：</p>
+
+  <div class="demo-box">
+    <div class="card">
+      <h3>🎧 无线蓝牙耳机</h3>
+      <div class="price">
+        <span class="tag">限时特惠</span>
+      </div>
+      <div class="price">
+        <span class="old">¥299</span>
+        <span class="current">¥129</span>
+      </div>
+      <p class="desc">续航 30 小时 · 降噪版 · 现货直发</p>
+    </div>
+  </div>
+
+  <p><strong>HTML 结构：</strong></p>
+  <pre style="background: #f4f4f4; padding: 0.8rem; border-radius: 4px; font-size: 0.85rem; overflow-x: auto;">
+&lt;div class="card"&gt;                          &lt;!-- div：整个卡片容器 --&gt;
+  &lt;h3&gt;🎧 无线蓝牙耳机&lt;/h3&gt;
+  &lt;div class="price"&gt;
+    &lt;span class="tag"&gt;限时特惠&lt;/span&gt;        &lt;!-- span：标签 --&gt;
+  &lt;/div&gt;
+  &lt;div class="price"&gt;
+    &lt;span class="old"&gt;¥299&lt;/span&gt;           &lt;!-- span：旧价（删除线） --&gt;
+    &lt;span class="current"&gt;¥129&lt;/span&gt;        &lt;!-- span：现价（红色加粗） --&gt;
+  &lt;/div&gt;
+  &lt;p class="desc"&gt;续航 30 小时 · 降噪版 · 现货直发&lt;/p&gt;
+&lt;/div&gt;</pre>
+
+  <!-- ===================================================== -->
+  <!-- 4. 语义标签 vs 无语义标签 对比 -->
+  <!-- ===================================================== -->
+  <h2>4️⃣ 🔄 语义标签 vs 无语义标签</h2>
+  <p>同样的页面结构，左边用语义标签，右边全部用 <code>&lt;div&gt;</code>——效果一样，但含义不同：</p>
+
+  <div class="compare-row">
+    <div class="compare-col semantic">
+      <h4>✅ 语义标签</h4>
+      <div class="tag-box">
+        <span class="tag-label">页头</span><br>
+        <code>&lt;header&gt;</code>
+      </div>
+      <div class="tag-box">
+        <span class="tag-label">导航</span><br>
+        <code>&lt;nav&gt;</code>
+      </div>
+      <div class="tag-box">
+        <span class="tag-label">主内容</span><br>
+        <code>&lt;main&gt;</code>
+      </div>
+      <div class="tag-box">
+        <span class="tag-label">页脚</span><br>
+        <code>&lt;footer&gt;</code>
+      </div>
+
+      <p style="font-size: 0.85rem; margin-top: 0.8rem;">实际渲染效果：</p>
+      <div class="sample-header">📰 网站标题</div>
+      <div class="sample-nav">
+        <a href="#">首页</a>
+        <a href="#">关于</a>
+        <a href="#">联系</a>
+      </div>
+      <div class="sample-main">
+        <p style="margin: 0.3rem 0;">这里是文章内容...</p>
+      </div>
+      <div class="sample-footer">© 2026 版权所有</div>
+    </div>
+
+    <div class="compare-col non-semantic">
+      <h4>⚠️ 无语义标签</h4>
+      <div class="tag-box">
+        <span class="tag-label">页头</span><br>
+        <code>&lt;div class="header"&gt;</code>
+      </div>
+      <div class="tag-box">
+        <span class="tag-label">导航</span><br>
+        <code>&lt;div class="nav"&gt;</code>
+      </div>
+      <div class="tag-box">
+        <span class="tag-label">主内容</span><br>
+        <code>&lt;div class="main"&gt;</code>
+      </div>
+      <div class="tag-box">
+        <span class="tag-label">页脚</span><br>
+        <code>&lt;div class="footer"&gt;</code>
+      </div>
+
+      <p style="font-size: 0.85rem; margin-top: 0.8rem;">实际渲染效果：</p>
+      <div class="ns-header">📰 网站标题</div>
+      <div class="ns-nav">
+        <a href="#">首页</a>
+        <a href="#">关于</a>
+        <a href="#">联系</a>
+      </div>
+      <div class="ns-main">
+        <p style="margin: 0.3rem 0;">这里是文章内容...</p>
+      </div>
+      <div class="ns-footer">© 2026 版权所有</div>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>💡 结论：</strong>两种写法在浏览器里看起来完全一样。区别在于——
+    <strong>语义标签</strong>让代码"自解释"（看标签就知道是什么区域），
+    <strong>无语义标签</strong>完全靠 class 名字来区分，可读性差一些。
+    所以有合适的语义标签时优先用语义标签。
+  </div>
+
+  <!-- ===================================================== -->
+  <!-- 5. 回到顶部 -->
+  <!-- ===================================================== -->
+
+  <hr>
+  <p style="text-align: center;">
+    <a href="#" class="back-top">⬆ 回到页面顶部</a>
+  </p>
+  <p style="margin-top: 2rem; color: #6c757d; font-size: 0.85rem; text-align: center;">
+    &lt;div&gt; 与 &lt;span&gt; 综合演示 · 前端学习笔记
+  </p>
+
+</body>
+</html>
