@@ -5,6 +5,7 @@ pubDate: 2026-07-01
 tags: ['HTML', '入门', '黑马教程']
 category: '学习笔记'
 order: 1
+demo: '/examples/html-basics.html'
 ---
 
 ## 前言

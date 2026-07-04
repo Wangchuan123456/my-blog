@@ -5,6 +5,7 @@ pubDate: 2026-07-03
 tags: ['HTML', '块级元素', '行内元素', '嵌套规则']
 category: '学习笔记'
 order: 3
+demo: '/examples/test.html'
 ---
 
 ## 前言
