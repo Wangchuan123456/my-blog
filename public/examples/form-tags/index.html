@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>表单标签 · 综合演示</title>
+  <style>
+    body {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 1.5rem;
+      font-family: system-ui, sans-serif;
+      line-height: 1.8;
+      color: #333;
+    }
+    h1 { color: #6c63ff; }
+    h2 {
+      margin-top: 2.5rem;
+      border-bottom: 2px solid #e9ecef;
+      padding-bottom: 0.3rem;
+    }
+    h3 { margin-top: 1.8rem; }
+    code {
+      background: #f0f0f0;
+      padding: 0.15rem 0.4rem;
+      border-radius: 3px;
+      font-size: 0.9em;
+    }
+
+    .form-section {
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      padding: 1.2rem 1.5rem;
+      margin: 1rem 0;
+    }
+    .form-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .form-section li {
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .form-section li label {
+      min-width: 80px;
+      font-weight: 500;
+    }
+    .form-section input[type="text"],
+    .form-section input[type="password"],
+    .form-section textarea,
+    .form-section select {
+      padding: 0.4rem 0.6rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 0.95rem;
+      font-family: inherit;
+    }
+    .form-section input[type="text"]:focus,
+    .form-section input[type="password"]:focus,
+    .form-section textarea:focus,
+    .form-section select:focus {
+      outline: none;
+      border-color: #6c63ff;
+      box-shadow: 0 0 0 2px rgba(108,99,255,0.15);
+    }
+    .form-section .field-hint {
+      font-size: 0.8rem;
+      color: #999;
+      margin-left: 0.3rem;
+    }
+    .btn-group {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    .btn-group button,
+    .btn-group input[type="submit"] {
+      padding: 0.5rem 1.2rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .btn-submit {
+      background: #6c63ff;
+      color: #fff;
+    }
+    .btn-submit:hover { opacity: 0.9; }
+    .btn-reset {
+      background: #e9ecef;
+      color: #333;
+    }
+    .btn-reset:hover { background: #ddd; }
+    .btn-disabled {
+      background: #ccc;
+      color: #888;
+      cursor: not-allowed !important;
+    }
+
+    .note {
+      background: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 0.5rem 1rem;
+      margin: 1rem 0;
+      border-radius: 0 4px 4px 0;
+      font-size: 0.9rem;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 0.8rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      overflow-x: auto;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #e9ecef;
+      margin: 2rem 0;
+    }
+    .back-top {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.5rem 1rem;
+      background: #6c63ff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+    }
+    .back-top:hover { opacity: 0.85; }
+
+    .tag-badge {
+      display: inline-block;
+      background: #6c63ff;
+      color: #fff;
+      font-size: 0.7rem;
+      padding: 0.1rem 0.4rem;
+      border-radius: 3px;
+      margin-left: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📋 表单标签综合演示</h1>
+  <p>展示各种表单控件的用法——文本框、密码框、单选框、复选框、文件上传、下拉菜单、文本域、按钮。</p>
+
+  <!-- ============================================= -->
+  <!-- 综合表单 -->
+  <!-- ============================================= -->
+  <h2>1️⃣ 综合注册表单</h2>
+  <p>这是一个模拟注册表单，把所有控件放在一起展示：</p>
+
+  <div class="form-section">
+    <form action="#" method="post">
+
+      <!-- 文本框 -->
+      <h3>📝 文本框 <span class="tag-badge">input text</span></h3>
+      <ul>
+        <li>
+          <label for="username">账号：</label>
+          <input type="text" id="username" name="username"
+                 placeholder="请输入账号" required autocomplete="off">
+          <span class="field-hint">（required 必填）</span>
+        </li>
+      </ul>
+
+      <!-- 密码框 -->
+      <h3>🔒 密码框 <span class="tag-badge">input password</span></h3>
+      <ul>
+        <li>
+          <label for="password">密码：</label>
+          <input type="password" id="password" name="password"
+                 placeholder="请输入密码" maxlength="10" required autocomplete="off">
+          <span class="field-hint">（maxlength="10"）</span>
+        </li>
+      </ul>
+
+      <!-- 单选框 -->
+      <h3>🔘 单选框 <span class="tag-badge">input radio</span></h3>
+      <ul>
+        <li>
+          <label>性别：</label>
+          <label style="min-width:auto;font-weight:400;">
+            <input type="radio" name="gender" value="male" checked> 男
+          </label>
+          <label style="min-width:auto;font-weight:400;">
+            <input type="radio" name="gender" value="female"> 女
+          </label>
+          <span class="field-hint">（同一组 name 相同，checked 默认选中）</span>
+        </li>
+      </ul>
+
+      <!-- 复选框 -->
+      <h3>☑️ 复选框 <span class="tag-badge">input checkbox</span></h3>
+      <ul>
+        <li>
+          <label>爱好：</label>
+          <label style="min-width:auto;font-weight:400;">
+            <input type="checkbox" name="hobby" value="football"> 足球
+          </label>
+          <label style="min-width:auto;font-weight:400;">
+            <input type="checkbox" name="hobby" value="basketball"> 篮球
+          </label>
+          <label style="min-width:auto;font-weight:400;">
+            <input type="checkbox" name="hobby" value="running"> 跑步
+          </label>
+        </li>
+      </ul>
+
+      <!-- 文件上传 -->
+      <h3>📎 文件上传 <span class="tag-badge">input file</span></h3>
+      <ul>
+        <li>
+          <label for="file">上传文件：</label>
+          <input type="file" id="file" name="file" multiple accept="image/*,video/*">
+          <span class="field-hint">（multiple 多文件 + accept 限制类型）</span>
+        </li>
+      </ul>
+
+      <!-- 文本域 -->
+      <h3>📄 文本域 <span class="tag-badge">textarea</span></h3>
+      <ul>
+        <li>
+          <label for="intro">个人简介：</label>
+          <textarea id="intro" name="intro" rows="3" cols="30" placeholder="介绍一下自己..."></textarea>
+        </li>
+      </ul>
+
+      <!-- 下拉菜单 -->
+      <h3>📋 下拉菜单 <span class="tag-badge">select + option</span></h3>
+      <ul>
+        <li>
+          <label for="city">所在城市：</label>
+          <select id="city" name="city">
+            <option value="beijing">北京</option>
+            <option value="shanghai" selected>上海</option>
+            <option value="guangzhou">广州</option>
+            <option value="shenzhen">深圳</option>
+          </select>
+          <span class="field-hint">（selected 默认选中）</span>
+        </li>
+      </ul>
+
+      <!-- 按钮 -->
+      <h3>🎯 按钮 <span class="tag-badge">button / input submit</span></h3>
+      <div class="btn-group">
+        <button type="submit" class="btn-submit">✅ 提交（submit）</button>
+        <button type="reset" class="btn-reset">↩️ 重置（reset）</button>
+        <button type="button" class="btn-disabled" disabled>⛔ 禁用（disabled）</button>
+      </div>
+      <p style="font-size:0.85rem;color:#999;margin-top:0.5rem;">
+        * 点击"重置"会清空所有输入恢复到初始状态
+      </p>
+
+    </form>
+  </div>
+
+  <!-- ============================================= -->
+  <!-- 代码展示 -->
+  <!-- ============================================= -->
+  <h2>2️⃣ 各部分代码示例</h2>
+
+  <h3>文本框 + 密码框</h3>
+  <pre>&lt;input type="text" placeholder="请输入账号" required autocomplete="off"&gt;
+&lt;input type="password" placeholder="请输入密码" maxlength="10" required&gt;</pre>
+
+  <h3>单选框 + 复选框</h3>
+  <pre>&lt;input type="radio" name="gender" value="male" checked&gt; 男
+&lt;input type="radio" name="gender" value="female"&gt; 女
+
+&lt;input type="checkbox" name="hobby" value="football"&gt; 足球
+&lt;input type="checkbox" name="hobby" value="basketball"&gt; 篮球</pre>
+
+  <h3>文件上传</h3>
+  <pre>&lt;input type="file" multiple accept="image/*,video/*"&gt;</pre>
+
+  <h3>文本域</h3>
+  <pre>&lt;textarea rows="4" cols="30"&gt;&lt;/textarea&gt;</pre>
+
+  <h3>下拉菜单</h3>
+  <pre>&lt;select name="city"&gt;
+  &lt;option value="beijing"&gt;北京&lt;/option&gt;
+  &lt;option value="shanghai" selected&gt;上海&lt;/option&gt;
+  &lt;option value="guangzhou"&gt;广州&lt;/option&gt;
+&lt;/select&gt;</pre>
+
+  <h3>按钮</h3>
+  <pre>&lt;button type="submit"&gt;提交&lt;/button&gt;
+&lt;button type="reset"&gt;重置&lt;/button&gt;
+&lt;button type="button" disabled&gt;禁用&lt;/button&gt;</pre>
+
+  <div class="note">
+    <strong>💡 提示：</strong>点击"重置"按钮会清空所有填写的内容，恢复成初始状态。
+    这是因为 <code>type="reset"</code> 的作用。
+  </div>
+
+  <hr>
+  <p style="text-align: center;">
+    <a href="#" class="back-top">⬆ 回到页面顶部</a>
+  </p>
+  <p style="margin-top: 2rem; color: #6c757d; font-size: 0.85rem; text-align: center;">
+    表单标签综合演示 · 前端学习笔记
+  </p>
+
+</body>
+</html>
