@@ -56,12 +56,13 @@ const allTags = [...new Set(sortedPosts.flatMap(p => p.data.tags))].sort();
       btn.addEventListener('click', () => {
         buttons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        const filter = btn.dataset.filter;
+        const filter = btn.getAttribute('data-filter') || '';
         cards.forEach(card => {
+          if (!(card instanceof HTMLElement)) return;
           if (filter === 'all') {
             card.style.display = '';
           } else {
-            const tags = (card.dataset.tags || '').split(',');
+            const tags = (card.getAttribute('data-tags') || '').split(',');
             card.style.display = tags.includes(filter) ? '' : 'none';
           }
         });

@@ -69,10 +69,11 @@ import '../styles/global.css';
           html.classList.add('dark');
         }
         document.addEventListener('click', (e) => {
+          if (!(e.target instanceof HTMLElement)) return;
           const btn = e.target.closest('#theme-toggle');
           if (!btn) return;
           const isDark = html.classList.toggle('dark');
-          localStorage.setItem(key, isDark);
+          localStorage.setItem(key, String(isDark));
         });
       })();
     </script>
