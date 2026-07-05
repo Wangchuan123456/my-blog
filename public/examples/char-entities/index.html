@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>字符实体 · 综合演示</title>
+  <style>
+    body {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 1.5rem;
+      font-family: system-ui, sans-serif;
+      line-height: 1.8;
+      color: #333;
+    }
+    h1 { color: #6c63ff; }
+    h2 {
+      margin-top: 2.5rem;
+      border-bottom: 2px solid #e9ecef;
+      padding-bottom: 0.3rem;
+    }
+    h3 { margin-top: 1.8rem; }
+    code {
+      background: #f0f0f0;
+      padding: 0.15rem 0.4rem;
+      border-radius: 3px;
+      font-size: 0.9em;
+    }
+
+    .demo-box {
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      padding: 1rem 1.5rem;
+      margin: 1rem 0;
+    }
+
+    .entity-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0.8rem 0;
+    }
+    .entity-table th {
+      background: #6c63ff;
+      color: #fff;
+      padding: 0.5rem 0.8rem;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+    .entity-table td {
+      padding: 0.4rem 0.8rem;
+      border-bottom: 1px solid #e9ecef;
+      font-size: 0.9rem;
+    }
+    .entity-table tr:nth-child(even) td {
+      background: #f8f9fa;
+    }
+    .entity-table .char-preview {
+      font-size: 1.3rem;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .note {
+      background: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 0.5rem 1rem;
+      margin: 1rem 0;
+      border-radius: 0 4px 4px 0;
+      font-size: 0.9rem;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 0.8rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      overflow-x: auto;
+    }
+
+    .space-demo {
+      background: #e8f4fd;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #e9ecef;
+      margin: 2rem 0;
+    }
+    .back-top {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.5rem 1rem;
+      background: #6c63ff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+    }
+    .back-top:hover { opacity: 0.85; }
+  </style>
+</head>
+<body>
+
+  <h1>🔣 HTML 字符实体综合演示</h1>
+  <p>常用字符实体分类查询表——在页面上安全显示特殊符号。</p>
+
+  <!-- ============================================= -->
+  <!-- 1. 最常用 -->
+  <!-- ============================================= -->
+  <h2>1️⃣ 最常用的 5 个</h2>
+  <p>写代码展示时几乎必用：</p>
+
+  <div class="demo-box">
+    <table class="entity-table">
+      <thead>
+        <tr>
+          <th>字符</th>
+          <th>名称</th>
+          <th>实体写法</th>
+          <th>用途</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="char-preview">&lt;</td>
+          <td>小于号</td>
+          <td><code>&amp;lt;</code></td>
+          <td>显示 <code>&lt;</code> 本身</td>
+        </tr>
+        <tr>
+          <td class="char-preview">&gt;</td>
+          <td>大于号</td>
+          <td><code>&amp;gt;</code></td>
+          <td>显示 <code>&gt;</code> 本身</td>
+        </tr>
+        <tr>
+          <td class="char-preview">&amp;</td>
+          <td>和号</td>
+          <td><code>&amp;amp;</code></td>
+          <td>显示 <code>&amp;</code> 本身</td>
+        </tr>
+        <tr>
+          <td class="char-preview">"</td>
+          <td>双引号</td>
+          <td><code>&amp;quot;</code></td>
+          <td>显示引号</td>
+        </tr>
+        <tr>
+          <td class="char-preview">'</td>
+          <td>单引号</td>
+          <td><code>&amp;apos;</code></td>
+          <td>显示单引号</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p><strong>实际应用：在页面中展示 HTML 标签</strong></p>
+    <pre>&lt;p&gt;这是一个段落&lt;/p&gt;
+&lt;div class="container"&gt;内容&lt;/div&gt;</pre>
+
+    <p>显示效果：</p>
+    <div style="background:#fff;padding:0.5rem 1rem;border-radius:4px;font-size:0.9rem;">
+      &lt;p&gt;这是一个段落&lt;/p&gt;<br>
+      &lt;div class="container"&gt;内容&lt;/div&gt;
+    </div>
+  </div>
+
+  <!-- ============================================= -->
+  <!-- 2. 空格 -->
+  <!-- ============================================= -->
+  <h2>2️⃣ 空格与排版</h2>
+
+  <div class="demo-box">
+    <table class="entity-table">
+      <thead>
+        <tr>
+          <th>效果</th>
+          <th>实体</th>
+          <th>说明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="char-preview">&nbsp;</td>
+          <td><code>&amp;nbsp;</code></td>
+          <td>不换行空格（最常用）</td>
+        </tr>
+        <tr>
+          <td class="char-preview">&ensp;</td>
+          <td><code>&amp;ensp;</code></td>
+          <td>半角空格</td>
+        </tr>
+        <tr>
+          <td class="char-preview">&emsp;</td>
+          <td><code>&amp;emsp;</code></td>
+          <td>全角空格</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p><strong>普通空格 vs &amp;nbsp; 对比：</strong></p>
+    <div class="space-demo">
+      <p>普通空格：A   B（中间三个空格被合并成一个）</p>
+      <p>&amp;nbsp;空格：A&nbsp;&nbsp;&nbsp;B（三个空格保留）</p>
+    </div>
+  </div>
+
+  <!-- ============================================= -->
+  <!-- 3. 版权与商标 -->
+  <!-- ============================================= -->
+  <h2>3️⃣ 版权与商标</h2>
+
+  <div class="demo-box">
+    <table class="entity-table">
+      <thead>
+        <tr>
+          <th>效果</th>
+          <th>实体</th>
+          <th>说明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="char-preview">&copy;</td>
+          <td><code>&amp;copy;</code></td>
+          <td>版权符号</td>
+        </tr>
+        <tr>
+          <td class="char-preview">&reg;</td>
+          <td><code>&amp;reg;</code></td>
+          <td>注册商标</td>
+        </tr>
+        <tr>
+          <td class="char-preview">&trade;</td>
+          <td><code>&amp;trade;</code></td>
+          <td>商标符号</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p><strong>实际应用：</strong></p>
+    <div style="background:#fff;padding:0.5rem 1rem;border-radius:4px;font-size:0.9rem;">
+      <p>&copy; 2026 前端学习博客 · 保留所有权利</p>
+      <p>本课程 &reg; 已注册 &trade; 正在申请商标</p>
+    </div>
+    <pre>&amp;copy; 2026 前端学习博客
+本课程 &amp;reg; 已注册 &amp;trade; 正在申请商标</pre>
+  </div>
+
+  <!-- ============================================= -->
+  <!-- 4. 数学符号 -->
+  <!-- ============================================= -->
+  <h2>4️⃣ 数学符号</h2>
+
+  <div class="demo-box">
+    <table class="entity-table">
+      <thead>
+        <tr>
+          <th>效果</th>
+          <th>实体</th>
+          <th>说明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="char-preview">&times;</td>
+          <td><code>&amp;times;</code></td>
+          <td>乘号</td>
+        </tr>
+        <tr>
+          <td class="char-preview">&divide;</td>
+          <td><code>&amp;divide;</code></td>
+          <td>除号</td>
+        </tr>
+        <tr>
+          <td class="char-preview">&plusmn;</td>
+          <td><code>&amp;plusmn;</code></td>
+          <td>正负号</td>
+        </tr>
+        <tr>
+          <td class="char-preview">&deg;</td>
+          <td><code>&amp;deg;</code></td>
+          <td>度（温度/角度）</td>
+        </tr>
+        <tr>
+          <td class="char-preview">&sect;</td>
+          <td><code>&amp;sect;</code></td>
+          <td>章节号</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p><strong>实际应用：</strong></p>
+    <div style="background:#fff;padding:0.5rem 1rem;border-radius:4px;font-size:0.9rem;">
+      <p>3 &times; 4 = 12</p>
+      <p>10 &divide; 2 = 5</p>
+      <p>室温：25&deg;C &plusmn; 1&deg;C</p>
+    </div>
+  </div>
+
+  <!-- ============================================= -->
+  <!-- 5. 货币符号 -->
+  <!-- ============================================= -->
+  <h2>5️⃣ 货币符号</h2>
+
+  <div class="demo-box">
+    <table class="entity-table">
+      <thead>
+        <tr>
+          <th>效果</th>
+          <th>实体</th>
+          <th>说明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="char-preview">&yen;</td>
+          <td><code>&amp;yen;</code></td>
+          <td>人民币 / 日元</td>
+        </tr>
+        <tr>
+          <td class="char-preview">&euro;</td>
+          <td><code>&amp;euro;</code></td>
+          <td>欧元</td>
+        </tr>
+        <tr>
+          <td class="char-preview">&pound;</td>
+          <td><code>&amp;pound;</code></td>
+          <td>英镑</td>
+        </tr>
+        <tr>
+          <td class="char-preview">&cent;</td>
+          <td><code>&amp;cent;</code></td>
+          <td>美分</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================= -->
+  <!-- 6. 数字编号 vs 名称 -->
+  <!-- ============================================= -->
+  <h2>6️⃣ 数字编号 vs 实体名称</h2>
+
+  <div class="demo-box">
+    <p>两种写法效果一样，名称更易读：</p>
+    <table class="entity-table">
+      <thead>
+        <tr>
+          <th>效果</th>
+          <th>名称写法</th>
+          <th>数字写法</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="char-preview">&lt;</td>
+          <td><code>&amp;lt;</code></td>
+          <td><code>&amp;#60;</code></td>
+        </tr>
+        <tr>
+          <td class="char-preview">&copy;</td>
+          <td><code>&amp;copy;</code></td>
+          <td><code>&amp;#169;</code></td>
+        </tr>
+        <tr>
+          <td class="char-preview">&deg;</td>
+          <td><code>&amp;deg;</code></td>
+          <td><code>&amp;#176;</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <strong>💡 总结：</strong>最常用的就是 <code>&amp;lt;</code> <code>&amp;gt;</code> <code>&amp;amp;</code> <code>&amp;nbsp;</code> <code>&amp;copy;</code>——掌握这 5 个，日常开发基本够用了。
+  </div>
+
+  <hr>
+  <p style="text-align: center;">
+    <a href="#" class="back-top">⬆ 回到页面顶部</a>
+  </p>
+  <p style="margin-top: 2rem; color: #6c757d; font-size: 0.85rem; text-align: center;">
+    HTML 字符实体 · 前端学习笔记
+  </p>
+  <p style="text-align: center; font-size: 0.9rem; color: #6c63ff; font-weight: bold;">
+    🎉 HTML5 基础学习完成！进入 CSS 学习之旅 🚀
+  </p>
+
+</body>
+</html>
