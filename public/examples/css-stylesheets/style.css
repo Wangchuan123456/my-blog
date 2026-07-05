@@ -1,0 +1,50 @@
+/* ========== 外部样式表演示 ========== */
+/* 这个文件通过 <link> 引入到 HTML 中 */
+
+p {
+  color: #27ae60;
+  font-size: 1.1em;
+  line-height: 1.8;
+}
+
+/* 页面基础样式 */
+body {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  font-family: system-ui, sans-serif;
+  line-height: 1.8;
+  color: #333;
+}
+
+h1 {
+  color: #6c63ff;
+}
+
+h2 {
+  margin-top: 2.5rem;
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 0.3rem;
+}
+
+code {
+  background: #f0f0f0;
+  padding: 0.15rem 0.4rem;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+pre {
+  background: #f4f4f4;
+  padding: 0.8rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  overflow-x: auto;
+}
+
+.demo-box {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+}
