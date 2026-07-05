@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>表格标签 · 综合演示</title>
+  <style>
+    body {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 1.5rem;
+      font-family: system-ui, sans-serif;
+      line-height: 1.8;
+      color: #333;
+    }
+    h1 { color: #6c63ff; }
+    h2 {
+      margin-top: 2.5rem;
+      border-bottom: 2px solid #e9ecef;
+      padding-bottom: 0.3rem;
+    }
+    h3 { margin-top: 1.8rem; }
+    code {
+      background: #f0f0f0;
+      padding: 0.15rem 0.4rem;
+      border-radius: 3px;
+      font-size: 0.9em;
+    }
+    table {
+      border-collapse: collapse;
+      margin: 1rem 0;
+      width: 100%;
+      max-width: 500px;
+    }
+    table th, table td {
+      border: 1px solid #999;
+      padding: 0.5rem 1rem;
+      text-align: center;
+    }
+    table th {
+      background: #6c63ff;
+      color: #fff;
+      font-weight: 600;
+    }
+    table tbody tr:nth-child(even) {
+      background: #f8f9fa;
+    }
+
+    .demo-box {
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      padding: 1rem 1.5rem;
+      margin: 1rem 0;
+    }
+
+    .note {
+      background: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 0.5rem 1rem;
+      margin: 1rem 0;
+      border-radius: 0 4px 4px 0;
+      font-size: 0.9rem;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 0.8rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      overflow-x: auto;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #e9ecef;
+      margin: 2rem 0;
+    }
+    .back-top {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.5rem 1rem;
+      background: #6c63ff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+    }
+    .back-top:hover { opacity: 0.85; }
+  </style>
+</head>
+<body>
+
+  <h1>📊 表格标签综合演示</h1>
+  <p>展示基础表格、colspan 跨列合并、rowspan 跨行合并、综合案例。</p>
+
+  <!-- ============================================= -->
+  <!-- 1. 基础表格 -->
+  <!-- ============================================= -->
+  <h2>1️⃣ 基础表格</h2>
+  <p>用 <code>&lt;thead&gt;</code>、<code>&lt;tbody&gt;</code>、<code>&lt;tfoot&gt;</code> 分区：</p>
+
+  <div class="demo-box">
+    <table>
+      <thead>
+        <tr>
+          <th>姓名</th>
+          <th>年龄</th>
+          <th>性别</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>张三</td>
+          <td>18</td>
+          <td>男</td>
+        </tr>
+        <tr>
+          <td>李四</td>
+          <td>20</td>
+          <td>女</td>
+        </tr>
+        <tr>
+          <td>王五</td>
+          <td>22</td>
+          <td>男</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3" style="background:#e9ecef;color:#666;font-size:0.85rem;">共 3 人</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <pre>&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;姓名&lt;/th&gt;
+      &lt;th&gt;年龄&lt;/th&gt;
+      &lt;th&gt;性别&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;张三&lt;/td&gt;
+      &lt;td&gt;18&lt;/td&gt;
+      &lt;td&gt;男&lt;/td&gt;
+    &lt;/tr&gt;
+    ...
+  &lt;/tbody&gt;
+  &lt;tfoot&gt;
+    &lt;tr&gt;
+      &lt;td colspan="3"&gt;共 3 人&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tfoot&gt;
+&lt;/table&gt;</pre>
+
+  <!-- ============================================= -->
+  <!-- 2. colspan -->
+  <!-- ============================================= -->
+  <h2>2️⃣ colspan 跨列合并</h2>
+  <p>一个单元格横向占多列。下例中第二行的第一个单元格 <code>colspan="3"</code> 占满整行：</p>
+
+  <div class="demo-box">
+    <table>
+      <thead>
+        <tr>
+          <th>姓名</th>
+          <th>年龄</th>
+          <th>性别</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>张三</td>
+          <td>18</td>
+          <td>男</td>
+        </tr>
+        <tr>
+          <td colspan="3" style="background:#fef9e7;">李四的信息合并到一格显示</td>
+        </tr>
+        <tr>
+          <td>王五</td>
+          <td>22</td>
+          <td>男</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <pre>&lt;tr&gt;
+  &lt;td colspan="3"&gt;李四的信息合并到一格显示&lt;/td&gt;
+&lt;/tr&gt;</pre>
+
+  <!-- ============================================= -->
+  <!-- 3. rowspan -->
+  <!-- ============================================= -->
+  <h2>3️⃣ rowspan 跨行合并</h2>
+  <p>一个单元格纵向占多行。下例中"张三" <code>rowspan="2"</code> 占了上下两行：</p>
+
+  <div class="demo-box">
+    <table>
+      <thead>
+        <tr>
+          <th>姓名</th>
+          <th>年龄</th>
+          <th>性别</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td rowspan="2" style="background:#e8f4fd;font-weight:bold;">张三</td>
+          <td>18</td>
+          <td>男</td>
+        </tr>
+        <tr>
+          <!-- 第一列被 rowspan 占了，这里只写两列 -->
+          <td>19</td>
+          <td>男</td>
+        </tr>
+        <tr>
+          <td>李四</td>
+          <td>20</td>
+          <td>女</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <strong>⚠️ 注意：</strong>使用 <code>rowspan</code> 后，被合并的下一行要<strong>少写一个 &lt;td&gt;</strong>，
+    因为那一列已经被上面的单元格占了位置。
+  </div>
+
+  <pre>&lt;tr&gt;
+  &lt;td rowspan="2"&gt;张三&lt;/td&gt;
+  &lt;td&gt;18&lt;/td&gt;
+  &lt;td&gt;男&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;!-- 这里只写 2 个 td，第一列被上面的 rowspan 占了 --&gt;
+  &lt;td&gt;19&lt;/td&gt;
+  &lt;td&gt;男&lt;/td&gt;
+&lt;/tr&gt;</pre>
+
+  <!-- ============================================= -->
+  <!-- 4. 综合案例 -->
+  <!-- ============================================= -->
+  <h2>4️⃣ colspan + rowspan 综合案例</h2>
+  <p>成绩汇总表——姓名跨行、备注跨行/跨列：</p>
+
+  <div class="demo-box">
+    <table>
+      <thead>
+        <tr>
+          <th>姓名</th>
+          <th>科目</th>
+          <th>成绩</th>
+          <th>备注</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td rowspan="2" style="background:#e8f4fd;font-weight:bold;">张三</td>
+          <td>语文</td>
+          <td>90</td>
+          <td rowspan="4" style="background:#eafaf1;font-weight:bold;color:#27ae60;">全部及格 ✅</td>
+        </tr>
+        <tr>
+          <td>数学</td>
+          <td>85</td>
+        </tr>
+        <tr>
+          <td rowspan="2" style="background:#fef9e7;font-weight:bold;">李四</td>
+          <td>语文</td>
+          <td>88</td>
+        </tr>
+        <tr>
+          <td>数学</td>
+          <td>92</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="4" style="background:#e9ecef;">成绩汇总表</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <div class="note">
+    <strong>💡 记忆技巧：</strong><br>
+    <strong>col</strong>span → <strong>col</strong>umn（列）→ 水平往右跨列<br>
+    <strong>row</strong>span → <strong>row</strong>（行）→ 垂直往下跨行
+  </div>
+
+  <hr>
+  <p style="text-align: center;">
+    <a href="#" class="back-top">⬆ 回到页面顶部</a>
+  </p>
+  <p style="margin-top: 2rem; color: #6c757d; font-size: 0.85rem; text-align: center;">
+    表格标签综合演示 · 前端学习笔记
+  </p>
+
+</body>
+</html>
