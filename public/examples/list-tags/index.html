@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>列表标签 · 综合演示</title>
+  <style>
+    body {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 1.5rem;
+      font-family: system-ui, sans-serif;
+      line-height: 1.8;
+      color: #333;
+    }
+    h1 { color: #6c63ff; }
+    h2 {
+      margin-top: 2.5rem;
+      border-bottom: 2px solid #e9ecef;
+      padding-bottom: 0.3rem;
+    }
+    h3 { margin-top: 1.8rem; }
+    code {
+      background: #f0f0f0;
+      padding: 0.15rem 0.4rem;
+      border-radius: 3px;
+      font-size: 0.9em;
+    }
+
+    .demo-box {
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      padding: 1rem 1.5rem;
+      margin: 1rem 0;
+    }
+    .demo-box ul, .demo-box ol, .demo-box dl {
+      margin: 0.5rem 0;
+    }
+
+    .note {
+      background: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 0.5rem 1rem;
+      margin: 1rem 0;
+      border-radius: 0 4px 4px 0;
+      font-size: 0.9rem;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 0.8rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      overflow-x: auto;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #e9ecef;
+      margin: 2rem 0;
+    }
+    .back-top {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.5rem 1rem;
+      background: #6c63ff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+    }
+    .back-top:hover { opacity: 0.85; }
+
+    /* 导航菜单示例 */
+    .nav-menu {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      gap: 1.5rem;
+      background: #6c63ff;
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+    }
+    .nav-menu li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .nav-menu li a:hover { text-decoration: underline; }
+
+    /* ol type 示例 */
+    .type-examples {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .type-examples > div {
+      flex: 1;
+      min-width: 120px;
+    }
+    .type-examples h4 {
+      margin: 0 0 0.3rem 0;
+      font-size: 0.85rem;
+      color: #888;
+    }
+
+    /* 嵌套示例缩进 */
+    .nested-demo > li {
+      margin-bottom: 0.5rem;
+    }
+
+    /* dl 样式 */
+    .dl-demo dt {
+      font-weight: bold;
+      color: #6c63ff;
+      margin-top: 0.8rem;
+    }
+    .dl-demo dd {
+      margin-left: 1.5rem;
+      color: #555;
+    }
+
+    /* 综合嵌套示例 */
+    .mixed-demo li {
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📋 列表标签综合演示</h1>
+  <p>展示无序列表 <code>&lt;ul&gt;</code>、有序列表 <code>&lt;ol&gt;</code>、描述列表 <code>&lt;dl&gt;</code> 的用法。</p>
+
+  <!-- ============================================= -->
+  <!-- 1. 无序列表 -->
+  <!-- ============================================= -->
+  <h2>1️⃣ 无序列表 &lt;ul&gt;</h2>
+  <p>顺序不重要的列表，默认前面显示圆点。</p>
+
+  <h3>基本用法</h3>
+  <div class="demo-box">
+    <ul>
+      <li>苹果</li>
+      <li>香蕉</li>
+      <li>橘子</li>
+      <li>西瓜</li>
+    </ul>
+  </div>
+
+  <pre>&lt;ul&gt;
+  &lt;li&gt;苹果&lt;/li&gt;
+  &lt;li&gt;香蕉&lt;/li&gt;
+  &lt;li&gt;橘子&lt;/li&gt;
+  &lt;li&gt;西瓜&lt;/li&gt;
+&lt;/ul&gt;</pre>
+
+  <h3>实际应用：导航菜单</h3>
+  <p>用 <code>&lt;ul&gt;</code> 做导航菜单是非常常见的模式：</p>
+  <div class="demo-box">
+    <ul class="nav-menu">
+      <li><a href="#">首页</a></li>
+      <li><a href="#">文章</a></li>
+      <li><a href="#">项目</a></li>
+      <li><a href="#">关于</a></li>
+    </ul>
+  </div>
+
+  <pre>&lt;nav&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="#"&gt;首页&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;文章&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;项目&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;关于&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</pre>
+
+  <h3>嵌套列表</h3>
+  <p><code>&lt;li&gt;</code> 里面可以再放一个 <code>&lt;ul&gt;</code>，形成多级菜单：</p>
+  <div class="demo-box">
+    <ul>
+      <li>水果
+        <ul>
+          <li>苹果</li>
+          <li>香蕉</li>
+        </ul>
+      </li>
+      <li>蔬菜
+        <ul>
+          <li>白菜</li>
+          <li>萝卜</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ============================================= -->
+  <!-- 2. 有序列表 -->
+  <!-- ============================================= -->
+  <h2>2️⃣ 有序列表 &lt;ol&gt;</h2>
+  <p>顺序重要的列表，默认显示数字编号。</p>
+
+  <h3>基本用法</h3>
+  <div class="demo-box">
+    <ol>
+      <li>打开编辑器</li>
+      <li>编写 HTML 代码</li>
+      <li>保存为 .html 文件</li>
+      <li>用浏览器打开预览</li>
+    </ol>
+  </div>
+
+  <h3>type 属性：改变编号样式</h3>
+  <p>通过 <code>type</code> 属性可以切换不同的编号格式：</p>
+  <div class="demo-box">
+    <div class="type-examples">
+      <div>
+        <h4>type="1"（默认）</h4>
+        <ol type="1">
+          <li>第一项</li>
+          <li>第二项</li>
+          <li>第三项</li>
+        </ol>
+      </div>
+      <div>
+        <h4>type="A"</h4>
+        <ol type="A">
+          <li>第一项</li>
+          <li>第二项</li>
+          <li>第三项</li>
+        </ol>
+      </div>
+      <div>
+        <h4>type="a"</h4>
+        <ol type="a">
+          <li>第一项</li>
+          <li>第二项</li>
+          <li>第三项</li>
+        </ol>
+      </div>
+      <div>
+        <h4>type="I"</h4>
+        <ol type="I">
+          <li>第一项</li>
+          <li>第二项</li>
+          <li>第三项</li>
+        </ol>
+      </div>
+      <div>
+        <h4>type="i"</h4>
+        <ol type="i">
+          <li>第一项</li>
+          <li>第二项</li>
+          <li>第三项</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <h3>start 属性：自定义起始值</h3>
+  <div class="demo-box">
+    <ol start="5">
+      <li>第五项（从 5 开始）</li>
+      <li>第六项</li>
+      <li>第七项</li>
+    </ol>
+  </div>
+
+  <h3>reversed 属性：倒序</h3>
+  <div class="demo-box">
+    <ol reversed>
+      <li>第三名（排最前）</li>
+      <li>第二名</li>
+      <li>第一名（排最后）</li>
+    </ol>
+  </div>
+
+  <!-- ============================================= -->
+  <!-- 3. 描述列表 -->
+  <!-- ============================================= -->
+  <h2>3️⃣ 描述列表 &lt;dl&gt;</h2>
+  <p>"术语 — 说明" 配对展示。</p>
+
+  <h3>基本用法</h3>
+  <div class="demo-box dl-demo">
+    <dl>
+      <dt>HTML</dt>
+      <dd>超文本标记语言，负责网页的结构。</dd>
+
+      <dt>CSS</dt>
+      <dd>层叠样式表，负责网页的样式。</dd>
+
+      <dt>JavaScript</dt>
+      <dd>脚本语言，负责网页的交互。</dd>
+    </dl>
+  </div>
+
+  <pre>&lt;dl&gt;
+  &lt;dt&gt;HTML&lt;/dt&gt;
+  &lt;dd&gt;超文本标记语言，负责网页的结构。&lt;/dd&gt;
+
+  &lt;dt&gt;CSS&lt;/dt&gt;
+  &lt;dd&gt;层叠样式表，负责网页的样式。&lt;/dd&gt;
+
+  &lt;dt&gt;JavaScript&lt;/dt&gt;
+  &lt;dd&gt;脚本语言，负责网页的交互。&lt;/dd&gt;
+&lt;/dl&gt;</pre>
+
+  <h3>一个 dt 对应多个 dd</h3>
+  <div class="demo-box dl-demo">
+    <dl>
+      <dt>前端开发</dt>
+      <dd>网页的用户界面部分。</dd>
+      <dd>主要使用 HTML、CSS、JavaScript。</dd>
+      <dd>常用框架有 React、Vue、Angular。</dd>
+    </dl>
+  </div>
+
+  <h3>实际应用：商品规格</h3>
+  <div class="demo-box dl-demo" style="background: #fff;">
+    <dl>
+      <dt>商品名称</dt>
+      <dd>无线蓝牙耳机 Pro</dd>
+      <dt>颜色</dt>
+      <dd>白色 / 黑色</dd>
+      <dt>续航</dt>
+      <dd>30 小时（含充电仓）</dd>
+      <dt>防水等级</dt>
+      <dd>IPX5</dd>
+      <dt>价格</dt>
+      <dd>¥299</dd>
+    </dl>
+  </div>
+
+  <!-- ============================================= -->
+  <!-- 4. 三种列表混合嵌套 -->
+  <!-- ============================================= -->
+  <h2>4️⃣ 三种列表组合使用</h2>
+  <p>实际开发中经常混合使用。下面是"学习路线"示例：有序列表做步骤，无序列表做子项，描述列表做说明：</p>
+
+  <div class="demo-box mixed-demo">
+    <ol>
+      <li>
+        <strong>第一阶段：HTML + CSS</strong>
+        <ul>
+          <li>HTML 基础标签</li>
+          <li>CSS 选择器与样式</li>
+          <li>Flex 布局</li>
+        </ul>
+      </li>
+      <li>
+        <strong>第二阶段：JavaScript</strong>
+        <ul>
+          <li>变量与数据类型</li>
+          <li>DOM 操作</li>
+          <li>事件处理</li>
+        </ul>
+      </li>
+      <li>
+        <strong>第三阶段：框架</strong>
+        <dl style="margin: 0.3rem 0 0 0;">
+          <dt>推荐框架</dt>
+          <dd>React — 组件化开发</dd>
+          <dd>Vue — 上手简单</dd>
+        </dl>
+      </li>
+    </ol>
+  </div>
+
+  <div class="note">
+    <strong>💡 总结：</strong>
+    <ul style="margin:0.3rem 0;">
+      <li>顺序不重要 → <code>&lt;ul&gt;</code></li>
+      <li>顺序重要 → <code>&lt;ol&gt;</code>，配合 type / start / reversed</li>
+      <li>术语 + 说明 → <code>&lt;dl&gt;</code></li>
+      <li>三种列表可以互相嵌套，灵活组合</li>
+    </ul>
+  </div>
+
+  <hr>
+  <p style="text-align: center;">
+    <a href="#" class="back-top">⬆ 回到页面顶部</a>
+  </p>
+  <p style="margin-top: 2rem; color: #6c757d; font-size: 0.85rem; text-align: center;">
+    列表标签综合演示 · 前端学习笔记
+  </p>
+
+</body>
+</html>
