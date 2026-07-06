@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS 选择器 · 综合演示</title>
+  <style>
+    /* ===== 通配符选择器示例 ===== */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 1.5rem;
+      font-family: system-ui, sans-serif;
+      line-height: 1.8;
+      color: #333;
+      background: #fafafa;
+    }
+
+    h1 { color: #6c63ff; }
+
+    h2 {
+      margin-top: 2.5rem;
+      border-bottom: 2px solid #e9ecef;
+      padding-bottom: 0.3rem;
+    }
+
+    h3 { margin-top: 1.8rem; }
+
+    code {
+      background: #f0f0f0;
+      padding: 0.15rem 0.4rem;
+      border-radius: 3px;
+      font-size: 0.9em;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 0.8rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      overflow-x: auto;
+    }
+
+    .demo-box {
+      background: #fff;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      padding: 1rem 1.5rem;
+      margin: 1rem 0;
+    }
+
+    .note {
+      background: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 0.5rem 1rem;
+      margin: 1rem 0;
+      border-radius: 0 4px 4px 0;
+      font-size: 0.9rem;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #6c63ff;
+      color: #fff;
+      font-size: 0.7rem;
+      padding: 0.1rem 0.4rem;
+      border-radius: 3px;
+      margin-left: 0.3rem;
+      vertical-align: middle;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #e9ecef;
+      margin: 2rem 0;
+    }
+
+    .back-top {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.5rem 1rem;
+      background: #6c63ff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+    }
+    .back-top:hover { opacity: 0.9; }
+
+    /* ===== 1. 类型选择器 ===== */
+    /* 所有 p 标签变绿色 */
+    .demo-box p {
+      color: #27ae60;
+    }
+    /* 所有 strong 标签变红色 */
+    .demo-box strong {
+      color: #e74c3c;
+    }
+
+    /* ===== 2. 类选择器 ===== */
+    .highlight {
+      background: #fff3cd;
+      font-weight: bold;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+    }
+
+    .card-item {
+      background: #eaf2f8;
+      border: 1px solid #2980b9;
+      border-radius: 6px;
+      padding: 0.6rem 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-item.dark {
+      background: #d5e8f5;
+      border-color: #1a5276;
+    }
+
+    /* ===== 3. ID 选择器 ===== */
+    #special-box {
+      background: linear-gradient(135deg, #6c63ff, #a29bfe);
+      color: #fff;
+      font-weight: bold;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      font-size: 1.1em;
+    }
+
+    /* ===== 4. 权重对比演示 ===== */
+    .weight-demo p {
+      color: #27ae60;  /* 类型选择器：绿色 */
+    }
+    .weight-demo .blue-text {
+      color: #2980b9;  /* 类选择器：蓝色 — 权重更高，覆盖绿色 */
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎯 CSS 选择器综合演示</h1>
+  <p>四种基础选择器的用法对比——类型、类、ID、通配符。</p>
+
+  <!-- ============================================= -->
+  <!-- 1. 类型选择器 -->
+  <!-- ============================================= -->
+  <h2>1️⃣ 类型选择器 <span class="badge">p / strong</span></h2>
+  <p>选中所有同名标签：</p>
+
+  <div class="demo-box">
+    <p>✅ 我是 &lt;p&gt; 标签，所有 p 标签都变成了绿色。</p>
+    <p>✅ 我也是 &lt;p&gt; 标签，同样变成绿色。</p>
+    <strong>🔴 我是 &lt;strong&gt; 标签，所有 strong 都变成了红色。</strong><br>
+    <strong>🔴 我也是 &lt;strong&gt;，同样是红色。</strong>
+  </div>
+
+  <pre>/* CSS：类型选择器 */
+p { color: #27ae60; }
+strong { color: #e74c3c; }</pre>
+
+  <!-- ============================================= -->
+  <!-- 2. 类选择器 -->
+  <!-- ============================================= -->
+  <h2>2️⃣ 类选择器 <span class="badge">.class</span></h2>
+  <p>选中所有带此 class 的元素，最灵活：</p>
+
+  <div class="demo-box">
+    <p>这是普通段落，没有样式。</p>
+    <p class="highlight">🎯 我有 class="highlight"，背景高亮！</p>
+    <div class="card-item">📦 卡片 1 — class="card-item"</div>
+    <div class="card-item dark">📦 卡片 2 — class="card-item dark"（两个 class）</div>
+  </div>
+
+  <pre>/* CSS：类选择器 */
+.highlight { background: #fff3cd; font-weight: bold; }
+.card-item { background: #eaf2f8; border: 1px solid #2980b9; }
+.card-item.dark { background: #d5e8f5; }  /* 同时有两个 class 的元素 */</pre>
+
+  <pre>&lt;!-- 一个元素可以有多个 class --&gt;
+&lt;div class="card-item dark"&gt;卡片 2&lt;/div&gt;</pre>
+
+  <!-- ============================================= -->
+  <!-- 3. ID 选择器 -->
+  <!-- ============================================= -->
+  <h2>3️⃣ ID 选择器 <span class="badge">#id</span></h2>
+  <p>选中唯一的元素，一个页面中 id 不能重复：</p>
+
+  <div class="demo-box">
+    <div id="special-box">⭐ 我是 id="special-box"，页面中唯一，紫色渐变背景！</div>
+  </div>
+
+  <pre>/* CSS：ID 选择器 */
+#special-box {
+  background: linear-gradient(135deg, #6c63ff, #a29bfe);
+  color: #fff;
+  font-weight: bold;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+}</pre>
+
+  <!-- ============================================= -->
+  <!-- 4. 通配符选择器 -->
+  <!-- ============================================= -->
+  <h2>4️⃣ 通配符选择器 <span class="badge">*</span></h2>
+  <p>选中所有元素，常用于全局重置：</p>
+
+  <div class="demo-box">
+    <p>这个页面的所有元素都应用了 <code>* { box-sizing: border-box; }</code></p>
+  </div>
+
+  <pre>/* CSS：通配符选择器 */
+* {
+  box-sizing: border-box;  /* 所有元素统一盒子模型 */
+}</pre>
+
+  <!-- ============================================= -->
+  <!-- 5. 权重对比 -->
+  <!-- ============================================= -->
+  <h2>5️⃣ 权重对比演示</h2>
+  <p>当多个选择器冲突时，权重高的生效：</p>
+
+  <div class="demo-box weight-demo">
+    <p>我是 &lt;p&gt;，类型选择器让我变绿。</p>
+    <p class="blue-text">我有 class="blue-text"，类选择器权重更高，所以我变蓝。</p>
+  </div>
+
+  <pre>/* 类型选择器权重 0,0,1 */
+p { color: #27ae60; }
+
+/* 类选择器权重 0,1,0 — 更高，所以覆盖上面的绿色 */
+.blue-text { color: #2980b9; }</pre>
+
+  <!-- ============================================= -->
+  <!-- 总结 -->
+  <!-- ============================================= -->
+  <h2>6️⃣ 四种选择器总对比</h2>
+
+  <div class="demo-box" style="overflow-x: auto;">
+    <table style="width:100%;border-collapse:collapse;">
+      <thead>
+        <tr style="background:#6c63ff;color:#fff;">
+          <th style="padding:0.5rem 0.8rem;text-align:left;">选择器</th>
+          <th style="padding:0.5rem 0.8rem;text-align:left;">写法</th>
+          <th style="padding:0.5rem 0.8rem;text-align:left;">选中范围</th>
+          <th style="padding:0.5rem 0.8rem;text-align:left;">权重</th>
+          <th style="padding:0.5rem 0.8rem;text-align:left;">适用场景</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid #e9ecef;">
+          <td style="padding:0.4rem 0.8rem;">通配符</td>
+          <td style="padding:0.4rem 0.8rem;"><code>*</code></td>
+          <td style="padding:0.4rem 0.8rem;">所有元素</td>
+          <td style="padding:0.4rem 0.8rem;">0,0,0</td>
+          <td style="padding:0.4rem 0.8rem;">全局重置</td>
+        </tr>
+        <tr style="border-bottom:1px solid #e9ecef;">
+          <td style="padding:0.4rem 0.8rem;">类型</td>
+          <td style="padding:0.4rem 0.8rem;"><code>p</code></td>
+          <td style="padding:0.4rem 0.8rem;">所有同名标签</td>
+          <td style="padding:0.4rem 0.8rem;">0,0,1</td>
+          <td style="padding:0.4rem 0.8rem;">全局默认样式</td>
+        </tr>
+        <tr style="border-bottom:1px solid #e9ecef;">
+          <td style="padding:0.4rem 0.8rem;">类</td>
+          <td style="padding:0.4rem 0.8rem;"><code>.class</code></td>
+          <td style="padding:0.4rem 0.8rem;">所有带此 class 的元素</td>
+          <td style="padding:0.4rem 0.8rem;">0,1,0</td>
+          <td style="padding:0.4rem 0.8rem;"><strong>日常最常用</strong></td>
+        </tr>
+        <tr>
+          <td style="padding:0.4rem 0.8rem;">ID</td>
+          <td style="padding:0.4rem 0.8rem;"><code>#id</code></td>
+          <td style="padding:0.4rem 0.8rem;">唯一元素</td>
+          <td style="padding:0.4rem 0.8rem;">1,0,0</td>
+          <td style="padding:0.4rem 0.8rem;">页面唯一区块</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <strong>💡 建议：</strong>日常开发中 <strong>80% 用类选择器</strong>就够了——复用性强、优先级适中、写起来也方便。
+    ID 选择器和通配符在特定场景再用。
+  </div>
+
+  <hr>
+  <p style="text-align: center;">
+    <a href="#" class="back-top">⬆ 回到页面顶部</a>
+  </p>
+  <p style="margin-top: 2rem; color: #6c757d; font-size: 0.85rem; text-align: center;">
+    CSS 选择器综合演示 · CSS 学习笔记
+  </p>
+
+</body>
+</html>
