@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>字体样式与文本布局 · 综合演示</title>
+  <style>
+    body {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 1.5rem;
+      font-family: system-ui, "Microsoft YaHei", sans-serif;
+      line-height: 1.8;
+      color: #333;
+    }
+    h1 { color: #6c63ff; }
+    h2 {
+      margin-top: 2.5rem;
+      border-bottom: 2px solid #e9ecef;
+      padding-bottom: 0.3rem;
+    }
+    h3 { margin-top: 1.8rem; }
+    code {
+      background: #f0f0f0;
+      padding: 0.15rem 0.4rem;
+      border-radius: 3px;
+      font-size: 0.9em;
+    }
+
+    .demo-box {
+      background: #fff;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      padding: 1rem 1.5rem;
+      margin: 1rem 0;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 0.8rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      overflow-x: auto;
+    }
+
+    .note {
+      background: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 0.5rem 1rem;
+      margin: 1rem 0;
+      border-radius: 0 4px 4px 0;
+      font-size: 0.9rem;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #6c63ff;
+      color: #fff;
+      font-size: 0.7rem;
+      padding: 0.1rem 0.4rem;
+      border-radius: 3px;
+      margin-left: 0.3rem;
+      vertical-align: middle;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #e9ecef;
+      margin: 2rem 0;
+    }
+    .back-top {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.5rem 1rem;
+      background: #6c63ff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+    }
+    .back-top:hover { opacity: 0.9; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0.8rem 0;
+    }
+    th {
+      background: #6c63ff;
+      color: #fff;
+      padding: 0.5rem 0.8rem;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+    td {
+      padding: 0.4rem 0.8rem;
+      border-bottom: 1px solid #e9ecef;
+      font-size: 0.9rem;
+    }
+    tr:nth-child(even) td { background: #f8f9fa; }
+  </style>
+</head>
+<body>
+
+  <h1>🎨 字体样式与文本布局综合演示</h1>
+  <p>文字相关的 CSS 属性——颜色、大小、粗细、对齐、缩进、行高等。</p>
+
+  <!-- ============================================= -->
+  <!-- 1. 字体颜色 -->
+  <!-- ============================================= -->
+  <h2>1️⃣ 字体颜色 color</h2>
+
+  <div class="demo-box">
+    <p style="color: pink;">💗 color: pink（颜色名称）</p>
+    <p style="color: #2CB5A5;">💚 color: #2CB5A5（十六进制，最常用）</p>
+    <p style="color: rgb(255, 0, 0);">❤️ color: rgb(255, 0, 0)（RGB）</p>
+    <p style="color: rgba(255, 0, 0, 0.5);">💔 color: rgba(255, 0, 0, 0.5)（半透明）</p>
+  </div>
+
+  <pre>/* 四种写法 */
+color: pink;
+color: #2CB5A5;         /* ✅ 推荐 */
+color: rgb(255, 0, 0);
+color: rgba(255, 0, 0, 0.5);</pre>
+
+  <!-- ============================================= -->
+  <!-- 2. 字体大小 + 粗细 -->
+  <!-- ============================================= -->
+  <h2>2️⃣ 字体大小 font-size + 粗细 font-weight</h2>
+
+  <div class="demo-box">
+    <p style="font-size: 12px;">font-size: 12px（小字）</p>
+    <p style="font-size: 14px;">font-size: 14px（稍大）</p>
+    <p style="font-size: 16px;">font-size: 16px（默认大小）</p>
+    <p style="font-size: 20px;">font-size: 20px（标题感）</p>
+    <hr style="margin:0.5rem 0;">
+    <p style="font-weight: 400;">font-weight: 400（正常粗细）</p>
+    <p style="font-weight: 700;">font-weight: 700（加粗）</p>
+    <p style="font-weight: bold;">font-weight: bold（也是加粗）</p>
+  </div>
+
+  <pre>font-size: 16px;      /* 字号 */
+font-weight: 400;     /* 正常粗细 */
+font-weight: 700;     /* 加粗 */</pre>
+
+  <!-- ============================================= -->
+  <!-- 3. 斜体 + 字体族 -->
+  <!-- ============================================= -->
+  <h2>3️⃣ 字体样式 font-style + 字体族 font-family</h2>
+
+  <div class="demo-box">
+    <p style="font-style: italic;">font-style: italic（斜体）</p>
+    <p style="font-style: normal;"><em style="font-style: normal;">em 标签用 normal 取消斜体</em></p>
+    <p style="font-family: '宋体';">font-family: "宋体"（宋体）</p>
+    <p style="font-family: 'Microsoft YaHei', sans-serif;">Microsoft YaHei（微软雅黑）</p>
+  </div>
+
+  <pre>font-style: italic;    /* 斜体 */
+font-family: "宋体";    /* 指定字体 */
+font-family: "Microsoft YaHei", "PingFang SC", sans-serif;  /* 备选 */</pre>
+
+  <!-- ============================================= -->
+  <!-- 4. 文本装饰 -->
+  <!-- ============================================= -->
+  <h2>4️⃣ 文本装饰 text-decoration</h2>
+
+  <div class="demo-box">
+    <p style="text-decoration: underline;">下划线 underline</p>
+    <p style="text-decoration: overline;">上划线 overline</p>
+    <p style="text-decoration: line-through;">删除线 line-through</p>
+    <p><a href="#" style="text-decoration: none;">链接去掉下划线 none</a></p>
+  </div>
+
+  <pre>text-decoration: underline;      /* 下划线 */
+text-decoration: none;           /* 去掉装饰（a 标签常用） */
+text-decoration: line-through;   /* 删除线 */</pre>
+
+  <!-- ============================================= -->
+  <!-- 5. 文本对齐 + 缩进 -->
+  <!-- ============================================= -->
+  <h2>5️⃣ 文本对齐 text-align + 缩进 text-indent</h2>
+
+  <div class="demo-box">
+    <div style="text-align: left; background: #f0f0f0; padding: 0.3rem 0.5rem; margin-bottom: 0.3rem;">左对齐（默认）</div>
+    <div style="text-align: center; background: #f0f0f0; padding: 0.3rem 0.5rem; margin-bottom: 0.3rem;">居中对齐</div>
+    <div style="text-align: right; background: #f0f0f0; padding: 0.3rem 0.5rem; margin-bottom: 0.3rem;">右对齐</div>
+
+    <p style="text-indent: 2em; background: #f8f9fa; padding: 0.5rem;">
+      text-indent: 2em — 这是首行缩进两个汉字的段落效果。
+      写中文文章时经常用到这个属性，让段落开头空两格，更符合阅读习惯。
+    </p>
+  </div>
+
+  <pre>text-align: center;    /* 水平居中 */
+text-indent: 2em;      /* 首行缩进两个汉字 */</pre>
+
+  <!-- ============================================= -->
+  <!-- 6. 行高 + 垂直居中 -->
+  <!-- ============================================= -->
+  <h2>6️⃣ 行高 line-height + 单行垂直居中</h2>
+
+  <div class="demo-box">
+    <p style="line-height: 1.5;">
+      line-height: 1.5 — 这是正常行高。文字行与行之间的距离适中，
+      阅读起来比较舒服。这是推荐的写法。
+    </p>
+    <p style="line-height: 2.0;">
+      line-height: 2.0 — 这是两倍行高。行间距更大，
+      适合需要留白较多的场景。
+    </p>
+    <div style="height: 50px; line-height: 50px; background: #e8f4fd; text-align: center; margin-top: 0.5rem; border-radius: 4px;">
+      ⬆ line-height = height = 50px → 单行文本垂直居中
+    </div>
+  </div>
+
+  <pre>line-height: 1.5;          /* 相对值，推荐 */
+line-height: 50px;         /* 等于容器高度 → 单行垂直居中 */</pre>
+
+  <!-- ============================================= -->
+  <!-- 7. 字间距 + font 简写 -->
+  <!-- ============================================= -->
+  <h2>7️⃣ 字间距 letter-spacing + font 简写</h2>
+
+  <div class="demo-box">
+    <p style="letter-spacing: 5px;">letter-spacing: 5px（字间距加大）</p>
+    <p style="letter-spacing: -1px;">letter-spacing: -1px（字间距收缩）</p>
+    <p style="font: italic 700 18px/1.8 'Microsoft YaHei'">
+      font 简写 — italic 700 18px/1.8 "Microsoft YaHei"
+    </p>
+  </div>
+
+  <pre>letter-spacing: 2px;        /* 字间距 */
+font: italic 700 18px/1.8 "微软雅黑";  /* 简写 */</pre>
+
+  <!-- ============================================= -->
+  <!-- 属性汇总 -->
+  <!-- ============================================= -->
+  <h2>📋 属性汇总</h2>
+
+  <div class="demo-box">
+    <table>
+      <thead>
+        <tr>
+          <th>属性</th>
+          <th>作用</th>
+          <th>常用值</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><code>color</code></td><td>文字颜色</td><td><code>#2CB5A5</code>、<code>red</code></td></tr>
+        <tr><td><code>font-size</code></td><td>文字大小</td><td><code>16px</code>、<code>14px</code></td></tr>
+        <tr><td><code>font-weight</code></td><td>文字粗细</td><td><code>400</code>、<code>700</code></td></tr>
+        <tr><td><code>font-style</code></td><td>斜体</td><td><code>normal</code>、<code>italic</code></td></tr>
+        <tr><td><code>font-family</code></td><td>字体族</td><td><code>"宋体"</code></td></tr>
+        <tr><td><code>text-decoration</code></td><td>装饰线</td><td><code>none</code>、<code>underline</code></td></tr>
+        <tr><td><code>text-align</code></td><td>水平对齐</td><td><code>left</code>、<code>center</code></td></tr>
+        <tr><td><code>text-indent</code></td><td>首行缩进</td><td><code>2em</code></td></tr>
+        <tr><td><code>line-height</code></td><td>行高</td><td><code>1.5</code>、<code>26px</code></td></tr>
+        <tr><td><code>letter-spacing</code></td><td>字间距</td><td><code>2px</code></td></tr>
+        <tr><td><code>font</code></td><td>简写</td><td><code>italic 700 16px/1.5 "宋体"</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <strong>💡 单行垂直居中技巧：</strong>设置 <code>line-height</code> 等于容器 <code>height</code>，文字就会自动垂直居中。
+    这是 CSS 中最常用的技巧之一。
+  </div>
+
+  <hr>
+  <p style="text-align: center;">
+    <a href="#" class="back-top">⬆ 回到页面顶部</a>
+  </p>
+  <p style="margin-top: 2rem; color: #6c757d; font-size: 0.85rem; text-align: center;">
+    字体样式与文本布局综合演示 · CSS 学习笔记
+  </p>
+
+</body>
+</html>
