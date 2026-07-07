@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>分组选择器与链接伪类 · 综合演示</title>
+  <style>
+    body {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 1.5rem;
+      font-family: system-ui, "Microsoft YaHei", sans-serif;
+      line-height: 1.8;
+      color: #333;
+    }
+    h1 { color: #6c63ff; }
+    h2 {
+      margin-top: 2.5rem;
+      border-bottom: 2px solid #e9ecef;
+      padding-bottom: 0.3rem;
+    }
+    code {
+      background: #f0f0f0;
+      padding: 0.15rem 0.4rem;
+      border-radius: 3px;
+      font-size: 0.9em;
+    }
+
+    .demo-box {
+      background: #fff;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      padding: 1rem 1.5rem;
+      margin: 1rem 0;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 0.8rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      overflow-x: auto;
+    }
+
+    .note {
+      background: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 0.5rem 1rem;
+      margin: 1rem 0;
+      border-radius: 0 4px 4px 0;
+      font-size: 0.9rem;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #6c63ff;
+      color: #fff;
+      font-size: 0.7rem;
+      padding: 0.1rem 0.4rem;
+      border-radius: 3px;
+      margin-left: 0.3rem;
+    }
+
+    hr { border: none; border-top: 1px solid #e9ecef; margin: 2rem 0; }
+    .back-top {
+      display: inline-block; margin-top: 2rem; padding: 0.5rem 1rem;
+      background: #6c63ff; color: #fff; text-decoration: none; border-radius: 6px;
+    }
+    .back-top:hover { opacity: 0.9; }
+
+    table { width: 100%; border-collapse: collapse; margin: 0.8rem 0; }
+    th { background: #6c63ff; color: #fff; padding: 0.5rem 0.8rem; text-align: left; }
+    td { padding: 0.4rem 0.8rem; border-bottom: 1px solid #e9ecef; }
+    tr:nth-child(even) td { background: #f8f9fa; }
+
+    /* ===== 分组选择器演示 ===== */
+    .group-demo h3,
+    .group-demo .subtitle,
+    .group-demo .highlight-text {
+      color: #e74c3c;
+      font-weight: bold;
+    }
+
+    /* ===== 链接伪类演示 ===== */
+    .pseudo-links a:link {
+      color: #2980b9;
+      text-decoration: none;
+    }
+    .pseudo-links a:visited {
+      color: #8e44ad;
+    }
+    .pseudo-links a:hover {
+      color: #e74c3c;
+      text-decoration: underline;
+    }
+    .pseudo-links a:active {
+      color: #27ae60;
+    }
+
+    /* ===== 简写方式对比 ===== */
+    .pseudo-simple a {
+      color: #2980b9;
+      text-decoration: none;
+    }
+    .pseudo-simple a:hover {
+      color: #e74c3c;
+      text-decoration: underline;
+    }
+
+    /* ===== hover 非链接 ===== */
+    .hover-box {
+      width: 120px;
+      height: 60px;
+      background: #e8f4fd;
+      text-align: center;
+      line-height: 60px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .hover-box:hover {
+      background: #6c63ff;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🔗 分组选择器与链接伪类综合演示</h1>
+
+  <!-- ============================================= -->
+  <!-- 1. 分组选择器 -->
+  <!-- ============================================= -->
+  <h2>1️⃣ 分组选择器 <span class="badge">逗号 ,</span></h2>
+  <p>多个选择器共用同一套样式：</p>
+
+  <div class="demo-box group-demo">
+    <h3>这是 h3 标题（红色加粗）</h3>
+    <p class="subtitle">这是 class="subtitle" 的段落（红色加粗）</p>
+    <p><span class="highlight-text">这是 highlight-text 的 span（红色加粗）</span></p>
+    <p>普通段落没有变化——三个不同的选择器共用了同一样式。</p>
+  </div>
+
+  <pre>/* 分组选择器：逗号隔开 */
+.group-demo h3,
+.group-demo .subtitle,
+.group-demo .highlight-text {
+  color: #e74c3c;
+  font-weight: bold;
+}</pre>
+
+  <!-- ============================================= -->
+  <!-- 2. 链接伪类 -->
+  <!-- ============================================= -->
+  <h2>2️⃣ 链接伪类 <span class="badge">LVHA</span></h2>
+  <p>链接的四种状态，按 :link → :visited → :hover → :active 顺序写：</p>
+
+  <div class="demo-box pseudo-links">
+    <p><a href="https://example.com">未访问的链接（蓝色）</a></p>
+    <p><a href="#">已访问链接（紫色，点过 .md 页面后）</a></p>
+    <p><a href="https://example2.com">鼠标悬停试试（变红加下划线）</a></p>
+    <p><a href="https://example3.com">点击时（变绿）</a></p>
+  </div>
+
+  <pre>/* LVHA 顺序 */
+a:link    { color: #2980b9; text-decoration: none; }
+a:visited { color: #8e44ad; }
+a:hover   { color: #e74c3c; text-decoration: underline; }
+a:active  { color: #27ae60; }</pre>
+
+  <div class="note">
+    <strong>💡 记忆 LVHA：</strong>Love ❤️ HA — <code>:link</code> → <code>:visited</code> → <code>:hover</code> → <code>:active</code>
+  </div>
+
+  <!-- ============================================= -->
+  <!-- 3. 简写方式 -->
+  <!-- ============================================= -->
+  <h2>3️⃣ 开发推荐：简写方式</h2>
+  <p>实际项目中最常用的写法，只写默认 + hover：</p>
+
+  <div class="demo-box pseudo-simple">
+    <p><a href="#">默认蓝色无下划线</a></p>
+    <p><a href="#">鼠标悬停变红加下划线</a></p>
+  </div>
+
+  <pre>/* 简写：a 本身设默认，a:hover 改交互 */
+a {
+  color: #2980b9;
+  text-decoration: none;
+}
+a:hover {
+  color: #e74c3c;
+  text-decoration: underline;
+}</pre>
+
+  <!-- ============================================= -->
+  <!-- 4. hover 非链接 -->
+  <!-- ============================================= -->
+  <h2>4️⃣ :hover 也用于其他元素</h2>
+
+  <div class="demo-box">
+    <div class="hover-box">鼠标移过来</div>
+    <p style="margin-top:0.5rem;">← 鼠标移入变紫色，移出恢复</p>
+  </div>
+
+  <pre>.hover-box {
+  background: #e8f4fd;
+  transition: 0.3s;
+}
+.hover-box:hover {
+  background: #6c63ff;
+  color: #fff;
+}</pre>
+
+  <!-- ============================================= -->
+  <!-- 汇总 -->
+  <!-- ============================================= -->
+  <h2>📋 伪类汇总</h2>
+
+  <div class="demo-box">
+    <table>
+      <tr><th>伪类</th><th>触发时机</th><th>常用元素</th></tr>
+      <tr><td><code>:link</code></td><td>未访问链接</td><td><code>&lt;a&gt;</code></td></tr>
+      <tr><td><code>:visited</code></td><td>已访问链接</td><td><code>&lt;a&gt;</code></td></tr>
+      <tr><td><code>:hover</code></td><td>鼠标悬停</td><td><strong>所有元素</strong> ✅</td></tr>
+      <tr><td><code>:active</code></td><td>正在点击</td><td><code>&lt;a&gt;</code>、按钮</td></tr>
+      <tr><td><code>:focus</code></td><td>获得焦点</td><td><code>&lt;input&gt;</code> 等表单元素</td></tr>
+    </table>
+  </div>
+
+  <hr>
+  <p style="text-align: center;">
+    <a href="#" class="back-top">⬆ 回到页面顶部</a>
+  </p>
+  <p style="margin-top: 2rem; color: #6c757d; font-size: 0.85rem; text-align: center;">
+    分组选择器与链接伪类 · CSS 学习笔记
+  </p>
+
+</body>
+</html>
