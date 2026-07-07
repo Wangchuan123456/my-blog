@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>结构伪类选择器 · 综合演示</title>
+  <style>
+    body {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 1.5rem;
+      font-family: system-ui, "Microsoft YaHei", sans-serif;
+      line-height: 1.8;
+      color: #333;
+    }
+    h1 { color: #6c63ff; }
+    h2 { margin-top: 2.5rem; border-bottom: 2px solid #e9ecef; padding-bottom: 0.3rem; }
+    h3 { margin-top: 1.8rem; }
+    code { background: #f0f0f0; padding: 0.15rem 0.4rem; border-radius: 3px; font-size: 0.9em; }
+
+    .demo-box {
+      background: #fff; border: 1px solid #e9ecef; border-radius: 8px;
+      padding: 1rem 1.5rem; margin: 1rem 0;
+    }
+    .demo-box ul { margin: 0.3rem 0; padding-left: 1.5rem; }
+    .demo-box li { list-style: none; }
+    .demo-box li::before { content: "• "; color: #ccc; }
+
+    pre { background: #f4f4f4; padding: 0.8rem; border-radius: 4px; font-size: 0.85rem; overflow-x: auto; }
+
+    .note { background: #fff3cd; border-left: 4px solid #ffc107; padding: 0.5rem 1rem; margin: 1rem 0; border-radius: 0 4px 4px 0; font-size: 0.9rem; }
+    .badge { display: inline-block; background: #6c63ff; color: #fff; font-size: 0.7rem; padding: 0.1rem 0.4rem; border-radius: 3px; margin-left: 0.3rem; vertical-align: middle; }
+
+    hr { border: none; border-top: 1px solid #e9ecef; margin: 2rem 0; }
+    .back-top { display: inline-block; margin-top: 2rem; padding: 0.5rem 1rem; background: #6c63ff; color: #fff; text-decoration: none; border-radius: 6px; }
+    .back-top:hover { opacity: 0.9; }
+
+    table { width: 100%; border-collapse: collapse; margin: 0.8rem 0; }
+    th { background: #6c63ff; color: #fff; padding: 0.5rem 0.8rem; text-align: left; }
+    td { padding: 0.4rem 0.8rem; border-bottom: 1px solid #e9ecef; }
+
+    /* ===== 1. first-child / last-child ===== */
+    .demo-f-l li:first-child { color: #e74c3c; font-weight: bold; }
+    .demo-f-l li:last-child { color: #2980b9; font-weight: bold; }
+
+    /* ===== 2. nth-child 数字 ===== */
+    .demo-nth li:nth-child(3) { color: #27ae60; font-weight: bold; }
+    .demo-nth li:nth-child(8) { color: #8e44ad; font-weight: bold; }
+
+    /* ===== 3. nth-child 公式 ===== */
+    .demo-odd li:nth-child(odd) { color: #e74c3c; }
+    .demo-even li:nth-child(even) { color: #2980b9; }
+    .demo-nplus li:nth-child(n+3) { color: #e74c3c; font-weight: bold; }
+    .demo-nminus li:nth-child(-n+2) { color: #2980b9; font-weight: bold; }
+
+    /* ===== 4. 表格隔行变色 ===== */
+    .data {
+      border-collapse: collapse;
+      border: 1px solid #f1f1f1;
+      width: 100%;
+      text-align: center;
+      font-size: 14px;
+    }
+    .data tr { height: 35px; }
+    .data tr:first-child { background-color: #8fbcf1; color: #fff; }
+    .data tr:nth-child(even) { background-color: #f9f9f9; }
+    .data tr:hover { background-color: #f1f1f1; }
+  </style>
+</head>
+<body>
+
+  <h1>🔢 结构伪类选择器综合演示</h1>
+  <p>根据元素在父元素中的位置来选中——:first-child、:last-child、:nth-child。</p>
+
+  <!-- ============================================= -->
+  <!-- 1. first-child + last-child -->
+  <!-- ============================================= -->
+  <h2>1️⃣ :first-child + :last-child</h2>
+
+  <div class="demo-box">
+    <p><code>li:first-child</code> — 第一个变红；<code>li:last-child</code> — 最后一个变蓝：</p>
+    <ul class="demo-f-l">
+      <li>第1个li ✅ first-child → 红色</li>
+      <li>第2个li</li>
+      <li>第3个li</li>
+      <li>第4个li</li>
+      <li>第5个li</li>
+      <li>第6个li</li>
+      <li>第7个li</li>
+      <li>第8个li</li>
+      <li>第9个li</li>
+      <li>第10个li ✅ last-child → 蓝色</li>
+    </ul>
+  </div>
+
+  <pre>li:first-child { color: red; }
+li:last-child  { color: blue; }</pre>
+
+  <!-- ============================================= -->
+  <!-- 2. nth-child 数字 -->
+  <!-- ============================================= -->
+  <h2>2️⃣ :nth-child(数字)</h2>
+
+  <div class="demo-box">
+    <p><code>li:nth-child(3)</code> 和 <code>li:nth-child(8)</code>：</p>
+    <ul class="demo-nth">
+      <li>第1个li</li>
+      <li>第2个li</li>
+      <li>第3个li ✅ 选中 → 绿色</li>
+      <li>第4个li</li>
+      <li>第5个li</li>
+      <li>第6个li</li>
+      <li>第7个li</li>
+      <li>第8个li ✅ 选中 → 紫色</li>
+      <li>第9个li</li>
+      <li>第10个li</li>
+    </ul>
+  </div>
+
+  <pre>li:nth-child(3) { color: green; }
+li:nth-child(8) { color: purple; }</pre>
+
+  <!-- ============================================= -->
+  <!-- 3. odd / even -->
+  <!-- ============================================= -->
+  <h2>3️⃣ :nth-child(odd/even) 奇偶</h2>
+
+  <div class="demo-box" style="display:flex;gap:2rem;flex-wrap:wrap;">
+    <div style="flex:1;">
+      <p><code>:nth-child(odd)</code> 奇数：</p>
+      <ul class="demo-odd">
+        <li>第1个li（奇）</li>
+        <li>第2个li</li>
+        <li>第3个li（奇）</li>
+        <li>第4个li</li>
+        <li>第5个li（奇）</li>
+        <li>第6个li</li>
+        <li>第7个li（奇）</li>
+        <li>第8个li</li>
+        <li>第9个li（奇）</li>
+        <li>第10个li</li>
+      </ul>
+    </div>
+    <div style="flex:1;">
+      <p><code>:nth-child(even)</code> 偶数：</p>
+      <ul class="demo-even">
+        <li>第1个li</li>
+        <li>第2个li（偶）</li>
+        <li>第3个li</li>
+        <li>第4个li（偶）</li>
+        <li>第5个li</li>
+        <li>第6个li（偶）</li>
+      </ul>
+    </div>
+  </div>
+
+  <pre>li:nth-child(odd)  { color: red; }   /* 奇数 */
+li:nth-child(even) { color: blue; }  /* 偶数 */</pre>
+
+  <!-- ============================================= -->
+  <!-- 4. 公式 -->
+  <!-- ============================================= -->
+  <h2>4️⃣ :nth-child(an+b) 公式</h2>
+
+  <p><code>n+3</code> — 第 3 个及以后：</p>
+  <div class="demo-box">
+    <ul class="demo-nplus">
+      <li>第1个li（前 2 个不变）</li>
+      <li>第2个li（前 2 个不变）</li>
+      <li>第3个li ✅ n+3 选中</li>
+      <li>第4个li ✅ n+3 选中</li>
+      <li>第5个li ✅ n+3 选中</li>
+      <li>第6个li ✅ n+3 选中</li>
+    </ul>
+  </div>
+
+  <p><code>-n+2</code> — 前 2 个：</p>
+  <div class="demo-box">
+    <ul class="demo-nminus">
+      <li>第1个li ✅ -n+2 选中</li>
+      <li>第2个li ✅ -n+2 选中</li>
+      <li>第3个li（后面的不变）</li>
+      <li>第4个li</li>
+      <li>第5个li</li>
+    </ul>
+  </div>
+
+  <pre>li:nth-child(n+3)  { color: red; }    /* 第3个及以后 */
+li:nth-child(-n+2) { color: blue; }   /* 前 2 个 */</pre>
+
+  <div class="note">
+    <strong>💡 公式理解：</strong><code>n</code> 从 0 开始计数，<code>n+3</code> → 3,4,5,6…；<code>-n+2</code> → 2,1,0（0 无元素）。<br>
+    <code>2n</code> = even（偶数），<code>2n+1</code> = odd（奇数）。
+  </div>
+
+  <!-- ============================================= -->
+  <!-- 5. 表格隔行变色 -->
+  <!-- ============================================= -->
+  <h2>5️⃣ 实战：表格隔行变色</h2>
+  <p>表头蓝底白字 + 偶数行灰底 + 鼠标悬停高亮：</p>
+
+  <div class="demo-box">
+    <table class="data">
+      <tr><th>姓名</th><th>得分</th><th>日期</th></tr>
+      <tr><td>杨瀚森</td><td>10分</td><td>2025-07-12</td></tr>
+      <tr><td>易建联</td><td>9分</td><td>2007-10-31</td></tr>
+      <tr><td>王治郅</td><td>6分</td><td>2001-04-06</td></tr>
+      <tr><td>孙悦</td><td>4分</td><td>2008-12-08</td></tr>
+      <tr><td>周琦</td><td>2分</td><td>2018-10-31</td></tr>
+      <tr><td>姚明</td><td>0分</td><td>2002-10-31</td></tr>
+    </table>
+  </div>
+
+  <pre>/* 表头 */
+.data tr:first-child { background-color: #8fbcf1; color: #fff; }
+
+/* 偶数行变色 */
+.data tr:nth-child(even) { background-color: #f9f9f9; }
+
+/* 鼠标悬停 */
+.data tr:hover { background-color: #f1f1f1; }</pre>
+
+  <hr>
+  <p style="text-align: center;">
+    <a href="#" class="back-top">⬆ 回到页面顶部</a>
+  </p>
+  <p style="margin-top: 2rem; color: #6c757d; font-size: 0.85rem; text-align: center;">
+    结构伪类选择器综合演示 · CSS 学习笔记
+  </p>
+
+</body>
+</html>
