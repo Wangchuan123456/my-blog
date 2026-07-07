@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>关系选择器 · 综合演示</title>
+  <style>
+    body {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 1.5rem;
+      font-family: system-ui, sans-serif;
+      line-height: 1.8;
+      color: #333;
+    }
+    h1 { color: #6c63ff; }
+    h2 {
+      margin-top: 2.5rem;
+      border-bottom: 2px solid #e9ecef;
+      padding-bottom: 0.3rem;
+    }
+    h3 { margin-top: 1.8rem; }
+    code {
+      background: #f0f0f0;
+      padding: 0.15rem 0.4rem;
+      border-radius: 3px;
+      font-size: 0.9em;
+    }
+
+    .demo-box {
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      padding: 1rem 1.5rem;
+      margin: 1rem 0;
+    }
+    .demo-box ul, .demo-box ol { margin: 0.3rem 0; padding-left: 1.5rem; }
+
+    pre {
+      background: #f4f4f4;
+      padding: 0.8rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      overflow-x: auto;
+    }
+
+    .note {
+      background: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 0.5rem 1rem;
+      margin: 1rem 0;
+      border-radius: 0 4px 4px 0;
+      font-size: 0.9rem;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #6c63ff;
+      color: #fff;
+      font-size: 0.7rem;
+      padding: 0.1rem 0.4rem;
+      border-radius: 3px;
+      margin-left: 0.3rem;
+      vertical-align: middle;
+    }
+
+    .selected-mark {
+      background: #d5f5e3;
+      border-left: 3px solid #27ae60;
+      padding: 0.1rem 0.5rem;
+    }
+    .not-selected-mark {
+      opacity: 0.5;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #e9ecef;
+      margin: 2rem 0;
+    }
+    .back-top {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.5rem 1rem;
+      background: #6c63ff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+    }
+    .back-top:hover { opacity: 0.9; }
+
+    /* ===== 1. 后代选择器演示 ===== */
+    .demo-nav a {
+      color: #27ae60;
+      font-weight: bold;
+    }
+
+    /* ===== 2. 子代选择器演示 ===== */
+    .demo-child > span {
+      color: #2980b9;
+      font-weight: bold;
+    }
+    .demo-child p > span {
+      color: #e74c3c;
+    }
+
+    /* ===== 3. 邻接兄弟 + 通用兄弟 ===== */
+    .demo-adjacent h3 + p {
+      color: #e74c3c;
+      font-weight: bold;
+    }
+    .demo-general h3 ~ p {
+      color: #e74c3c;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🔗 关系选择器综合演示</h1>
+  <p>四种关系选择器——空格 <code>后代</code> 、<code>&gt;</code> 子代 、<code>+</code> 邻接兄弟 、<code>~</code> 通用兄弟。</p>
+
+  <!-- ============================================= -->
+  <!-- 1. 后代选择器 -->
+  <!-- ============================================= -->
+  <h2>1️⃣ 后代选择器 <span class="badge">空格</span></h2>
+  <p>选中父元素内部<strong>所有层级</strong>的匹配元素：</p>
+
+  <div class="demo-box">
+    <p><code>.nav a</code> — 导航内的所有链接变成绿色：</p>
+    <ul class="demo-nav">
+      <li><a href="#">首页</a></li>
+      <li><a href="#">文章</a></li>
+      <li>
+        <span><a href="#">更多</a></span>  <!-- 孙子也能选中 -->
+      </li>
+    </ul>
+  </div>
+
+  <pre>/* 后代选择器：选中 .nav 内所有 a，不限层级 */
+.demo-nav a {
+  color: #27ae60;
+  font-weight: bold;
+}</pre>
+
+  <!-- ============================================= -->
+  <!-- 2. 子代选择器 -->
+  <!-- ============================================= -->
+  <h2>2️⃣ 子代选择器 <span class="badge">&gt;</span></h2>
+  <p>只选<strong>直接子元素</strong>，不选孙子：</p>
+
+  <div class="demo-box demo-child">
+    <p><code>div > span</code> — 只选 div 的直接子元素 span：</p>
+    <span>🔵 我是儿子（被选中 → 蓝色）</span>
+    <p>
+      <span>🔴 我是孙子（不被 div > span 选中，但被 p > span 选中 → 红色）</span>
+    </p>
+  </div>
+
+  <pre>/* 子代选择器：只选直接子元素 */
+.demo-child > span { color: #2980b9; }   /* 只选 div 里的直接 span */
+.demo-child p > span { color: #e74c3c; } /* 选 p 里的直接 span */</pre>
+
+  <!-- ============================================= -->
+  <!-- 3. 邻接兄弟选择器 -->
+  <!-- ============================================= -->
+  <h2>3️⃣ 邻接兄弟选择器 <span class="badge">+</span></h2>
+  <p>只选紧跟在指定元素<strong>后面的第一个</strong>兄弟：</p>
+
+  <div class="demo-box demo-adjacent">
+    <p><code>h3 + p</code> — h3 后面紧跟着的第一个 p 变红：</p>
+    <p class="not-selected-mark">这是 h3 前面的 p（不变）</p>
+    <h3>📌 我是 h3 标题</h3>
+    <p class="selected-mark">✅ 我是 h3 后面的第一个 p，被 + 选中！</p>
+    <p class="not-selected-mark">❌ 我是第二个 p，+ 不选中我</p>
+    <p class="not-selected-mark">❌ 第三个 p，也不选中</p>
+  </div>
+
+  <pre>/* 邻接兄弟：h3 后面紧跟着的 p */
+.demo-adjacent h3 + p {
+  color: #e74c3c;
+  font-weight: bold;
+}</pre>
+
+  <!-- ============================================= -->
+  <!-- 4. 通用兄弟选择器 -->
+  <!-- ============================================= -->
+  <h2>4️⃣ 通用兄弟选择器 <span class="badge">~</span></h2>
+  <p>选中指定元素<strong>后面的所有</strong>兄弟：</p>
+
+  <div class="demo-box demo-general">
+    <p><code>h3 ~ p</code> — h3 后面的所有 p 变红：</p>
+    <p class="not-selected-mark">这是 h3 前面的 p（不变）</p>
+    <h3>📌 我是 h3 标题</h3>
+    <p class="selected-mark">✅ 后面的第一个 p，被 ~ 选中</p>
+    <p class="selected-mark">✅ 第二个 p，也被选中</p>
+    <p class="selected-mark">✅ 第三个 p，全部选中</p>
+  </div>
+
+  <pre>/* 通用兄弟：h3 后面的所有 p */
+.demo-general h3 ~ p {
+  color: #e74c3c;
+  font-weight: bold;
+}</pre>
+
+  <!-- ============================================= -->
+  <!-- 对比总结 -->
+  <!-- ============================================= -->
+  <h2>5️⃣ + 与 ~ 的区别</h2>
+
+  <div class="demo-box">
+    <table style="width:100%;border-collapse:collapse;">
+      <thead>
+        <tr style="background:#6c63ff;color:#fff;">
+          <th style="padding:0.5rem 0.8rem;text-align:left;">选择器</th>
+          <th style="padding:0.5rem 0.8rem;text-align:left;">符号</th>
+          <th style="padding:0.5rem 0.8rem;text-align:left;">选中范围</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid #e9ecef;">
+          <td style="padding:0.4rem 0.8rem;">后代</td>
+          <td style="padding:0.4rem 0.8rem;">空格</td>
+          <td style="padding:0.4rem 0.8rem;">容器内所有层级的匹配元素</td>
+        </tr>
+        <tr style="border-bottom:1px solid #e9ecef;">
+          <td style="padding:0.4rem 0.8rem;">子代</td>
+          <td style="padding:0.4rem 0.8rem;"><code>&gt;</code></td>
+          <td style="padding:0.4rem 0.8rem;">仅直接子元素</td>
+        </tr>
+        <tr style="border-bottom:1px solid #e9ecef;">
+          <td style="padding:0.4rem 0.8rem;">邻接兄弟</td>
+          <td style="padding:0.4rem 0.8rem;"><code>+</code></td>
+          <td style="padding:0.4rem 0.8rem;">紧跟在后面的第一个兄弟</td>
+        </tr>
+        <tr>
+          <td style="padding:0.4rem 0.8rem;">通用兄弟</td>
+          <td style="padding:0.4rem 0.8rem;"><code>~</code></td>
+          <td style="padding:0.4rem 0.8rem;">后面的所有兄弟</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <strong>💡 记忆技巧：</strong><br>
+    <strong>空格</strong> → 容器里的所有 xxx（不限层级）<br>
+    <strong>&gt;</strong> → 我的直接儿子（仅一层）<br>
+    <strong>+</strong> → 我后面的第一个兄弟<br>
+    <strong>~</strong> → 我后面的所有兄弟
+  </div>
+
+  <hr>
+  <p style="text-align: center;">
+    <a href="#" class="back-top">⬆ 回到页面顶部</a>
+  </p>
+  <p style="margin-top: 2rem; color: #6c757d; font-size: 0.85rem; text-align: center;">
+    关系选择器综合演示 · CSS 学习笔记
+  </p>
+
+</body>
+</html>
