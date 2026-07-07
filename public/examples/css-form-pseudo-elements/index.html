@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>表单伪类与伪元素 · 综合演示</title>
+  <style>
+    body {
+      max-width: 720px; margin: 0 auto; padding: 1.5rem;
+      font-family: system-ui, "Microsoft YaHei", sans-serif;
+      line-height: 1.8; color: #333;
+    }
+    h1 { color: #6c63ff; }
+    h2 { margin-top: 2.5rem; border-bottom: 2px solid #e9ecef; padding-bottom: 0.3rem; }
+    code { background: #f0f0f0; padding: 0.15rem 0.4rem; border-radius: 3px; font-size: 0.9em; }
+    .demo-box { background: #fff; border: 1px solid #e9ecef; border-radius: 8px; padding: 1rem 1.5rem; margin: 1rem 0; }
+    pre { background: #f4f4f4; padding: 0.8rem; border-radius: 4px; font-size: 0.85rem; overflow-x: auto; }
+    .note { background: #fff3cd; border-left: 4px solid #ffc107; padding: 0.5rem 1rem; margin: 1rem 0; border-radius: 0 4px 4px 0; font-size: 0.9rem; }
+    .badge { display: inline-block; background: #6c63ff; color: #fff; font-size: 0.7rem; padding: 0.1rem 0.4rem; border-radius: 3px; margin-left: 0.3rem; vertical-align: middle; }
+    hr { border: none; border-top: 1px solid #e9ecef; margin: 2rem 0; }
+    .back-top { display: inline-block; margin-top: 2rem; padding: 0.5rem 1rem; background: #6c63ff; color: #fff; text-decoration: none; border-radius: 6px; }
+    .back-top:hover { opacity: 0.9; }
+
+    /* ===== :disabled ===== */
+    .btn-primary {
+      width: 150px; height: 40px; background: #ff6900; border: none;
+      color: #fff; font-size: 14px; border-radius: 4px; cursor: pointer;
+    }
+    .btn-primary:disabled {
+      opacity: .4; cursor: not-allowed;
+    }
+
+    /* ===== :checked ===== */
+    input.agree:checked + label { color: #ff6900; font-weight: bold; }
+
+    /* ===== ::first-line / ::first-letter ===== */
+    .demo-first p::first-line { color: #ff6900; }
+    .demo-first p::first-letter { color: red; font-size: 28px; }
+
+    /* ===== ::placeholder ===== */
+    .demo-placeholder::placeholder { color: red; font-size: 12px; }
+
+    /* ===== ::before / ::after ===== */
+    .demo-before::before { content: '我是 '; color: red; font-weight: bold; }
+    .demo-before::after { content: ' 老师'; color: red; font-weight: bold; }
+
+    .demo-icon::before { content: '🔥'; margin-right: 5px; }
+    .demo-line::after {
+      content: ''; display: block;
+      width: 60px; height: 3px; background: #6c63ff; margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎯 表单伪类与伪元素综合演示</h1>
+
+  <!-- ============================================= -->
+  <!-- 1. :disabled -->
+  <!-- ============================================= -->
+  <h2>1️⃣ :disabled 禁用</h2>
+
+  <div class="demo-box">
+    <button class="btn-primary" disabled>注册（已禁用）</button>
+    <button class="btn-primary" style="margin-left:1rem;">提交（正常）</button>
+    <p style="font-size:0.85rem;color:#888;margin-top:0.5rem;">← 禁用按钮透明度 0.4，鼠标变禁止符号</p>
+  </div>
+
+  <pre>button:disabled {
+  opacity: .4;
+  cursor: not-allowed;
+}</pre>
+
+  <!-- ============================================= -->
+  <!-- 2. :checked -->
+  <!-- ============================================= -->
+  <h2>2️⃣ :checked 选中</h2>
+
+  <div class="demo-box">
+    <input type="checkbox" id="agree" class="agree">
+    <label for="agree">同意注册协议（勾选试试）</label>
+  </div>
+
+  <pre>input:checked + label {
+  color: #ff6900;
+  font-weight: bold;
+}</pre>
+
+  <!-- ============================================= -->
+  <!-- 3. ::first-line / ::first-letter -->
+  <!-- ============================================= -->
+  <h2>3️⃣ ::first-line + ::first-letter</h2>
+
+  <div class="demo-box demo-first">
+    <p>伪元素选择器：首行文字会变成橙色。首字母会放大变红。这段文字是用来展示效果的示例内容，请多写一些文字来看效果。</p>
+  </div>
+
+  <pre>p::first-line  { color: #ff6900; }
+p::first-letter { color: red; font-size: 28px; }</pre>
+
+  <!-- ============================================= -->
+  <!-- 4. ::placeholder -->
+  <!-- ============================================= -->
+  <h2>4️⃣ ::placeholder 占位文本</h2>
+
+  <div class="demo-box">
+    <textarea class="demo-placeholder" placeholder="请您留言" rows="2" cols="30" style="padding:0.4rem;border:1px solid #ccc;border-radius:4px;"></textarea>
+    <p style="font-size:0.85rem;color:#888;margin-top:0.3rem;">← 占位文字变红色小字</p>
+  </div>
+
+  <pre>textarea::placeholder {
+  color: red;
+  font-size: 12px;
+}</pre>
+
+  <!-- ============================================= -->
+  <!-- 5. ::before / ::after -->
+  <!-- ============================================= -->
+  <h2>5️⃣ ::before + ::after</h2>
+
+  <div class="demo-box">
+    <p><span class="demo-before">pink</span> ← before 插入"我是 "，after 插入" 老师"</p>
+    <p><span class="demo-icon demo-line">今日推荐</span> ← before 加🔥，after 加紫色下划线</p>
+  </div>
+
+  <pre>/* 插入文字 */
+.box::before { content: '我是 '; color: red; }
+.box::after  { content: ' 老师'; color: red; }
+
+/* 装饰图标 + 下划线 */
+.title::before { content: '🔥'; }
+.title::after  { content: ''; display: block; width: 60px; height: 3px; background: #6c63ff; }</pre>
+
+  <div class="note">
+    <strong>⚠️ 注意：</strong><code>::before</code> 和 <code>::after</code> 必须设置 <code>content</code> 属性（可以是空字符串 <code>''</code>），否则伪元素不会显示。
+    它们默认是行内元素，如果需设置宽高要加 <code>display: block</code>。
+  </div>
+
+  <hr>
+  <p style="text-align: center;">
+    <a href="#" class="back-top">⬆ 回到页面顶部</a>
+  </p>
+  <p style="margin-top: 2rem; color: #6c757d; font-size: 0.85rem; text-align: center;">
+    表单伪类与伪元素综合演示 · CSS 学习笔记
+  </p>
+
+</body>
+</html>
