@@ -1,7 +1,7 @@
 ---
 title: 'CSS 字体样式与文本布局：color / font-size / text-align / line-height 等'
 description: '网页中文字样式是最基本的——字体颜色大小粗细、对齐缩进行高间距，一篇搞懂所有文字相关 CSS 属性。'
-pubDate: 2026-07-09
+pubDate: 2026-07-07
 tags: ['CSS', '字体', '文本', 'color', 'font-size', 'text-align', 'line-height']
 category: '学习笔记'
 order: 17

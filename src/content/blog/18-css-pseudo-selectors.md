@@ -1,7 +1,7 @@
 ---
 title: 'CSS 分组选择器与用户行为伪类 :hover :focus :link :visited :active'
 description: '分组选择器让多个选择器共用样式；用户行为伪类 :hover（悬停）:focus（焦点）:link:visited:active（链接状态）的用法。'
-pubDate: 2026-07-09
+pubDate: 2026-07-07
 tags: ['CSS', '分组选择器', '伪类', 'hover', 'focus', '链接']
 category: '学习笔记'
 order: 18

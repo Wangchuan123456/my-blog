@@ -1,7 +1,7 @@
 ---
 title: 'CSS 表单伪类 :disabled :checked 与伪元素 ::before ::after ::placeholder'
 description: '表单伪类控制表单元素的不同状态；伪元素能在页面中插入"不存在"的元素——::before、::after、::placeholder 等。'
-pubDate: 2026-07-10
+pubDate: 2026-07-07
 tags: ['CSS', '表单伪类', '伪元素', 'disabled', 'checked', 'before', 'after', 'placeholder']
 category: '学习笔记'
 order: 20

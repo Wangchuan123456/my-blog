@@ -1,7 +1,7 @@
 ---
 title: 'CSS 页面基本布局：固定宽度居中布局（header / nav / main / footer）'
 description: '用 CSS 搭建经典页面布局——页头全宽、导航栏居中、主体内容居中、页脚全宽，以及 margin: 0 auto 的用法。'
-pubDate: 2026-07-08
+pubDate: 2026-07-07
 tags: ['CSS', '布局', 'margin', '居中', '页面结构']
 category: '学习笔记'
 order: 15

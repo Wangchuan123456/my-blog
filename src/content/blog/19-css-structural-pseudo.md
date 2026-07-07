@@ -1,7 +1,7 @@
 ---
 title: 'CSS 结构伪类选择器 :first-child :last-child :nth-child'
 description: '根据元素在父元素中的位置来选择——第几个、奇数偶数、前几个后几个，一篇搞懂结构伪类。'
-pubDate: 2026-07-09
+pubDate: 2026-07-07
 tags: ['CSS', '结构伪类', 'first-child', 'last-child', 'nth-child', '隔行变色']
 category: '学习笔记'
 order: 19
