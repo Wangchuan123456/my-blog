@@ -213,6 +213,35 @@ a:hover {
 }</pre>
 
   <!-- ============================================= -->
+  <!-- 5. focus -->
+  <!-- ============================================= -->
+  <h2>5️⃣ :focus 获得焦点</h2>
+  <p>表单元素获得焦点时触发（点击输入框）：</p>
+
+  <div class="demo-box">
+    <label for="focus-input">点击下面的输入框：</label>&nbsp;
+    <input type="text" id="focus-input" class="focus-demo" placeholder="点我试试" style="padding:0.4rem 0.6rem;border:1px solid #ccc;border-radius:4px;outline:none;transition:0.3s;">
+    <p style="margin-top:0.5rem;font-size:0.85rem;color:#666;">← 点击后背景变红、宽度变宽、边框变蓝色</p>
+  </div>
+
+  <style>
+    .focus-demo:focus {
+      background-color: #ffeaa7;
+      width: 250px;
+      border-color: #6c63ff !important;
+      box-shadow: 0 0 0 2px rgba(108,99,255,0.2);
+    }
+  </style>
+
+  <pre>/* :focus — 获得焦点 */
+.focus-demo:focus {
+  background-color: #ffeaa7;
+  width: 250px;
+  border-color: #6c63ff;
+  box-shadow: 0 0 0 2px rgba(108,99,255,0.2);
+}</pre>
+
+  <!-- ============================================= -->
   <!-- 汇总 -->
   <!-- ============================================= -->
   <h2>📋 伪类汇总</h2>
@@ -223,6 +252,10 @@ a:hover {
       <tr><td><code>:link</code></td><td>未访问链接</td><td><code>&lt;a&gt;</code></td></tr>
       <tr><td><code>:visited</code></td><td>已访问链接</td><td><code>&lt;a&gt;</code></td></tr>
       <tr><td><code>:hover</code></td><td>鼠标悬停</td><td><strong>所有元素</strong> ✅</td></tr>
+      <tr><td><code>:active</code></td><td>正在点击</td><td><code>&lt;a&gt;</code>、按钮</td></tr>
+      <tr><td><code>:focus</code></td><td>获得焦点</td><td><code>&lt;input&gt;</code> 等表单元素</td></tr>
+    </table>
+  </div>
       <tr><td><code>:active</code></td><td>正在点击</td><td><code>&lt;a&gt;</code>、按钮</td></tr>
       <tr><td><code>:focus</code></td><td>获得焦点</td><td><code>&lt;input&gt;</code> 等表单元素</td></tr>
     </table>

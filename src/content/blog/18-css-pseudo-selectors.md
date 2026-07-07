@@ -1,8 +1,8 @@
 ---
-title: 'CSS 分组选择器与链接伪类选择器 :link :visited :hover :active'
-description: '分组选择器让多个元素共用样式，链接伪类控制链接不同状态的样式——LVHA 顺序要记牢。'
+title: 'CSS 分组选择器与用户行为伪类 :hover :focus :link :visited :active'
+description: '分组选择器让多个选择器共用样式；用户行为伪类 :hover（悬停）:focus（焦点）:link:visited:active（链接状态）的用法。'
 pubDate: 2026-07-09
-tags: ['CSS', '分组选择器', '伪类', '链接', 'hover']
+tags: ['CSS', '分组选择器', '伪类', 'hover', 'focus', '链接']
 category: '学习笔记'
 order: 18
 demo: '/examples/css-pseudo-selectors/index.html'
@@ -13,7 +13,7 @@ demo: '/examples/css-pseudo-selectors/index.html'
 这一篇讲两个实用的选择器知识点：
 
 1. **分组选择器** — 让多个选择器共用同一段样式
-2. **链接伪类选择器** — 给链接的不同状态设置不同的样式
+2. **用户行为伪类** — `:hover`（悬停）`:focus`（焦点）以及链接的 `:link` `:visited` `:active`
 
 ## 一、分组选择器（Grouping Selector）
 
