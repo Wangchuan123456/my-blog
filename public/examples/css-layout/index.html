@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>页面基本布局 · 综合演示</title>
+  <!-- 外部样式 -->
+  <link rel="stylesheet" href="./style.css">
+  <!-- 内部样式：区域标注样式 -->
+  <style>
+    /* 四个区域内部的文字标注 */
+    .header { position: relative; }
+    .header::after {
+      content: "header · 页头（全宽）";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    .nav { position: relative; }
+    .nav::after {
+      content: "nav · 导航栏（1000px 居中）";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #333;
+      font-size: 1rem;
+      font-weight: bold;
+    }
+
+    .main { position: relative; }
+    .main::after {
+      content: "main · 主体内容（1000px 居中）";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #333;
+      font-size: 1rem;
+      font-weight: bold;
+    }
+
+    .footer { position: relative; }
+    .footer::after {
+      content: "footer · 页脚（全宽）";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header"></header>
+  <nav class="nav center"></nav>
+  <main class="main center"></main>
+  <footer class="footer"></footer>
+
+</body>
+</html>

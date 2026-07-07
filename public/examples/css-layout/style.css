@@ -1,0 +1,38 @@
+/* ========== CSS 页面基本布局 ========== */
+
+/* 1. 通配符重置默认边距 */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* 2. 页头 — 全宽 */
+.header {
+  background-color: #1a1a2e;
+  height: 80px;
+}
+
+/* 3. 导航栏 — 固定宽度 + 居中 */
+.nav {
+  background-color: #87ceeb;
+  height: 60px;
+  width: 1000px;
+}
+
+/* 4. 主体内容 — 固定宽度 + 居中 */
+.main {
+  background-color: #ffb6c1;
+  height: 500px;
+  width: 1000px;
+}
+
+/* 5. 页脚 — 全宽 */
+.footer {
+  background-color: #4a0e4e;
+  height: 80px;
+}
+
+/* 6. 水平居中工具类 */
+.center {
+  margin: 0 auto;
+}
