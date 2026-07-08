@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>盒子阴影 / 过渡 / 页面初始化 · 综合演示</title>
+  <style>
+    /* ===== CSS 初始化（页面顶部统一重置） ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    ul, ol { list-style: none; }
+    a { text-decoration: none; color: inherit; }
+    input, button { outline: none; }
+
+    body {
+      max-width: 760px; margin: 0 auto; padding: 1.5rem;
+      font-family: system-ui, "Microsoft YaHei", sans-serif;
+      line-height: 1.8; color: #333; background: #fafafa;
+    }
+    h1 { color: #6c63ff; }
+    h2 { margin-top: 2.5rem; border-bottom: 2px solid #e9ecef; padding-bottom: 0.3rem; }
+    code { background: #f0f0f0; padding: 0.15rem 0.4rem; border-radius: 3px; font-size: 0.9em; }
+    .demo-box { background: #fff; border: 1px solid #e9ecef; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; }
+    pre { background: #f4f4f4; padding: 0.8rem; border-radius: 4px; font-size: 0.85rem; overflow-x: auto; }
+    .note { background: #fff3cd; border-left: 4px solid #ffc107; padding: 0.5rem 1rem; margin: 1rem 0; border-radius: 0 4px 4px 0; font-size: 0.9rem; }
+    .badge { display: inline-block; background: #6c63ff; color: #fff; font-size: 0.7rem; padding: 0.1rem 0.4rem; border-radius: 3px; margin-left: 0.3rem; vertical-align: middle; }
+    hr { border: none; border-top: 1px solid #e9ecef; margin: 2rem 0; }
+    .back-top { display: inline-block; margin-top: 2rem; padding: 0.5rem 1rem; background: #6c63ff; color: #fff; border-radius: 6px; }
+    .back-top:hover { opacity: 0.9; }
+
+    .grid { display: flex; gap: 1rem; flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+
+  <h1>📦 盒子阴影 / 过渡 / 页面初始化</h1>
+
+  <!-- ============================================= -->
+  <!-- 1. box-shadow -->
+  <!-- ============================================= -->
+  <h2>1️⃣ 盒子阴影 box-shadow</h2>
+
+  <div class="demo-box grid">
+    <div style="width:130px;height:80px;background:#fff;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,0.1);display:flex;align-items:center;justify-content:center;">轻微阴影</div>
+    <div style="width:130px;height:80px;background:#fff;border-radius:6px;box-shadow:0 8px 25px rgba(0,0,0,0.15);display:flex;align-items:center;justify-content:center;">较深阴影</div>
+    <div style="width:130px;height:80px;background:#fff;border-radius:6px;box-shadow:0 4px 15px rgba(108,99,255,0.3);display:flex;align-items:center;justify-content:center;">彩色阴影</div>
+  </div>
+
+  <pre>box-shadow: 0 2px 8px rgba(0,0,0,0.1);         /* 轻微 */
+box-shadow: 0 8px 25px rgba(0,0,0,0.15);       /* 较深 */
+box-shadow: 0 4px 15px rgba(108,99,255,0.3);   /* 彩色 */</pre>
+
+  <!-- ============================================= -->
+  <!-- 2. transition -->
+  <!-- ============================================= -->
+  <h2>2️⃣ 过渡 transition</h2>
+  <p>鼠标移入卡片，看看平滑过渡效果：</p>
+
+  <div class="demo-box grid">
+    <div style="width:150px;padding:1rem;background:linear-gradient(135deg,#6c63ff,#a29bfe);color:#fff;border-radius:8px;text-align:center;cursor:pointer;transition:all 0.3s;"
+         onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 25px rgba(108,99,255,0.4)';"
+         onmouseout="this.style.transform='';this.style.boxShadow='';">悬停我</div>
+    <div style="width:150px;padding:1rem;background:linear-gradient(135deg,#ff6b6b,#ee5a24);color:#fff;border-radius:8px;text-align:center;cursor:pointer;transition:transform 0.3s,box-shadow 0.3s;"
+         onmouseover="this.style.transform='scale(1.05)';this.style.boxShadow='0 8px 25px rgba(238,90,36,0.4)';"
+         onmouseout="this.style.transform='';this.style.boxShadow='';">放大效果</div>
+  </div>
+
+  <pre>/* 谁做过渡给谁加 */
+.card {
+  transition: all 0.3s;           /* 所有属性都过渡 */
+}
+.card:hover {
+  transform: translateY(-4px);    /* 向上抬升 */
+  box-shadow: 0 8px 25px rgba(108,99,255,0.4);
+}</pre>
+
+  <!-- ============================================= -->
+  <!-- 3. 综合按钮 -->
+  <!-- ============================================= -->
+  <h2>3️⃣ 综合案例：AI 渐变按钮</h2>
+
+  <div class="demo-box" style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center;">
+    <button style="padding:12px 24px;font-size:16px;font-weight:bold;color:#fff;background:linear-gradient(135deg,#4a6cf7,#1e40af);border:none;border-radius:8px;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,0.1);transition:all 0.3s ease;"
+            onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,0.15)';this.style.background='linear-gradient(135deg,#3b5bdb,#1a365d)'"
+            onmouseout="this.style.transform='';this.style.boxShadow='0 4px 15px rgba(0,0,0,0.1)';this.style.background='linear-gradient(135deg,#4a6cf7,#1e40af)'">百度一下</button>
+
+    <button style="padding:12px 24px;font-size:16px;font-weight:bold;color:#fff;background:linear-gradient(45deg,#ff6b6b,#4ecdc4);border:none;border-radius:8px;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,0.1);transition:all 0.3s ease;"
+            onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,0.15)'"
+            onmouseout="this.style.transform='';this.style.boxShadow='0 4px 15px rgba(0,0,0,0.1)'">渐变按钮</button>
+  </div>
+
+  <pre>.ai-button {
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+.ai-button:hover {
+  transform: translateY(-2px);          /* 上移 */
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);  /* 阴影加深 */
+  background: linear-gradient(135deg, #3b5bdb, #1a365d); /* 颜色变化 */
+}</pre>
+
+  <!-- ============================================= -->
+  <!-- 4. CSS Reset -->
+  <!-- ============================================= -->
+  <h2>4️⃣ 页面初始化 CSS Reset</h2>
+  <p>这个页面顶部就用了初始化，看效果：</p>
+
+  <div class="demo-box">
+    <p><strong>本页顶部已生效的初始化：</strong></p>
+    <ul>
+      <li>✅ <code>* { margin: 0; padding: 0; box-sizing: border-box; }</code></li>
+      <li>✅ <code>ul, ol { list-style: none; }</code> — 看下面的列表没有圆点</li>
+      <li>✅ <code>a { text-decoration: none; }</code></li>
+      <li>✅ <code>input, button { outline: none; }</code></li>
+    </ul>
+
+    <hr style="margin:0.8rem 0;">
+
+    <p><strong>对比：</strong></p>
+    <ul>
+      <li>首页 — 没有列表圆点</li>
+      <li>登录 — 因为 list-style: none</li>
+      <li>关于 — 干净清爽</li>
+    </ul>
+  </div>
+
+  <pre>/* 推荐放在 CSS 文件最前面 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul, ol { list-style: none; }
+a { text-decoration: none; }
+input, button { outline: none; }
+img { display: block; }    /* 图片避免底部空隙 */</pre>
+
+  <div class="note">
+    <strong>💡 实用组合拳：</strong><br>
+    盒子阴影 + 过渡 + 悬浮抬升 = 现代 UI 最常见的卡片交互效果。<br>
+    页面初始化放在 CSS 文件最前面，一行代码解决浏览器样式差异。
+  </div>
+
+  <hr>
+  <p style="text-align: center;">
+    <a href="#" class="back-top">⬆ 回到页面顶部</a>
+  </p>
+  <p style="margin-top: 2rem; color: #6c757d; font-size: 0.85rem; text-align: center;">
+    盒子阴影 / 过渡 / 页面初始化 · CSS 学习笔记
+  </p>
+
+</body>
+</html>
