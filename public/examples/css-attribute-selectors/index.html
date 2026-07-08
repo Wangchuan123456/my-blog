@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>属性选择器 · 综合演示</title>
+  <style>
+    body {
+      max-width: 720px; margin: 0 auto; padding: 1.5rem;
+      font-family: system-ui, "Microsoft YaHei", sans-serif;
+      line-height: 1.8; color: #333;
+    }
+    h1 { color: #6c63ff; }
+    h2 { margin-top: 2.5rem; border-bottom: 2px solid #e9ecef; padding-bottom: 0.3rem; }
+    code { background: #f0f0f0; padding: 0.15rem 0.4rem; border-radius: 3px; font-size: 0.9em; }
+    .demo-box { background: #fff; border: 1px solid #e9ecef; border-radius: 8px; padding: 1rem 1.5rem; margin: 1rem 0; }
+    .demo-box a { display: block; }
+    pre { background: #f4f4f4; padding: 0.8rem; border-radius: 4px; font-size: 0.85rem; overflow-x: auto; }
+    .note { background: #fff3cd; border-left: 4px solid #ffc107; padding: 0.5rem 1rem; margin: 1rem 0; border-radius: 0 4px 4px 0; font-size: 0.9rem; }
+    .badge { display: inline-block; background: #6c63ff; color: #fff; font-size: 0.7rem; padding: 0.1rem 0.4rem; border-radius: 3px; margin-left: 0.3rem; vertical-align: middle; }
+    hr { border: none; border-top: 1px solid #e9ecef; margin: 2rem 0; }
+    .back-top { display: inline-block; margin-top: 2rem; padding: 0.5rem 1rem; background: #6c63ff; color: #fff; text-decoration: none; border-radius: 6px; }
+    .back-top:hover { opacity: 0.9; }
+
+    a { color: #333; text-decoration: none; }
+
+    /* ===== 1. [attr] 包含属性 ===== */
+    .demo-has a[class] { color: #e74c3c; font-weight: bold; }
+
+    /* ===== 2. [attr="value"] 完全匹配 ===== */
+    .demo-eq a[class="font"] { color: #e74c3c; font-weight: bold; }
+
+    /* ===== 3. [attr^="value"] 开头匹配 ===== */
+    .demo-start a[class^="font"] { color: #e74c3c; font-weight: bold; }
+
+    /* ===== 4. [attr$="value"] 结尾匹配 ===== */
+    .demo-end a[class$="14"] { color: #e74c3c; font-weight: bold; }
+
+    /* ===== 5. [attr*="value"] 包含匹配 ===== */
+    .demo-contain a[class*="font"] { color: #e74c3c; font-weight: bold; }
+
+    /* ===== 6. 实际应用：表单 ===== */
+    .demo-form input[type="text"],
+    .demo-form input[type="password"] {
+      outline: none;
+      padding: 0.4rem 0.6rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .demo-form input[type="text"]:focus,
+    .demo-form input[type="password"]:focus {
+      border-color: #6c63ff;
+      box-shadow: 0 0 0 2px rgba(108,99,255,0.15);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🔍 属性选择器综合演示</h1>
+  <p>五种属性选择器写法——有属性、等于、开头、结尾、包含。</p>
+
+  <!-- ============================================= -->
+  <!-- 1. [attr] -->
+  <!-- ============================================= -->
+  <h2>1️⃣ [attr] <span class="badge">包含属性</span></h2>
+
+  <div class="demo-box demo-has">
+    <p><code>a[class]</code> — 有 class 属性的 a 标签变红：</p>
+    <a href="#">没有 class（不变）</a>
+    <a href="#" class="font">有 class="font" ✅ 变红</a>
+    <a href="#" class="red">有 class="red" ✅ 变红</a>
+  </div>
+
+  <pre>a[class] { color: red; }</pre>
+
+  <!-- ============================================= -->
+  <!-- 2. [attr="value"] -->
+  <!-- ============================================= -->
+  <h2>2️⃣ [attr="value"] <span class="badge">完全匹配</span></h2>
+
+  <div class="demo-box demo-eq">
+    <p><code>a[class="font"]</code> — class 正好等于 font 才变红：</p>
+    <a href="#" class="font">class="font" ✅ 完全匹配，变红</a>
+    <a href="#" class="font14">class="font14" ❌ 不等，不变</a>
+    <a href="#" class="red">class="red" ❌ 不变</a>
+  </div>
+
+  <pre>a[class="font"] { color: red; }</pre>
+
+  <!-- ============================================= -->
+  <!-- 3. [attr^="value"] -->
+  <!-- ============================================= -->
+  <h2>3️⃣ [attr^="value"] <span class="badge">以 xx 开头</span></h2>
+
+  <div class="demo-box demo-start">
+    <p><code>a[class^="font"]</code> — class 以 font 开头的变红：</p>
+    <a href="#" class="font">font ✅ 以 font 开头，变红</a>
+    <a href="#" class="font14">font14 ✅ 以 font 开头，变红</a>
+    <a href="#" class="font16">font16 ✅ 以 font 开头，变红</a>
+    <a href="#" class="red">red ❌ 不以 font 开头，不变</a>
+  </div>
+
+  <pre>a[class^="font"] { color: red; }</pre>
+
+  <!-- ============================================= -->
+  <!-- 4. [attr$="value"] -->
+  <!-- ============================================= -->
+  <h2>4️⃣ [attr$="value"] <span class="badge">以 xx 结尾</span></h2>
+
+  <div class="demo-box demo-end">
+    <p><code>a[class$="14"]</code> — class 以 14 结尾的变红：</p>
+    <a href="#" class="font14">font14 ✅ 以 14 结尾，变红</a>
+    <a href="#" class="font16">font16 ❌ 以 16 结尾，不变</a>
+    <a href="#" class="red14">red14 ✅ 以 14 结尾，变红</a>
+  </div>
+
+  <pre>a[class$="14"] { color: red; }</pre>
+
+  <!-- ============================================= -->
+  <!-- 5. [attr*="value"] -->
+  <!-- ============================================= -->
+  <h2>5️⃣ [attr*="value"] <span class="badge">包含 xx</span></h2>
+
+  <div class="demo-box demo-contain">
+    <p><code>a[class*="font"]</code> — class 中含有 font 的变红：</p>
+    <a href="#" class="font">font ✅ 包含 font</a>
+    <a href="#" class="font14">font14 ✅ 包含 font</a>
+    <a href="#" class="myfont">myfont ✅ 包含 font</a>
+    <a href="#" class="red">red ❌ 不包含 font</a>
+  </div>
+
+  <pre>a[class*="font"] { color: red; }</pre>
+
+  <!-- ============================================= -->
+  <!-- 6. 实际应用 -->
+  <!-- ============================================= -->
+  <h2>6️⃣ 实际应用：表单输入框</h2>
+
+  <div class="demo-box demo-form">
+    <p>用 <code>input[type="text"]</code> 和 <code>input[type="password"]</code> 选中：</p>
+    <p><input type="text" placeholder="文本框"></p>
+    <p><input type="password" placeholder="密码框"></p>
+    <p><input type="checkbox"> 复选框（不会被选中）</p>
+  </div>
+
+  <pre>/* 不用加 class，直接根据 type 属性选中 */
+input[type="text"],
+input[type="password"] {
+  outline: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+input[type="text"]:focus,
+input[type="password"]:focus {
+  border-color: #6c63ff;
+  box-shadow: 0 0 0 2px rgba(108,99,255,0.15);
+}</pre>
+
+  <div class="note">
+    <strong>💡 小结：</strong>属性选择器最大的好处是<strong>不用加 class</strong>——根据元素已有的属性就能选中，<br>
+    特别适合表单控件、外部链接等场景。<code>^</code> 开头、<code>$</code> 结尾、<code>*</code> 包含，这三个最常用。
+  </div>
+
+  <hr>
+  <p style="text-align: center;">
+    <a href="#" class="back-top">⬆ 回到页面顶部</a>
+  </p>
+  <p style="margin-top: 2rem; color: #6c757d; font-size: 0.85rem; text-align: center;">
+    属性选择器综合演示 · CSS 学习笔记
+  </p>
+
+</body>
+</html>
