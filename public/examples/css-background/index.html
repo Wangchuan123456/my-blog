@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>盒子背景 · 综合演示</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      max-width: 760px; margin: 0 auto; padding: 1.5rem;
+      font-family: system-ui, "Microsoft YaHei", sans-serif;
+      line-height: 1.8; color: #333;
+    }
+    h1 { color: #6c63ff; }
+    h2 { margin-top: 2.5rem; border-bottom: 2px solid #e9ecef; padding-bottom: 0.3rem; }
+    code { background: #f0f0f0; padding: 0.15rem 0.4rem; border-radius: 3px; font-size: 0.9em; }
+    .demo-box { background: #fff; border: 1px solid #e9ecef; border-radius: 8px; padding: 1rem 1.5rem; margin: 1.5rem 0; }
+    pre { background: #f4f4f4; padding: 0.8rem; border-radius: 4px; font-size: 0.85rem; overflow-x: auto; }
+    .note { background: #fff3cd; border-left: 4px solid #ffc107; padding: 0.5rem 1rem; margin: 1rem 0; border-radius: 0 4px 4px 0; font-size: 0.9rem; }
+    .badge { display: inline-block; background: #6c63ff; color: #fff; font-size: 0.7rem; padding: 0.1rem 0.4rem; border-radius: 3px; margin-left: 0.3rem; }
+    hr { border: none; border-top: 1px solid #e9ecef; margin: 2rem 0; }
+    .back-top { display: inline-block; margin-top: 2rem; padding: 0.5rem 1rem; background: #6c63ff; color: #fff; text-decoration: none; border-radius: 6px; }
+    .back-top:hover { opacity: 0.9; }
+
+    .bg-grid { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .bg-box {
+      width: 150px; height: 100px;
+      display: flex; align-items: center; justify-content: center;
+      color: #333; font-size: 0.85rem; text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎨 CSS 盒子背景综合演示</h1>
+
+  <!-- ============================================= -->
+  <!-- 1. background-color -->
+  <!-- ============================================= -->
+  <h2>1️⃣ background-color</h2>
+
+  <div class="demo-box bg-grid">
+    <div class="bg-box" style="background-color:pink;">pink</div>
+    <div class="bg-box" style="background-color:#6c63ff;color:#fff;">#6c63ff</div>
+    <div class="bg-box" style="background-color:rgba(108,99,255,0.3);">rgba 半透明</div>
+  </div>
+
+  <pre>background-color: pink;
+background-color: #6c63ff;
+background-color: rgba(108, 99, 255, 0.3);</pre>
+
+  <!-- ============================================= -->
+  <!-- 2. background-repeat -->
+  <!-- ============================================= -->
+  <h2>2️⃣ background-image + background-repeat</h2>
+
+  <div class="demo-box bg-grid">
+    <div class="bg-box" style="background-image:radial-gradient(circle,#6c63ff 2px,#fff 2px);background-size:20px 20px;background-repeat:repeat;">repeat 默认</div>
+    <div class="bg-box" style="background-image:radial-gradient(circle,#6c63ff 2px,#fff 2px);background-size:20px 20px;background-repeat:no-repeat;">no-repeat</div>
+    <div class="bg-box" style="background-image:radial-gradient(circle,#6c63ff 2px,#fff 2px);background-size:20px 20px;background-repeat:repeat-x;">repeat-x</div>
+    <div class="bg-box" style="background-image:radial-gradient(circle,#6c63ff 2px,#fff 2px);background-size:20px 20px;background-repeat:repeat-y;">repeat-y</div>
+  </div>
+
+  <pre>background-repeat: repeat;     /* 默认，全平铺 */
+background-repeat: no-repeat;  /* 只显示一张 */
+background-repeat: repeat-x;   /* 水平平铺 */
+background-repeat: repeat-y;   /* 垂直平铺 */</pre>
+
+  <!-- ============================================= -->
+  <!-- 3. background-position -->
+  <!-- ============================================= -->
+  <h2>3️⃣ background-position 位置</h2>
+
+  <div class="demo-box bg-grid">
+    <div class="bg-box" style="background-image:radial-gradient(circle,#e74c3c 10px,transparent 10px);background-repeat:no-repeat;background-position:left top;border:1px solid #ddd;">left top</div>
+    <div class="bg-box" style="background-image:radial-gradient(circle,#e74c3c 10px,transparent 10px);background-repeat:no-repeat;background-position:center center;border:1px solid #ddd;">center center</div>
+    <div class="bg-box" style="background-image:radial-gradient(circle,#e74c3c 10px,transparent 10px);background-repeat:no-repeat;background-position:right bottom;border:1px solid #ddd;">right bottom</div>
+  </div>
+
+  <pre>/* 方位名词 */
+background-position: left top;        /* 左上 */
+background-position: center center;   /* 居中 */
+background-position: right bottom;    /* 右下 */
+
+/* 像素值 */
+background-position: 50px 10px;
+
+/* 百分比 */
+background-position: 50% 50%;</pre>
+
+  <!-- ============================================= -->
+  <!-- 4. background-size -->
+  <!-- ============================================= -->
+  <h2>4️⃣ background-size 尺寸</h2>
+
+  <div class="demo-box bg-grid">
+    <div class="bg-box" style="background-image:radial-gradient(circle,#27ae60 15px,transparent 15px);background-repeat:no-repeat;background-size:cover;border:1px solid #ddd;">cover 铺满</div>
+    <div class="bg-box" style="background-image:radial-gradient(circle,#27ae60 15px,transparent 15px);background-repeat:no-repeat;background-size:contain;border:1px solid #ddd;">contain 完整</div>
+    <div class="bg-box" style="background-image:radial-gradient(circle,#27ae60 10px,transparent 10px);background-repeat:no-repeat;background-size:50px;border:1px solid #ddd;">50px 固定</div>
+  </div>
+
+  <pre>background-size: cover;      /* 铺满盒子（可能被裁剪） */
+background-size: contain;    /* 完整显示（可能有留白） */
+background-size: 200px;      /* 指定宽度 */</pre>
+
+  <!-- ============================================= -->
+  <!-- 5. 复合写法 -->
+  <!-- ============================================= -->
+  <h2>5️⃣ background 复合写法</h2>
+
+  <div class="demo-box bg-grid">
+    <div class="bg-box" style="background:pink url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 20 20%22%3E%3Ccircle cx=%2210%22 cy=%2210%22 r=%225%22 fill=%22%236c63ff%22/%3E%3C/svg%3E') no-repeat center center/40px;border:1px solid #d9e0ee;">复合写法</div>
+    <div class="bg-box" style="background:linear-gradient(135deg,#6c63ff,#a29bfe);color:#fff;">渐变背景</div>
+  </div>
+
+  <pre>/* 复合写法：color image repeat position/size */
+background: pink url(ldh.png) no-repeat center center/200px;
+
+/* 渐变 */
+background: linear-gradient(135deg, #6c63ff, #a29bfe);</pre>
+
+  <!-- ============================================= -->
+  <!-- 6. 渐变 -->
+  <!-- ============================================= -->
+  <h2>6️⃣ 渐变 linear-gradient</h2>
+
+  <div class="demo-box bg-grid">
+    <div class="bg-box" style="background:linear-gradient(pink,red);color:#fff;">默认方向</div>
+    <div class="bg-box" style="background:linear-gradient(to right,pink,red);color:#fff;">向右</div>
+    <div class="bg-box" style="background:linear-gradient(45deg,pink,red);color:#fff;">45deg</div>
+    <div class="bg-box" style="background:linear-gradient(90deg,#0096FF,#BB64FF,#F2416B,#EB7500);color:#fff;">多色渐变</div>
+  </div>
+
+  <pre>background: linear-gradient(pink, red);               /* 从上到下 */
+background: linear-gradient(to right, pink, red);      /* 向右 */
+background: linear-gradient(45deg, pink, red);         /* 45度 */
+background: linear-gradient(90deg, #0096FF, #BB64FF, #F2416B, #EB7500);  /* 多色 */</pre>
+
+  <!-- ============================================= -->
+  <!-- 7. 渐变按钮 -->
+  <!-- ============================================= -->
+  <h2>7️⃣ 渐变按钮实战</h2>
+
+  <div class="demo-box" style="display:flex;gap:1rem;flex-wrap:wrap;">
+    <button style="background:linear-gradient(45deg,#ff6b6b,#4ecdc4);border:none;color:#fff;padding:10px 24px;border-radius:6px;cursor:pointer;font-size:16px;">渐变按钮</button>
+    <button style="background:linear-gradient(135deg,#667eea,#764ba2);border:none;color:#fff;padding:10px 24px;border-radius:6px;cursor:pointer;font-size:16px;">渐变按钮</button>
+    <button style="background:linear-gradient(45deg,#f093fb,#f5576c);border:none;color:#fff;padding:10px 24px;border-radius:6px;cursor:pointer;font-size:16px;">渐变按钮</button>
+  </div>
+
+  <pre>button {
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+  border: none; color: #fff; padding: 10px 24px;
+  border-radius: 6px; cursor: pointer;
+}</pre>
+
+  <div class="note">
+    <strong>💡 复合写法顺序：</strong><br>
+    <code>background: color image repeat position/size attachment;</code><br>
+    其中 <code>position/size</code> 之间用 <strong>斜杠 /</strong> 分隔，这是最容易写错的地方！
+  </div>
+
+  <hr>
+  <p style="text-align: center;">
+    <a href="#" class="back-top">⬆ 回到页面顶部</a>
+  </p>
+  <p style="margin-top: 2rem; color: #6c757d; font-size: 0.85rem; text-align: center;">
+    盒子背景综合演示 · CSS 学习笔记
+  </p>
+
+</body>
+</html>
