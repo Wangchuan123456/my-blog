@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>字体图标 · 综合演示</title>
+  <!-- 引入字体图标 CSS -->
+  <link rel="stylesheet" href="./iconfont/iconfont.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      max-width: 720px; margin: 0 auto; padding: 1.5rem;
+      font-family: system-ui, "Microsoft YaHei", sans-serif;
+      line-height: 1.8; color: #333;
+    }
+    h1 { color: #6c63ff; }
+    h2 { margin-top: 2.5rem; border-bottom: 2px solid #e9ecef; padding-bottom: 0.3rem; }
+    code { background: #f0f0f0; padding: 0.15rem 0.4rem; border-radius: 3px; font-size: 0.9em; }
+    .demo-box { background: #fff; border: 1px solid #e9ecef; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; }
+    pre { background: #f4f4f4; padding: 0.8rem; border-radius: 4px; font-size: 0.85rem; overflow-x: auto; }
+    .note { background: #fff3cd; border-left: 4px solid #ffc107; padding: 0.5rem 1rem; margin: 1rem 0; border-radius: 0 4px 4px 0; font-size: 0.9rem; }
+    hr { border: none; border-top: 1px solid #e9ecef; margin: 2rem 0; }
+    .back-top { display: inline-block; margin-top: 2rem; padding: 0.5rem 1rem; background: #6c63ff; color: #fff; border-radius: 6px; text-decoration: none; }
+    .back-top:hover { opacity: 0.9; }
+
+    .icon-grid { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .icon-item { text-align: center; }
+    .icon-item .iconfont { font-size: 40px; display: block; }
+    .icon-item .icon-name { font-size: 0.8rem; color: #888; margin-top: 0.3rem; }
+  </style>
+</head>
+<body>
+
+  <h1>🔤 字体图标综合演示</h1>
+  <p>使用 iconfont.cn 的图标——像文字一样控制大小和颜色。</p>
+
+  <!-- ============================================= -->
+  <!-- 1. 图标展示 -->
+  <!-- ============================================= -->
+  <h2>1️⃣ 图标展示</h2>
+  <p>引入 <code>iconfont.css</code> 后，用 <code>class="iconfont icon-xxx"</code> 使用：</p>
+
+  <div class="demo-box icon-grid">
+    <div class="icon-item">
+      <span class="iconfont icon-good" style="font-size:40px;color:#e74c3c;"></span>
+      <div class="icon-name">icon-good</div>
+    </div>
+    <div class="icon-item">
+      <span class="iconfont icon-xihuan" style="font-size:40px;color:#6c63ff;"></span>
+      <div class="icon-name">icon-xihuan</div>
+    </div>
+    <div class="icon-item">
+      <span class="iconfont icon-arrow-right" style="font-size:40px;color:#27ae60;"></span>
+      <div class="icon-name">icon-arrow-right</div>
+    </div>
+    <div class="icon-item">
+      <span class="iconfont icon-notification" style="font-size:40px;color:#f39c12;"></span>
+      <div class="icon-name">icon-notification</div>
+    </div>
+    <div class="icon-item">
+      <span class="iconfont icon-picture" style="font-size:40px;color:#e67e22;"></span>
+      <div class="icon-name">icon-picture</div>
+    </div>
+    <div class="icon-item">
+      <span class="iconfont icon-loading" style="font-size:40px;color:#1abc9c;"></span>
+      <div class="icon-name">icon-loading</div>
+    </div>
+  </div>
+
+  <pre>&lt;!-- 引入 CSS --&gt;
+&lt;link rel="stylesheet" href="./iconfont/iconfont.css"&gt;
+
+&lt;!-- 使用图标 --&gt;
+&lt;span class="iconfont icon-good"&gt;&lt;/span&gt;
+
+&lt;!-- 修改样式 --&gt;
+&lt;span class="iconfont icon-good" style="font-size: 40px; color: red;"&gt;&lt;/span&gt;</pre>
+
+  <!-- ============================================= -->
+  <!-- 2. 不同大小 -->
+  <!-- ============================================= -->
+  <h2>2️⃣ 不同大小</h2>
+  <p>用 <code>font-size</code> 控制图标大小：</p>
+
+  <div class="demo-box" style="display:flex;align-items:flex-end;gap:1rem;">
+    <span class="iconfont icon-good" style="font-size:20px;color:#6c63ff;"></span>
+    <span class="iconfont icon-good" style="font-size:32px;color:#6c63ff;"></span>
+    <span class="iconfont icon-good" style="font-size:48px;color:#6c63ff;"></span>
+    <span class="iconfont icon-good" style="font-size:64px;color:#6c63ff;"></span>
+    <span class="iconfont icon-good" style="font-size:80px;color:#6c63ff;"></span>
+  </div>
+
+  <pre>.icon-good { font-size: 32px; color: #6c63ff; }</pre>
+
+  <!-- ============================================= -->
+  <!-- 3. 不同颜色 -->
+  <!-- ============================================= -->
+  <h2>3️⃣ 不同颜色</h2>
+  <p>用 <code>color</code> 控制图标颜色：</p>
+
+  <div class="demo-box" style="display:flex;gap:1.5rem;flex-wrap:wrap;">
+    <span class="iconfont icon-xihuan" style="font-size:40px;color:#e74c3c;"></span>
+    <span class="iconfont icon-xihuan" style="font-size:40px;color:#6c63ff;"></span>
+    <span class="iconfont icon-xihuan" style="font-size:40px;color:#27ae60;"></span>
+    <span class="iconfont icon-xihuan" style="font-size:40px;color:#f39c12;"></span>
+    <span class="iconfont icon-xihuan" style="font-size:40px;color:#e67e22;"></span>
+  </div>
+
+  <pre>.iconfont { color: #e74c3c; }  /* 改颜色就像改文字颜色一样简单 */</pre>
+
+  <!-- ============================================= -->
+  <!-- 4. 实际应用 -->
+  <!-- ============================================= -->
+  <h2>4️⃣ 实际应用</h2>
+
+  <div class="demo-box">
+    <p><strong>导航菜单：</strong></p>
+    <nav style="display:flex;gap:1.5rem;padding:0.8rem 0;margin-bottom:1rem;">
+      <span><span class="iconfont icon-good" style="color:#6c63ff;"></span> 首页</span>
+      <span><span class="iconfont icon-notification" style="color:#6c63ff;"></span> 消息</span>
+      <span><span class="iconfont icon-picture" style="color:#6c63ff;"></span> 图片</span>
+      <span><span class="iconfont icon-xihuan" style="color:#6c63ff;"></span> 收藏</span>
+    </nav>
+
+    <p><strong>按钮图标：</strong></p>
+    <button style="padding:10px 20px;background:#6c63ff;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:16px;">
+      <span class="iconfont icon-loading" style="margin-right:4px;"></span> 下载
+    </button>
+  </div>
+
+  <pre>&lt;nav&gt;
+  &lt;span&gt;&lt;i class="iconfont icon-home"&gt;&lt;/i&gt; 首页&lt;/span&gt;
+  &lt;span&gt;&lt;i class="iconfont icon-search"&gt;&lt;/i&gt; 搜索&lt;/span&gt;
+&lt;/nav&gt;
+
+&lt;button&gt;&lt;i class="iconfont icon-download"&gt;&lt;/i&gt; 下载&lt;/button&gt;</pre>
+
+  <!-- ============================================= -->
+  <!-- 5. 引入方式 -->
+  <!-- ============================================= -->
+  <h2>5️⃣ 引入方式说明</h2>
+
+  <div class="demo-box">
+    <p><strong>方式一：</strong>link 引入 CSS 文件（推荐）</p>
+    <pre>&lt;link rel="stylesheet" href="./iconfont/iconfont.css"&gt;</pre>
+
+    <p><strong>方式二：</strong>@import 在 CSS 中引入</p>
+    <pre>@import url(./iconfont/iconfont.css);</pre>
+
+    <p><strong>目录结构：</strong></p>
+    <pre style="background:#e8f4fd;">
+项目目录/
+├── index.html
+├── iconfont/
+│   ├── iconfont.css   ← 引入这个
+│   ├── iconfont.ttf    ← 字体文件（css 内部引用）
+│   ├── iconfont.woff
+│   └── iconfont.svg
+    </pre>
+  </div>
+
+  <div class="note">
+    <strong>💡 注意事项：</strong><br>
+    1. <code>iconfont</code> 基础 class **必须加**，否则图标不显示<br>
+    2. 图标类名以 iconfont.cn 上定义的为准（如 <code>icon-good</code>）<br>
+    3. iconfont.css 和字体文件必须在同一目录<br>
+    4. 修改图标大小用 <code>font-size</code>，颜色用 <code>color</code>
+  </div>
+
+  <hr>
+  <p style="text-align: center;">
+    <a href="#" class="back-top">⬆ 回到页面顶部</a>
+  </p>
+  <p style="margin-top: 2rem; color: #6c757d; font-size: 0.85rem; text-align: center;">
+    字体图标 · CSS 学习笔记
+  </p>
+
+</body>
+</html>
