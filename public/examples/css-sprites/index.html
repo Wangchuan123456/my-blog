@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>精灵图 · 综合演示</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      max-width: 720px; margin: 0 auto; padding: 1.5rem;
+      font-family: system-ui, "Microsoft YaHei", sans-serif;
+      line-height: 1.8; color: #333;
+    }
+    h1 { color: #6c63ff; }
+    h2 { margin-top: 2.5rem; border-bottom: 2px solid #e9ecef; padding-bottom: 0.3rem; }
+    code { background: #f0f0f0; padding: 0.15rem 0.4rem; border-radius: 3px; font-size: 0.9em; }
+    .demo-box { background: #fff; border: 1px solid #e9ecef; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; }
+    pre { background: #f4f4f4; padding: 0.8rem; border-radius: 4px; font-size: 0.85rem; overflow-x: auto; }
+    .note { background: #fff3cd; border-left: 4px solid #ffc107; padding: 0.5rem 1rem; margin: 1rem 0; border-radius: 0 4px 4px 0; font-size: 0.9rem; }
+    hr { border: none; border-top: 1px solid #e9ecef; margin: 2rem 0; }
+    .back-top { display: inline-block; margin-top: 2rem; padding: 0.5rem 1rem; background: #6c63ff; color: #fff; border-radius: 6px; text-decoration: none; }
+    .back-top:hover { opacity: 0.9; }
+
+    /* ===== 模拟精灵图背景 ===== */
+    /* 用 CSS 渐变模拟一张精灵图：10×3 网格，每个格子 30×30px */
+    .sprite-preview {
+      width: 300px; height: 90px;
+      background-image:
+        /* 第1行：红 橙 黄 绿 青 蓝 紫 粉 棕 灰 */
+        linear-gradient(45deg, #e74c3c 30%, transparent 30%),
+        linear-gradient(45deg, #e67e22 30%, transparent 30%),
+        /* 用重复网格模拟精灵图效果 */
+        repeating-linear-gradient(0deg, transparent, transparent 29px, #ddd 29px, #ddd 30px),
+        repeating-linear-gradient(90deg, transparent, transparent 29px, #ddd 29px, #ddd 30px);
+      background-size: 300px 90px;
+      border: 2px solid #333;
+      position: relative;
+    }
+    .sprite-preview::after {
+      content: '模拟精灵图（10×3 图标网格，每个 30×30）';
+      position: absolute;
+      bottom: -1.5rem;
+      left: 0;
+      font-size: 0.8rem;
+      color: #888;
+    }
+
+    /* ===== 精灵图演示核心 ===== */
+    /* 基础精灵图设置 */
+    .sprite {
+      width: 30px;
+      height: 30px;
+      /* 用渐变模拟精灵图 */
+      background: 
+        /* 第1行颜色块（10个颜色） */
+        linear-gradient(90deg,
+          #e74c3c 0%, #e74c3c 10%,
+          #e67e22 10%, #e67e22 20%,
+          #f1c40f 20%, #f1c40f 30%,
+          #27ae60 30%, #27ae60 40%,
+          #1abc9c 40%, #1abc9c 50%,
+          #2980b9 50%, #2980b9 60%,
+          #8e44ad 60%, #8e44ad 70%,
+          #e84393 70%, #e84393 80%,
+          #a0522d 80%, #a0522d 90%,
+          #95a5a6 90%, #95a5a6 100%
+        )
+        /* 第2行（偏移 -30px 垂直） */
+        ,linear-gradient(90deg,
+          #e74c3c 0%, #e74c3c 10%,
+          #e67e22 10%, #e67e22 20%,
+          #f1c40f 20%, #f1c40f 30%,
+          #27ae60 30%, #27ae60 40%,
+          #1abc9c 40%, #1abc9c 50%,
+          #2980b9 50%, #2980b9 60%,
+          #8e44ad 60%, #8e44ad 70%,
+          #e84393 70%, #e84393 80%,
+          #a0522d 80%, #a0522d 90%,
+          #95a5a6 90%, #95a5a6 100%
+        );
+      background-size: 300px 60px;
+      background-repeat: no-repeat;
+      border: 1px solid #333;
+    }
+
+    /* 显示第1行第1个图标（红色） = 位置 (0, 0) */
+    .sprite-1 { background-position: 0 0; }
+
+    /* 显示第1行第4个图标（绿色） = 位置 (-90px, 0) */
+    .sprite-2 { background-position: -90px 0; }
+
+    /* 显示第1行第7个图标（紫色） = 位置 (-180px, 0) */
+    .sprite-3 { background-position: -180px 0; }
+
+    /* 显示第2行第3个图标（黄色） = 位置 (-60px, -30px) */
+    .sprite-4 { background-position: -60px -30px; }
+
+    .sprite-demo { display: flex; gap: 2rem; flex-wrap: wrap; align-items: center; }
+    .sprite-item { text-align: center; }
+    .sprite-item .label { font-size: 0.85rem; color: #888; margin-top: 0.3rem; }
+  </style>
+</head>
+<body>
+
+  <h1>🖼️ CSS 精灵图综合演示</h1>
+
+  <!-- ============================================= -->
+  <!-- 1. 原理 -->
+  <!-- ============================================= -->
+  <h2>1️⃣ 什么是精灵图？</h2>
+
+  <div class="demo-box">
+    <p>多个小图标合成一张大图，每个元素只显示自己需要的那个小区域：</p>
+    <div style="display:flex;align-items:center;gap:2rem;margin-top:1rem;flex-wrap:wrap;">
+      <div style="flex-shrink:0;">
+        <div style="display:grid;grid-template-columns:repeat(5,30px);gap:2px;background:#f0f0f0;padding:4px;border-radius:4px;">
+          <div style="width:30px;height:30px;background:#e74c3c;border-radius:3px;"></div>
+          <div style="width:30px;height:30px;background:#e67e22;border-radius:3px;"></div>
+          <div style="width:30px;height:30px;background:#f1c40f;border-radius:3px;"></div>
+          <div style="width:30px;height:30px;background:#27ae60;border-radius:3px;"></div>
+          <div style="width:30px;height:30px;background:#2980b9;border-radius:3px;"></div>
+          <div style="width:30px;height:30px;background:#8e44ad;border-radius:3px;"></div>
+          <div style="width:30px;height:30px;background:#e84393;border-radius:3px;"></div>
+          <div style="width:30px;height:30px;background:#1abc9c;border-radius:3px;"></div>
+          <div style="width:30px;height:30px;background:#a0522d;border-radius:3px;"></div>
+          <div style="width:30px;height:30px;background:#95a5a6;border-radius:3px;"></div>
+        </div>
+        <p style="font-size:0.8rem;color:#888;margin-top:0.3rem;">精灵图（多个图标在一张图里）</p>
+      </div>
+      <div style="font-size:2rem;color:#6c63ff;">→</div>
+      <div>
+        <div style="display:flex;gap:1rem;">
+          <div style="text-align:center;">
+            <div style="width:30px;height:30px;background:#e74c3c;border-radius:3px;border:2px solid #333;"></div>
+            <p style="font-size:0.8rem;color:#888;">只显示红色</p>
+          </div>
+          <div style="text-align:center;">
+            <div style="width:30px;height:30px;background:#27ae60;border-radius:3px;border:2px solid #333;"></div>
+            <p style="font-size:0.8rem;color:#888;">只显示绿色</p>
+          </div>
+          <div style="text-align:center;">
+            <div style="width:30px;height:30px;background:#8e44ad;border-radius:3px;border:2px solid #333;"></div>
+            <p style="font-size:0.8rem;color:#888;">只显示紫色</p>
+          </div>
+        </div>
+        <p style="font-size:0.8rem;color:#888;margin-top:0.3rem;">每个元素只显示需要的部分</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================= -->
+  <!-- 2. 精灵图用法 -->
+  <!-- ============================================= -->
+  <h2>2️⃣ 精灵图用法演示</h2>
+  <p>通过 <code>background-position</code> 偏移，显示精灵图中不同的图标：</p>
+
+  <div class="demo-box sprite-demo">
+    <div class="sprite-item">
+      <div class="sprite sprite-1"></div>
+      <div class="label">位置 (0, 0)<br>红色图标</div>
+    </div>
+    <div class="sprite-item">
+      <div class="sprite sprite-2"></div>
+      <div class="label">位置 (-90px, 0)<br>绿色图标</div>
+    </div>
+    <div class="sprite-item">
+      <div class="sprite sprite-3"></div>
+      <div class="label">位置 (-180px, 0)<br>紫色图标</div>
+    </div>
+    <div class="sprite-item">
+      <div class="sprite sprite-4"></div>
+      <div class="label">位置 (-60px, -30px)<br>黄色图标</div>
+    </div>
+  </div>
+
+  <pre>/* 基础设置：宽高 = 图标大小，精灵图作为背景 */
+.sprite {
+  width: 30px;                    /* 图标宽度 */
+  height: 30px;                   /* 图标高度 */
+  background: url(sprites.png) no-repeat;
+}
+
+/* 通过 background-position 显示不同图标 */
+.sprite-1 { background-position: 0 0; }        /* 第1个 */
+.sprite-2 { background-position: -90px 0; }    /* 第4个（左移90px） */
+.sprite-3 { background-position: -180px 0; }   /* 第7个 */
+.sprite-4 { background-position: -60px -30px; }/* 第2行第3个 */</pre>
+
+  <!-- ============================================= -->
+  <!-- 3. 核心公式 -->
+  <!-- ============================================= -->
+  <h2>3️⃣ 核心要点</h2>
+
+  <div class="demo-box">
+    <table style="width:100%;border-collapse:collapse;">
+      <tr><th style="text-align:left;padding:0.5rem;background:#6c63ff;color:#fff;">要点</th><th style="text-align:left;padding:0.5rem;background:#6c63ff;color:#fff;">说明</th></tr>
+      <tr><td style="padding:0.5rem;border-bottom:1px solid #e9ecef;"><code>容器宽高</code></td><td style="padding:0.5rem;border-bottom:1px solid #e9ecef;">= 要显示的图标宽高</td></tr>
+      <tr><td style="padding:0.5rem;border-bottom:1px solid #e9ecef;"><code>background-image</code></td><td style="padding:0.5rem;border-bottom:1px solid #e9ecef;">设置精灵图 + <code>no-repeat</code></td></tr>
+      <tr><td style="padding:0.5rem;border-bottom:1px solid #e9ecef;"><code>background-position</code></td><td style="padding:0.5rem;border-bottom:1px solid #e9ecef;">**负值** 向左/上移动，显示需要的图标</td></tr>
+      <tr><td style="padding:0.5rem;"><code>x, y 坐标</code></td><td style="padding:0.5rem;">从设计工具中测量，或从精灵图提供方获取</td></tr>
+    </table>
+  </div>
+
+  <div class="note">
+    <strong>💡 提示：</strong>现在更推荐用 <strong>字体图标（iconfont）</strong> 或 SVG 图标代替精灵图——矢量缩放清晰，颜色和大小随时可改。<br>
+    但精灵图"合并请求"的思想仍然是性能优化的重要思路。
+  </div>
+
+  <hr>
+  <p style="text-align: center;">
+    <a href="#" class="back-top">⬆ 回到页面顶部</a>
+  </p>
+  <p style="margin-top: 2rem; color: #6c757d; font-size: 0.85rem; text-align: center;">
+    精灵图 · CSS 学习笔记
+  </p>
+
+</body>
+</html>
