@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS 权重优先级 · 综合演示</title>
+  <style>
+    body {
+      max-width: 720px; margin: 0 auto; padding: 1.5rem;
+      font-family: system-ui, "Microsoft YaHei", sans-serif;
+      line-height: 1.8; color: #333;
+    }
+    h1 { color: #6c63ff; }
+    h2 { margin-top: 2.5rem; border-bottom: 2px solid #e9ecef; padding-bottom: 0.3rem; }
+    code { background: #f0f0f0; padding: 0.15rem 0.4rem; border-radius: 3px; font-size: 0.9em; }
+    .demo-box { background: #fff; border: 1px solid #e9ecef; border-radius: 8px; padding: 1rem 1.5rem; margin: 1rem 0; }
+    pre { background: #f4f4f4; padding: 0.8rem; border-radius: 4px; font-size: 0.85rem; overflow-x: auto; }
+    .note { background: #fff3cd; border-left: 4px solid #ffc107; padding: 0.5rem 1rem; margin: 1rem 0; border-radius: 0 4px 4px 0; font-size: 0.9rem; }
+    .badge { display: inline-block; background: #6c63ff; color: #fff; font-size: 0.7rem; padding: 0.1rem 0.4rem; border-radius: 3px; margin-left: 0.3rem; vertical-align: middle; }
+    .weight { font-family: monospace; font-size: 0.85rem; color: #888; }
+    hr { border: none; border-top: 1px solid #e9ecef; margin: 2rem 0; }
+    .back-top { display: inline-block; margin-top: 2rem; padding: 0.5rem 1rem; background: #6c63ff; color: #fff; text-decoration: none; border-radius: 6px; }
+    .back-top:hover { opacity: 0.9; }
+
+    table { width: 100%; border-collapse: collapse; margin: 0.8rem 0; }
+    th { background: #6c63ff; color: #fff; padding: 0.5rem 0.8rem; text-align: left; }
+    td { padding: 0.4rem 0.8rem; border-bottom: 1px solid #e9ecef; }
+    tr:nth-child(even) td { background: #f8f9fa; }
+    .winner { background: #d5f5e3 !important; font-weight: bold; }
+
+    /* ===== 权重 PK 演示 ===== */
+    .pk-demo div { color: blue; }          /* 0,0,0,1 */
+    .pk-demo .box { color: green; }        /* 0,0,1,0 → 赢 */
+    .pk-demo #header { color: purple; }    /* 0,1,0,0 → 赢 */
+  </style>
+</head>
+<body>
+
+  <h1>⚖️ CSS 权重优先级综合演示</h1>
+  <p>多个样式冲突时，谁赢了？——权重高的覆盖权重低的。</p>
+
+  <!-- ============================================= -->
+  <!-- 1. 权重 PK -->
+  <!-- ============================================= -->
+  <h2>1️⃣ 权重 PK 擂台</h2>
+  <p>同一个元素，多个选择器同时设置 <code>color</code>：</p>
+
+  <div class="demo-box pk-demo">
+    <div class="box" id="header" style="color: orange;">
+      🏆 我是什么颜色？
+    </div>
+    <p style="font-size:0.9rem;color:#888;margin-top:0.5rem;">
+      <code>div</code> (蓝色)  vs  <code>.box</code> (绿色)  vs  <code>#header</code> (紫色)  vs  <code>style=""</code> (橙色)
+    </p>
+  </div>
+
+  <pre>/* 多个选择器都设置了 color，谁赢？ */
+div         { color: blue; }     /* 权重 0,0,0,1 */
+.box        { color: green; }    /* 权重 0,0,1,0 — 比上面高 */
+#header     { color: purple; }   /* 权重 0,1,0,0 — 比上面高 */
+style=""                         /* 权重 1,0,0,0 — ✅ 最高，胜出！ */</pre>
+
+  <!-- ============================================= -->
+  <!-- 2. 复合选择器 -->
+  <!-- ============================================= -->
+  <h2>2️⃣ 复合选择器权重累加</h2>
+
+  <div class="demo-box" style="overflow-x:auto;">
+    <table>
+      <tr><th>选择器</th><th>权重</th><th>计算过程</th></tr>
+      <tr><td><code>*</code></td><td>0,0,0,0</td><td>通配符</td></tr>
+      <tr><td><code>div</code></td><td>0,0,0,1</td><td>1 个标签</td></tr>
+      <tr><td><code>.box</code></td><td>0,0,1,0</td><td>1 个类</td></tr>
+      <tr><td><code>#header</code></td><td>0,1,0,0</td><td>1 个 ID</td></tr>
+      <tr><td><code>.nav ul li a</code></td><td>0,0,1,3</td><td>1 个类 + 3 个标签</td></tr>
+      <tr><td><code>#header .box</code></td><td>0,1,1,0</td><td>1 个 ID + 1 个类</td></tr>
+      <tr><td><code>div#header</code></td><td>0,1,0,1</td><td>1 个 ID + 1 个标签</td></tr>
+      <tr><td><code>style=""</code></td><td>1,0,0,0</td><td>行内样式</td></tr>
+      <tr class="winner"><td><code>color: red !important</code></td><td>∞</td><td>无敌</td></tr>
+    </table>
+  </div>
+
+  <!-- ============================================= -->
+  <!-- 3. 继承权重为 0 -->
+  <!-- ============================================= -->
+  <h2>3️⃣ 继承的权重为 0</h2>
+  <p>继承来的样式，任何直接选中的样式都可以覆盖它：</p>
+
+  <div class="demo-box">
+    <div style="color: blue;">
+      <p><span style="color: red;">我是 span，直接选中 → 红色</span></p>
+      <p style="color: green;">我是 p，直接选中 → 绿色</p>
+      <p>我是继承 div 的蓝色</p>
+    </div>
+  </div>
+
+  <pre>&lt;div style="color: blue;"&gt;
+  &lt;span style="color: red;"&gt;红色（直接选中）&lt;/span&gt;
+  &lt;p style="color: green;"&gt;绿色（直接选中）&lt;/p&gt;
+  &lt;p&gt;蓝色（继承自 div）&lt;/p&gt;
+&lt;/div&gt;</pre>
+
+  <!-- ============================================= -->
+  <!-- 4. 同级权重后写覆盖 -->
+  <!-- ============================================= -->
+  <h2>4️⃣ 同权重：后写的覆盖先写的</h2>
+
+  <div class="demo-box">
+    <div class="same-weight">我是什么颜色？</div>
+    <p style="font-size:0.9rem;color:#888;">都是类选择器，权重相同 → 后面的样式生效</p>
+  </div>
+
+  <style>
+    .same-weight { color: blue; }
+    .same-weight { color: #e74c3c; }  /* 后写，覆盖上面的蓝色 */
+  </style>
+
+  <pre>/* 两个选择器权重完全一样 */
+.same-weight { color: blue; }       /* 先写 */
+.same-weight { color: #e74c3c; }    /* 后写 → 生效 */</pre>
+
+  <!-- ============================================= -->
+  <!-- 5. 权重速查表 -->
+  <!-- ============================================= -->
+  <h2>📋 权重速查表</h2>
+
+  <div class="demo-box" style="overflow-x:auto;">
+    <table>
+      <tr><th>等级</th><th>选择器</th><th>权重</th></tr>
+      <tr><td>最高</td><td><code>!important</code></td><td>∞ 无敌</td></tr>
+      <tr><td>1 级</td><td>行内样式 <code>style=""</code></td><td>1,0,0,0</td></tr>
+      <tr><td>2 级</td><td>ID 选择器 <code>#id</code></td><td>0,1,0,0</td></tr>
+      <tr><td>3 级</td><td>类 / 属性 / 伪类</td><td>0,0,1,0</td></tr>
+      <tr><td>4 级</td><td>标签 / 伪元素</td><td>0,0,0,1</td></tr>
+      <tr><td>最低</td><td>通配符 <code>*</code></td><td>0,0,0,0</td></tr>
+      <tr><td>—</td><td>继承样式</td><td>无权重（0）</td></tr>
+    </table>
+  </div>
+
+  <div class="note">
+    <strong>💡 实用原则：</strong><br>
+    1. 权重冲突时 → 提高选择器权重，别用 <code>!important</code><br>
+    2. 同等权重 → 后写的覆盖先写的<br>
+    3. 继承的权重是 0 → 任何直接选中都大于继承<br>
+    4. 能用 class 解决的尽量用 class
+  </div>
+
+  <hr>
+  <p style="text-align: center;">
+    <a href="#" class="back-top">⬆ 回到页面顶部</a>
+  </p>
+  <p style="margin-top: 2rem; color: #6c757d; font-size: 0.85rem; text-align: center;">
+    CSS 权重优先级 · CSS 学习笔记
+  </p>
+
+</body>
+</html>
