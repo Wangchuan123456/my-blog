@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>盒子模型 · 综合演示</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      max-width: 720px; margin: 0 auto; padding: 1.5rem;
+      font-family: system-ui, "Microsoft YaHei", sans-serif;
+      line-height: 1.8; color: #333;
+    }
+    h1 { color: #6c63ff; }
+    h2 { margin-top: 2.5rem; border-bottom: 2px solid #e9ecef; padding-bottom: 0.3rem; }
+    code { background: #f0f0f0; padding: 0.15rem 0.4rem; border-radius: 3px; font-size: 0.9em; }
+    .demo-box { background: #fff; border: 1px solid #e9ecef; border-radius: 8px; padding: 1rem 1.5rem; margin: 1.5rem 0; }
+    pre { background: #f4f4f4; padding: 0.8rem; border-radius: 4px; font-size: 0.85rem; overflow-x: auto; }
+    .note { background: #fff3cd; border-left: 4px solid #ffc107; padding: 0.5rem 1rem; margin: 1rem 0; border-radius: 0 4px 4px 0; font-size: 0.9rem; }
+    .badge { display: inline-block; background: #6c63ff; color: #fff; font-size: 0.7rem; padding: 0.1rem 0.4rem; border-radius: 3px; margin-left: 0.3rem; vertical-align: middle; }
+    hr { border: none; border-top: 1px solid #e9ecef; margin: 2rem 0; }
+    .back-top { display: inline-block; margin-top: 2rem; padding: 0.5rem 1rem; background: #6c63ff; color: #fff; text-decoration: none; border-radius: 6px; }
+    .back-top:hover { opacity: 0.9; }
+    .demo-inline { display: flex; gap: 1rem; flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+
+  <h1>📦 CSS 盒子模型综合演示</h1>
+
+  <!-- ============================================= -->
+  <!-- 1. 边框 -->
+  <!-- ============================================= -->
+  <h2>1️⃣ 边框 border</h2>
+
+  <div class="demo-box">
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+      <div style="width:130px;height:80px;border:2px solid red;display:flex;align-items:center;justify-content:center;">solid 实线</div>
+      <div style="width:130px;height:80px;border:2px dashed red;display:flex;align-items:center;justify-content:center;">dashed 虚线</div>
+      <div style="width:130px;height:80px;border:2px dotted red;display:flex;align-items:center;justify-content:center;">dotted 点线</div>
+    </div>
+  </div>
+
+  <pre>border: 2px solid red;
+border: 2px dashed red;
+border: 2px dotted red;</pre>
+
+  <p><strong>单独设置各边：</strong></p>
+  <div class="demo-box" style="border-top:3px solid #ff8400;border-bottom:1px dotted green;border-left:4px dashed blue;border-right:5px solid pink;">
+    四条边不同样式
+  </div>
+
+  <pre>border-top: 3px solid #ff8400;
+border-bottom: 1px dotted green;
+border-left: 4px dashed blue;
+border-right: 5px solid pink;</pre>
+
+  <!-- ============================================= -->
+  <!-- 2. 圆角 -->
+  <!-- ============================================= -->
+  <h2>2️⃣ 圆角 border-radius</h2>
+
+  <div class="demo-box demo-inline">
+    <div style="width:80px;height:80px;background:#6c63ff;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;">8px</div>
+    <div style="width:80px;height:80px;background:#6c63ff;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;">50% 圆形</div>
+    <div style="width:150px;height:36px;background:#ff6900;border-radius:18px;display:flex;align-items:center;justify-content:center;color:#fff;">胶囊按钮</div>
+  </div>
+
+  <pre>border-radius: 8px;     /* 小圆角 */
+border-radius: 50%;    /* 圆形（正方形） */
+border-radius: 18px;   /* 胶囊（height=36px一半） */</pre>
+
+  <!-- ============================================= -->
+  <!-- 3. padding -->
+  <!-- ============================================= -->
+  <h2>3️⃣ 内边距 padding</h2>
+
+  <div class="demo-box">
+    <div style="width:auto;background:pink;padding:10px 20px;border-radius:4px;">
+      padding: 10px 20px（上下10px，左右20px）
+    </div>
+  </div>
+
+  <pre>/* 简写 1~4 个值 */
+padding: 10px;           /* 四个方向相同 */
+padding: 10px 20px;      /* 上下 / 左右 */
+padding: 10px 20px 30px; /* 上 / 左右 / 下 */
+padding: 10px 20px 30px 40px;  /* 上 右 下 左（顺时针） */
+
+/* 单独设置 */
+padding-left: 10px;</pre>
+
+  <!-- ============================================= -->
+  <!-- 4. margin + 居中 -->
+  <!-- ============================================= -->
+  <h2>4️⃣ 外边距 margin + 水平居中</h2>
+
+  <div class="demo-box">
+    <div style="width:300px;height:50px;background:#e8f4fd;border:2px solid #2980b9;margin:0 auto;display:flex;align-items:center;justify-content:center;">
+      margin: 0 auto → 水平居中
+    </div>
+    <p style="font-size:0.85rem;color:#888;margin-top:0.5rem;">块级元素设固定宽度后，左右 auto 自动居中</p>
+  </div>
+
+  <pre>.center {
+  width: 300px;
+  margin: 0 auto;   /* 水平居中 */
+}</pre>
+
+  <!-- ============================================= -->
+  <!-- 5. box-sizing -->
+  <!-- ============================================= -->
+  <h2>5️⃣ box-sizing</h2>
+
+  <div class="demo-box" style="display:flex;gap:1rem;flex-wrap:wrap;">
+    <div style="width:160px;padding:15px;border:5px solid #e74c3c;box-sizing:content-box;background:#fce4ec;">
+      <strong>content-box</strong><br>
+      width=160<br>
+      实际=160+15×2+5×2=200px
+    </div>
+    <div style="width:160px;padding:15px;border:5px solid #27ae60;box-sizing:border-box;background:#e8f8f0;">
+      <strong>border-box</strong> ✅<br>
+      width=160<br>
+      实际=160px（内容被压缩）
+    </div>
+  </div>
+
+  <pre>/* content-box（默认）— padding+border 撑大盒子 */
+box-sizing: content-box;
+
+/* border-box — padding+border 向内挤，width 就是实际宽度 */
+box-sizing: border-box;   /* ✅ 推荐全局设置 */</pre>
+
+  <div class="note">
+    <strong>💡 推荐全局设置：</strong><code>* { box-sizing: border-box; }</code><br>
+    这样所有盒子的 <code>width</code> 就是实际可见宽度，不用再手动计算。
+  </div>
+
+  <hr>
+  <p style="text-align: center;">
+    <a href="#" class="back-top">⬆ 回到页面顶部</a>
+  </p>
+  <p style="margin-top: 2rem; color: #6c757d; font-size: 0.85rem; text-align: center;">
+    盒子模型综合演示 · CSS 学习笔记
+  </p>
+
+</body>
+</html>
