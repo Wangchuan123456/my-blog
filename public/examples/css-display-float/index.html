@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>display 与浮动 · 综合演示</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      max-width: 760px; margin: 0 auto; padding: 1.5rem;
+      font-family: system-ui, "Microsoft YaHei", sans-serif;
+      line-height: 1.8; color: #333;
+    }
+    h1 { color: #6c63ff; }
+    h2 { margin-top: 2.5rem; border-bottom: 2px solid #e9ecef; padding-bottom: 0.3rem; }
+    code { background: #f0f0f0; padding: 0.15rem 0.4rem; border-radius: 3px; font-size: 0.9em; }
+    .demo-box { background: #fff; border: 1px solid #e9ecef; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; }
+    pre { background: #f4f4f4; padding: 0.8rem; border-radius: 4px; font-size: 0.85rem; overflow-x: auto; }
+    .note { background: #fff3cd; border-left: 4px solid #ffc107; padding: 0.5rem 1rem; margin: 1rem 0; border-radius: 0 4px 4px 0; font-size: 0.9rem; }
+    hr { border: none; border-top: 1px solid #e9ecef; margin: 2rem 0; }
+    .back-top { display: inline-block; margin-top: 2rem; padding: 0.5rem 1rem; background: #6c63ff; color: #fff; border-radius: 6px; text-decoration: none; }
+    .back-top:hover { opacity: 0.9; }
+
+    /* ===== clearfix ===== */
+    .clearfix::after { content: ''; display: table; clear: both; }
+
+    .demo-grid { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .tag { display: inline-block; background: #6c63ff; color: #fff; font-size: 0.7rem; padding: 0.1rem 0.4rem; border-radius: 3px; margin-left: 0.3rem; vertical-align: middle; }
+
+    /* display 演示盒子 */
+    .d-block { display: block; width: 100%; background: #e8f4fd; padding: 0.5rem; margin-bottom: 4px; border-radius: 4px; }
+    .d-inline { display: inline; background: #fce4ec; padding: 2px 6px; }
+    .d-inline-block { display: inline-block; width: 100px; height: 60px; background: #e8f8f0; text-align: center; line-height: 60px; border-radius: 4px; }
+
+    /* 浮动演示 */
+    .float-container { background: #f8f9fa; padding: 0.5rem; border-radius: 4px; }
+    .float-box { float: left; width: 80px; height: 60px; margin: 5px; display: flex; align-items: center; justify-content: center; color: #fff; border-radius: 4px; }
+
+    /* 浮动塌陷演示 */
+    .collapse-demo { background: #f8f9fa; padding: 0.5rem; border-radius: 4px; margin-top: 0.5rem; }
+    .collapse-demo .child { float: left; width: 80px; height: 50px; margin: 5px; background: #6c63ff; color: #fff; display: flex; align-items: center; justify-content: center; border-radius: 4px; }
+    .collapse-demo.clearfix { background: #d5f5e3; }
+  </style>
+</head>
+<body>
+
+  <h1>📐 display 与浮动综合演示</h1>
+
+  <!-- ============================================= -->
+  <!-- 1. display -->
+  <!-- ============================================= -->
+  <h2>1️⃣ display 显示类型</h2>
+
+  <div class="demo-box">
+    <p><strong>block — 块级（独占一行，可设宽高）：</strong></p>
+    <div class="d-block">block 1</div>
+    <div class="d-block">block 2（每个都独占一行）</div>
+  </div>
+
+  <div class="demo-box">
+    <p><strong>inline — 行内（不换行，不可设宽高）：</strong></p>
+    <span class="d-inline">行内 1</span>
+    <span class="d-inline">行内 2</span>
+    <span class="d-inline">行内 3（并排显示）</span>
+  </div>
+
+  <div class="demo-box">
+    <p><strong>inline-block — 不换行，但可设宽高：</strong></p>
+    <span class="d-inline-block">A</span>
+    <span class="d-inline-block">B</span>
+    <span class="d-inline-block">C</span>
+    <p style="font-size:0.85rem;color:#888;margin-top:0.3rem;">三个 inline-block 并排，每个都设了 100×60px</p>
+  </div>
+
+  <pre>display: block;          /* 块级：独占一行，可设宽高 */
+display: inline;         /* 行内：不换行，宽高无效 */
+display: inline-block;   /* 行内块：不换行，可设宽高 */
+display: none;           /* 隐藏：不占位 */</pre>
+
+  <!-- ============================================= -->
+  <!-- 2. 浮动并排 -->
+  <!-- ============================================= -->
+  <h2>2️⃣ 浮动 float — 块级元素并排</h2>
+
+  <div class="demo-box clearfix">
+    <p>三个 div 加了 <code>float: left</code> 后并排显示：</p>
+    <div class="float-container clearfix" style="margin-top:0.5rem;">
+      <div class="float-box" style="background:#e74c3c;">1</div>
+      <div class="float-box" style="background:#2980b9;">2</div>
+      <div class="float-box" style="background:#27ae60;">3</div>
+    </div>
+  </div>
+
+  <pre>&lt;div style="float: left; width: 80px; height: 60px;"&gt;1&lt;/div&gt;
+&lt;div style="float: left; width: 80px; height: 60px;"&gt;2&lt;/div&gt;
+&lt;div style="float: left; width: 80px; height: 60px;"&gt;3&lt;/div&gt;
+
+/* 父元素加 clearfix 解决高度塌陷 */
+.clearfix::after { content: ''; display: table; clear: both; }</pre>
+
+  <!-- ============================================= -->
+  <!-- 3. 高度塌陷 -->
+  <!-- ============================================= -->
+  <h2>3️⃣ 高度塌陷与 clearfix</h2>
+
+  <p><strong>不加 clearfix（父元素高度塌陷）：</strong></p>
+  <div class="demo-box collapse-demo">
+    <div class="child">浮动的</div>
+    <div class="child">子元素</div>
+    <p style="color:#e74c3c;font-size:0.85rem;">⬆ 父元素背景灰色，但高度塌陷为 0，看不到背景</p>
+  </div>
+
+  <p><strong>加了 clearfix（父元素正确包裹）：</strong></p>
+  <div class="demo-box collapse-demo clearfix">
+    <div class="child">浮动的</div>
+    <div class="child">子元素</div>
+    <p style="color:#27ae60;font-size:0.85rem;">⬆ 父元素背景绿色，正确包裹住了浮动子元素</p>
+  </div>
+
+  <pre>/* clearfix 方案（最推荐） */
+.clearfix::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+/* 或者父元素加 overflow */
+.father { overflow: hidden; }</pre>
+
+  <!-- ============================================= -->
+  <!-- 4. 图文环绕 -->
+  <!-- ============================================= -->
+  <h2>4️⃣ 图文环绕</h2>
+
+  <div class="demo-box clearfix">
+    <div style="float:left;width:80px;height:80px;background:linear-gradient(135deg,#6c63ff,#a29bfe);color:#fff;display:flex;align-items:center;justify-content:center;border-radius:8px;margin-right:1rem;">图片</div>
+    <p>这是文字环绕效果。图片左浮动后，文字会自动环绕在图片的右侧和下方。这是浮动最初的设计目的——实现图文环绕排版。在没有浮动之前，要让文字环绕图片非常困难。浮动使得文字能够自然地在图片周围排列。</p>
+  </div>
+
+  <pre>img {
+  float: left;           /* 图片左浮动 */
+  margin-right: 10px;    /* 与文字保持间距 */
+}</pre>
+
+  <!-- ============================================= -->
+  <!-- 5. display vs 浮动 对比 -->
+  <!-- ============================================= -->
+  <h2>5️⃣ display: inline-block vs float 区别</h2>
+
+  <div class="demo-box">
+    <table style="width:100%;border-collapse:collapse;">
+      <tr><th style="text-align:left;padding:0.5rem;background:#6c63ff;color:#fff;">对比</th><th style="text-align:left;padding:0.5rem;background:#6c63ff;color:#fff;">inline-block</th><th style="text-align:left;padding:0.5rem;background:#6c63ff;color:#fff;">float</th></tr>
+      <tr><td style="padding:0.5rem;border-bottom:1px solid #e9ecef;">是否脱离文档流</td><td style="padding:0.5rem;border-bottom:1px solid #e9ecef;">❌ 不脱离</td><td style="padding:0.5rem;border-bottom:1px solid #e9ecef;">✅ 脱离</td></tr>
+      <tr><td style="padding:0.5rem;border-bottom:1px solid #e9ecef;">高度塌陷</td><td style="padding:0.5rem;border-bottom:1px solid #e9ecef;">❌ 不会</td><td style="padding:0.5rem;border-bottom:1px solid #e9ecef;">✅ 需要 clearfix</td></tr>
+      <tr><td style="padding:0.5rem;border-bottom:1px solid #e9ecef;">并排效果</td><td style="padding:0.5rem;border-bottom:1px solid #e9ecef;">✅ 并排</td><td style="padding:0.5rem;border-bottom:1px solid #e9ecef;">✅ 并排</td></tr>
+      <tr><td style="padding:0.5rem;">图文环绕</td><td style="padding:0.5rem;">❌ 不支持</td><td style="padding:0.5rem;">✅ 原生支持</td></tr>
+    </table>
+  </div>
+
+  <div class="note">
+    <strong>💡 提示：</strong>现在更推荐用 <strong>Flex 布局</strong> 来实现并排布局，比浮动更方便、更可控。<br>
+    但浮动仍然是需要掌握的 CSS 基础，尤其是清除浮动的原理。
+  </div>
+
+  <hr>
+  <p style="text-align: center;">
+    <a href="#" class="back-top">⬆ 回到页面顶部</a>
+  </p>
+  <p style="margin-top: 2rem; color: #6c757d; font-size: 0.85rem; text-align: center;">
+    display 与浮动 · CSS 学习笔记
+  </p>
+
+</body>
+</html>
