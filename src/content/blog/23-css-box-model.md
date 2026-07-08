@@ -225,27 +225,62 @@ span {
 
 ## 七、box-sizing — 盒子尺寸计算
 
-默认情况下（`content-box`），`padding` 和 `border` 会撑大盒子。
+默认情况下（`content-box`），`padding` 和 `border` 会**撑大盒子**——设置的 `width` 只是内容的宽度，不是实际可见宽度。
+
+### content-box（默认值）
 
 ```css
-/* content-box（默认） */
 .box1 {
   width: 140px;
   padding: 20px;
   border: 10px solid red;
-  box-sizing: content-box;   /* 默认值 */
-  /* 实际宽度 = 140 + 20×2 + 10×2 = 200px */
+  box-sizing: content-box;   /* 这是默认值，不写也一样 */
 }
+```
 
-/* border-box */
+实际宽度计算：
+
+```
+width          = 140px  （内容区域）
++ padding-left + padding-right = 20px + 20px = 40px
++ border-left + border-right   = 10px + 10px = 20px
+──────────────────────────────────────────────
+实际可见宽度    = 200px
+```
+
+**你设了 140px，实际却占了 200px。** 这就是"padding 和 border 撑大盒子"。
+
+### border-box（推荐）
+
+```css
 .box2 {
   width: 200px;
   padding: 20px;
   border: 10px solid red;
   box-sizing: border-box;    /* padding+border 向内挤 */
-  /* 实际宽度 = 200px（内容被压缩） */
 }
 ```
+
+实际宽度计算：
+
+```
+width          = 200px  （这是最终可见宽度）
+- border-left + border-right   = 10px + 10px = 20px
+- padding-left + padding-right = 20px + 20px = 40px
+──────────────────────────────────────────────
+内容区域实际可用    = 140px
+```
+
+**设 200px 就是 200px，padding 和 border 向内挤内容区域。**
+
+### 两种模式对比
+
+| 对比 | content-box（默认） | border-box ✅ |
+|------|:---:|:---:|
+| `width` 的含义 | 内容区域宽度 | **最终可见宽度** |
+| 设 width=200 + padding=20 | 实际宽 240px | 实际宽 200px |
+| 布局是否容易控制 | ❌ 需要手动加减 | ✅ 所见即所得 |
+| 推荐使用 | ❌ | ✅ **推荐** |
 
 ### 推荐：全局设置
 
@@ -257,7 +292,7 @@ span {
 }
 ```
 
-这样设置后，`width` 就是**实际可见宽度**，不用再操心 padding 和 border 撑大盒子。
+> **项目中几乎都这样设。** 一行代码，所有盒子变成"所见即所得"——写多少就是多少，不用操心 padding 和 border 撑大盒子。
 
 ## 我练习的演示页面
 
