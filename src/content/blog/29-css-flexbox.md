@@ -1,7 +1,7 @@
 ---
 title: 'CSS Flex 弹性盒布局：flex / justify-content / align-items 完全指南'
 description: 'Flex 是目前最常用的 CSS 布局方式——一行代码让子元素水平或垂直排列，轻松控制对齐、居中、换行和分布方式。'
-pubDate: 2026-07-08
+pubDate: 2026-07-07
 tags: ['CSS', 'Flex', '弹性盒', '布局', 'flexbox']
 category: '学习笔记'
 order: 29
@@ -82,6 +82,18 @@ flex-wrap: nowrap;    /* 默认：不换行，压缩项目宽度 */
 flex-wrap: wrap;      /* 换行 */
 flex-wrap: wrap-reverse;  /* 换行，反向排列 */
 ```
+
+### gap — 项目间距
+
+控制 flex 项目之间的间距，替代 `margin`：
+
+```css
+gap: 10px;        /* 行和列间距都是 10px */
+row-gap: 10px;    /* 行间距 */
+column-gap: 10px; /* 列间距 */
+```
+
+`gap` 比 `margin` 更干净——不会出现首尾多出间距的问题。
 
 ### align-content — 多行对齐
 
@@ -182,6 +194,7 @@ align-content: stretch;       /* 拉伸填满 */
 | `align-items` | `center` / `flex-start` | 交叉轴对齐 |
 | `flex-direction` | `row` / `column` | 主轴方向 |
 | `flex-wrap` | `wrap` | 是否换行 |
+| `gap` | `10px` | 项目间距 |
 
 ### 项目属性
 
