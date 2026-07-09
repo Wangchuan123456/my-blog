@@ -204,6 +204,28 @@ flex-direction: row-reverse; /* 水平反向 */</pre>
   <pre>flex-wrap: nowrap;   /* 默认：不换行 */
 flex-wrap: wrap;     /* 换行 */</pre>
 
+  <!-- ============================================= -->
+  <!-- 8. gap -->
+  <!-- ============================================= -->
+  <h2>8️⃣ gap 项目间距</h2>
+
+  <div class="demo-box">
+    <p><code>gap: 10px</code> — 项目之间自动产生间距：</p>
+    <div class="flex-demo" style="gap:10px;flex-wrap:wrap;">
+      <div class="item">1</div>
+      <div class="item">2</div>
+      <div class="item">3</div>
+      <div class="item">4</div>
+      <div class="item">5</div>
+    </div>
+    <div class="label">用 gap 替代 margin，不会出现首尾多出间距的问题</div>
+  </div>
+
+  <pre>.container {
+  display: flex;
+  gap: 10px;   /* 项目之间间距 10px */
+}</pre>
+
   <div class="note">
     <strong>💡 一句话记住 Flex：</strong><br>
     父元素 <code>display: flex</code> → 子元素水平排列<br>
