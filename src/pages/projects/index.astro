@@ -55,13 +55,13 @@ const sorted = projects.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate
     display: block;
     background: var(--bg);
     border: 1px solid var(--border);
-    border-radius: var(--radius);
+    border-radius: 10px;
     padding: 1.5rem;
-    transition: box-shadow 0.2s, transform 0.2s;
+    transition: box-shadow 0.25s, transform 0.25s;
     color: var(--text);
   }
   .project-card:hover {
-    box-shadow: var(--card-shadow);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     transform: translateY(-3px);
     opacity: 1;
   }
