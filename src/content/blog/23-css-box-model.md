@@ -1,7 +1,7 @@
 ---
 title: 'CSS 盒子模型：边框 / border-radius / 内边距 / 外边距 / 合并塌陷 / box-sizing'
 description: '盒子模型是 CSS 布局的基石——从内到外：内容 → padding → border → margin，以及圆角、外边距合并、box-sizing。'
-pubDate: 2026-07-07
+pubDate: 2026-07-08
 tags: ['CSS', '盒子模型', 'border', 'padding', 'margin', 'border-radius', 'box-sizing']
 category: '学习笔记'
 order: 23

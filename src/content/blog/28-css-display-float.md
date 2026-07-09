@@ -1,7 +1,7 @@
 ---
 title: 'CSS display 与浮动 float：块级 / 行内 / 行内块 / 浮动布局'
 description: 'display 控制元素的显示类型——block、inline、inline-block、none；float 让元素脱离文档流实现图文环绕和并排布局。'
-pubDate: 2026-07-07
+pubDate: 2026-07-08
 tags: ['CSS', 'display', '浮动', 'float', 'clearfix', '布局']
 category: '学习笔记'
 order: 28

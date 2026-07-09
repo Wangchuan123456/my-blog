@@ -1,7 +1,7 @@
 ---
 title: 'CSS 盒子背景：颜色 / 图片 / 平铺 / 位置 / 尺寸 / 复合写法 / 渐变'
 description: '背景是 CSS 美化盒子的核心——从 background-color 到 background 复合写法，以及 linear-gradient 渐变背景。'
-pubDate: 2026-07-07
+pubDate: 2026-07-08
 tags: ['CSS', '背景', 'background', '渐变', 'linear-gradient']
 category: '学习笔记'
 order: 24

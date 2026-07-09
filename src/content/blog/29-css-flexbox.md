@@ -1,7 +1,7 @@
 ---
 title: 'CSS Flex 弹性盒布局：flex / justify-content / align-items 完全指南'
 description: 'Flex 是目前最常用的 CSS 布局方式——一行代码让子元素水平或垂直排列，轻松控制对齐、居中、换行和分布方式。'
-pubDate: 2026-07-07
+pubDate: 2026-07-09
 tags: ['CSS', 'Flex', '弹性盒', '布局', 'flexbox']
 category: '学习笔记'
 order: 29

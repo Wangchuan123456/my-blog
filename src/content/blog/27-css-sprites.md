@@ -1,7 +1,7 @@
 ---
 title: 'CSS 精灵图（CSS Sprites）：原理与 background-position 用法'
 description: '精灵图把多个小图标合成一张大图，用 background-position 显示需要的部分——减少 HTTP 请求，提升加载速度。'
-pubDate: 2026-07-07
+pubDate: 2026-07-08
 tags: ['CSS', '精灵图', 'CSS Sprites', 'background-position', '性能优化']
 category: '学习笔记'
 order: 27

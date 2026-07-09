@@ -1,7 +1,7 @@
 ---
 title: 'CSS 字体图标：iconfont 的查找、引入与使用'
 description: '字体图标是用"字体"的方式展示图标——任意缩放不失真，用 color 改颜色，从 iconfont.cn 获取到项目中使用的完整流程。'
-pubDate: 2026-07-07
+pubDate: 2026-07-08
 tags: ['CSS', '字体图标', 'iconfont', '图标']
 category: '学习笔记'
 order: 26

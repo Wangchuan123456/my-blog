@@ -1,7 +1,7 @@
 ---
 title: 'CSS 盒子阴影 box-shadow / 过渡 transition / 页面初始化 CSS Reset'
 description: '盒子阴影让元素有立体感，过渡让变化更平滑，页面初始化消除浏览器默认样式差异——三个实用知识点。'
-pubDate: 2026-07-07
+pubDate: 2026-07-08
 tags: ['CSS', '盒子阴影', 'box-shadow', '过渡', 'transition', 'CSS初始化']
 category: '学习笔记'
 order: 25
