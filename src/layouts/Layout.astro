@@ -100,6 +100,7 @@ import '../styles/global.css';
     height: 60px;
   }
   .logo {
+    font-family: var(--font-serif);
     font-weight: 700;
     font-size: 1.15rem;
     color: var(--text);
@@ -113,10 +114,25 @@ import '../styles/global.css';
     color: var(--text-secondary);
     font-size: 0.95rem;
     font-weight: 500;
+    position: relative;
+    padding-bottom: 2px;
     transition: color 0.2s;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    transition: width 0.2s;
   }
   .nav-links a:hover {
     color: var(--accent);
+  }
+  .nav-links a:hover::after {
+    width: 100%;
   }
   .theme-btn {
     background: none;
