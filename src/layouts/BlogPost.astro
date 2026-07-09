@@ -4,9 +4,11 @@ import Layout from './Layout.astro';
 
 export interface Props {
   entry: CollectionEntry<'blog'>;
+  prev?: CollectionEntry<'blog'>;
+  next?: CollectionEntry<'blog'>;
 }
 
-const { entry } = Astro.props;
+const { entry, prev, next } = Astro.props;
 const { Content } = await entry.render();
 const { title, description, pubDate, updatedDate, tags, heroImage, demo } = entry.data;
 ---
@@ -50,7 +52,20 @@ const { title, description, pubDate, updatedDate, tags, heroImage, demo } = entr
 
     <!-- 文章底部导航 -->
     <nav class="post-footer">
-      <a href="/blog" class="back-link">← 返回文章列表</a>
+      <div class="post-nav-inner">
+        {prev && (
+          <a href={`/blog/${prev.id}`} class="post-nav-link prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">{prev.data.title}</span>
+          </a>
+        )}
+        {next && (
+          <a href={`/blog/${next.id}`} class="post-nav-link next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">{next.data.title}</span>
+          </a>
+        )}
+      </div>
     </nav>
   </article>
 </Layout>
@@ -143,8 +158,40 @@ const { title, description, pubDate, updatedDate, tags, heroImage, demo } = entr
     padding-top: 2rem;
     border-top: 1px solid var(--border);
   }
-  .back-link {
-    display: inline-block;
+  .post-nav-inner {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+  .post-nav-link {
+    flex: 1;
+    display: block;
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    transition: background 0.2s;
+  }
+  .post-nav-link.next {
+    text-align: right;
+  }
+  .post-nav-link:hover {
+    background: var(--bg-secondary);
+  }
+  .post-nav-label {
+    display: block;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    font-family: var(--font-sans);
+    margin-bottom: 0.2rem;
+  }
+  .post-nav-title {
+    display: block;
+    font-size: 0.95rem;
     font-weight: 500;
+    color: var(--text);
+    font-family: var(--font-serif);
+    line-height: 1.4;
+  }
+  .post-nav-link:only-child.next {
+    margin-left: auto;
   }
 </style>

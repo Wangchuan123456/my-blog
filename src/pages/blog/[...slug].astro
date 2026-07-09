@@ -10,7 +10,16 @@ export async function getStaticPaths() {
   }));
 }
 
-const { entry } = Astro.props;
+const blogPosts = await getCollection('blog');
+const sorted = blogPosts.sort((a, b) => (a.data.order ?? 999) - (b.data.order ?? 999));
+
+const { slug } = Astro.params;
+const entry = sorted.find(p => p.id === slug);
+if (!entry) return Astro.redirect('/404');
+
+const idx = sorted.indexOf(entry);
+const prev = idx > 0 ? sorted[idx - 1] : undefined;
+const next = idx < sorted.length - 1 ? sorted[idx + 1] : undefined;
 ---
 
-<BlogPost entry={entry} />
+<BlogPost entry={entry} prev={prev} next={next} />
