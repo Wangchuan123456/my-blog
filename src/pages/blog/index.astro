@@ -113,6 +113,11 @@ const allTags = [...new Set(sortedPosts.flatMap(p => p.data.tags))].sort();
     gap: 1rem;
     padding: 0 1.5rem 3rem;
   }
+  @media (min-width: 640px) {
+    .blog-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
 
   .blog-card {
     display: block;

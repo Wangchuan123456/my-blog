@@ -101,7 +101,7 @@ const featuredProjects = projects.filter(p => p.data.featured);
   }
   .highlight {
     color: var(--accent);
-    background: linear-gradient(135deg, var(--accent), #b8a9ff);
+    background: linear-gradient(135deg, var(--accent), #d97706);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
@@ -170,6 +170,11 @@ const featuredProjects = projects.filter(p => p.data.featured);
   .card-list {
     display: grid;
     gap: 1rem;
+  }
+  @media (min-width: 640px) {
+    .card-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
   .card {
     display: block;
