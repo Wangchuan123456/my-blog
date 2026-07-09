@@ -5,8 +5,14 @@ import { getCollection } from 'astro:content';
 const blogPosts = await getCollection('blog');
 const sortedPosts = blogPosts.sort((a, b) => (a.data.order ?? 999) - (b.data.order ?? 999));
 
-// 提取所有标签
-const allTags = [...new Set(sortedPosts.flatMap(p => p.data.tags))].sort();
+// 提取所有标签并按频率排序
+const allTags = [...new Set(sortedPosts.flatMap(p => p.data.tags))];
+const tagFreq = new Map();
+sortedPosts.forEach(p => p.data.tags.forEach(t => tagFreq.set(t, (tagFreq.get(t) || 0) + 1)));
+const sortedByFreq = allTags.sort((a, b) => (tagFreq.get(b) || 0) - (tagFreq.get(a) || 0));
+const MAX_VISIBLE_TAGS = 15;
+const visibleTags = sortedByFreq.slice(0, MAX_VISIBLE_TAGS);
+const hiddenTags = sortedByFreq.slice(MAX_VISIBLE_TAGS);
 ---
 
 <Layout title="文章 · 前端日志">
@@ -15,11 +21,19 @@ const allTags = [...new Set(sortedPosts.flatMap(p => p.data.tags))].sort();
     <p class="page-desc">共 {sortedPosts.length} 篇文章 · 持续更新中</p>
 
     {allTags.length > 0 && (
-      <div class="filter-tags">
+      <div class="filter-tags" id="filter-tags">
         <button class="filter-tag active" data-filter="all">全部</button>
-        {allTags.map(tag => (
-          <button class="filter-tag" data-filter={tag}>{tag}</button>
+        {visibleTags.map(tag => (
+          <button class="filter-tag" data-filter={tag}>{tag} <sup>{tagFreq.get(tag)}</sup></button>
         ))}
+        {hiddenTags.length > 0 && (
+          <>
+            {hiddenTags.map(tag => (
+              <button class="filter-tag tag-hidden" data-filter={tag}>{tag} <sup>{tagFreq.get(tag)}</sup></button>
+            ))}
+            <button class="tag-toggle-btn" id="filter-tag-toggle">+{hiddenTags.length} 更多</button>
+          </>
+        )}
       </div>
     )}
   </div>
@@ -50,6 +64,7 @@ const allTags = [...new Set(sortedPosts.flatMap(p => p.data.tags))].sort();
 
   <!-- 标签筛选 JS -->
   <script>
+    // 标签筛选
     const buttons = document.querySelectorAll('.filter-tag');
     const cards = document.querySelectorAll('.blog-card');
     buttons.forEach(btn => {
@@ -68,6 +83,14 @@ const allTags = [...new Set(sortedPosts.flatMap(p => p.data.tags))].sort();
         });
       });
     });
+    // 标签展开/收起
+    const toggleBtn2 = document.getElementById('filter-tag-toggle');
+    const filterTags = document.getElementById('filter-tags');
+    if (toggleBtn2 && filterTags) {
+      toggleBtn2.addEventListener('click', () => {
+        filterTags.classList.toggle('expanded');
+      });
+    }
   </script>
 </Layout>
 
@@ -106,6 +129,41 @@ const allTags = [...new Set(sortedPosts.flatMap(p => p.data.tags))].sort();
     background: var(--accent);
     color: #fff;
     border-color: var(--accent);
+  }
+
+  .filter-tag sup {
+    font-size: 0.7em;
+    opacity: 0.6;
+    margin-left: 0.1rem;
+  }
+  .filter-tag.tag-hidden {
+    display: none;
+  }
+  .filter-tags.expanded .filter-tag.tag-hidden {
+    display: inline-flex;
+  }
+  .filter-tags.expanded .tag-toggle-btn {
+    display: none;
+  }
+  .tag-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+    padding: 0.35rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    border: 1px dashed var(--border);
+    font-family: inherit;
+    transition: all 0.15s;
+  }
+  .tag-toggle-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-light);
   }
 
   .blog-grid {
