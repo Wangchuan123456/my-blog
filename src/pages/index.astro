@@ -94,6 +94,7 @@ const featuredProjects = projects.filter(p => p.data.featured);
     text-align: center;
   }
   .hero-greeting {
+    font-family: var(--font-serif);
     font-size: 2.5rem;
     font-weight: 700;
     margin-bottom: 1rem;
@@ -137,7 +138,7 @@ const featuredProjects = projects.filter(p => p.data.featured);
     color: #fff;
   }
   .btn-primary:hover {
-    box-shadow: 0 4px 14px rgba(108, 99, 255, 0.35);
+    box-shadow: 0 4px 14px rgba(217, 119, 6, 0.3);
   }
   .btn-secondary {
     background: var(--bg-secondary);
@@ -174,13 +175,13 @@ const featuredProjects = projects.filter(p => p.data.featured);
     display: block;
     background: var(--bg);
     border: 1px solid var(--border);
-    border-radius: var(--radius);
+    border-radius: 10px;
     padding: 1.5rem;
-    transition: box-shadow 0.2s, transform 0.2s;
+    transition: box-shadow 0.25s, transform 0.25s;
     color: var(--text);
   }
   .card:hover {
-    box-shadow: var(--card-shadow);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     transform: translateY(-3px);
     opacity: 1;
   }
