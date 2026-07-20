@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>前沿技术 Day2 · 演示</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{max-width:720px;margin:0 auto;padding:1.5rem;font-family:system-ui,"Microsoft YaHei",sans-serif;line-height:1.8;color:#333}
+  h1{color:#6c63ff}h2{margin-top:2.5rem;border-bottom:2px solid #e9ecef;padding-bottom:.3rem}
+  code{background:#f0f0f0;padding:.15rem .4rem;border-radius:3px;font-size:.9em}
+  .demo-box{background:#fff;border:1px solid #e9ecef;border-radius:8px;padding:1.5rem;margin:1.5rem 0}
+  pre{background:#f4f4f4;padding:.8rem;border-radius:4px;font-size:.85rem;overflow-x:auto}
+  .demo-flex{display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
+  :root{--primary:#6c63ff;--radius:8px;--gap:1rem}
+  .var-box{width:calc(50% - var(--gap));padding:1rem;background:var(--primary);color:#fff;border-radius:var(--radius);text-align:center}
+  .vh-box{background:#6c63ff;color:#fff;display:flex;align-items:center;justify-content:center}
+  .turn-box{width:60px;height:60px;background:linear-gradient(135deg,#6c63ff,#e74c3c);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;transition:all .3s}
+  .turn-box:hover{transform:rotate(1turn)}
+  @keyframes hue{to{filter:hue-rotate(360deg)}}
+  .hue-icon{font-size:40px;animation:hue 3s linear infinite}
+</style></head>
+<body>
+<h1>🧪 CSS 前沿技术 Day2 演示</h1>
+
+<h2>1️⃣ var 变量 + calc 计算</h2>
+<div class="demo-box demo-flex">
+  <div class="var-box">var + calc</div>
+  <div class="var-box" style="--primary:#e74c3c">不同变量</div>
+</div>
+<pre>:root { --primary: #6c63ff; --radius: 8px; --gap: 1rem; }
+.box { width: calc(50% - var(--gap)); background: var(--primary); }</pre>
+
+<h2>2️⃣ vh 视口单位</h2>
+<div class="demo-box">
+  <div class="vh-box" style="height:20vh">20vh 高度</div>
+</div>
+
+<h2>3️⃣ turn 旋转单位</h2>
+<div class="demo-box demo-flex">
+  <div class="turn-box">Hover</div>
+  <span style="font-size:.85rem;color:#888;">← 悬停旋转 1turn (一圈)</span>
+</div>
+
+<h2>4️⃣ 炫彩动画</h2>
+<div class="demo-box">
+  <span class="hue-icon">✦</span>
+  <span style="font-size:.85rem;color:#888;">hue-rotate 色彩循环</span>
+</div>
+<pre>@keyframes hue { to { filter: hue-rotate(360deg); } }
+.icon { animation: hue 3s linear infinite; }</pre>
+<hr><p style="text-align:center"><a href="#" class="back-top" style="color:#6c63ff">⬆ 回到顶部</a></p>
+</body></html>

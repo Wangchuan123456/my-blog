@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>前沿技术 Day1 · 演示</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{max-width:720px;margin:0 auto;padding:1.5rem;font-family:system-ui,"Microsoft YaHei",sans-serif;line-height:1.8;color:#333}
+  h1{color:#6c63ff}h2{margin-top:2.5rem;border-bottom:2px solid #e9ecef;padding-bottom:.3rem}
+  code{background:#f0f0f0;padding:.15rem .4rem;border-radius:3px;font-size:.9em}
+  .demo-box{background:#fff;border:1px solid #e9ecef;border-radius:8px;padding:1.5rem;margin:1.5rem 0}
+  pre{background:#f4f4f4;padding:.8rem;border-radius:4px;font-size:.85rem;overflow-x:auto}
+  .note{background:#fff3cd;border-left:4px solid #ffc107;padding:.5rem 1rem;margin:1rem 0;border-radius:0 4px 4px 0;font-size:.9rem}
+  .demo-flex{display:flex;gap:1rem;flex-wrap:wrap}
+
+  .glass{background:rgba(108,99,255,0.15);backdrop-filter:blur(10px);padding:1rem 2rem;border-radius:12px;border:1px solid rgba(108,99,255,0.2);color:#6c63ff;text-align:center}
+  .filter-img{width:120px;height:80px;object-fit:cover;border-radius:6px;transition:all .3s;cursor:pointer}
+  .filter-img:hover{filter:grayscale(1)}
+  .clip{width:120px;height:120px;background:linear-gradient(135deg,#6c63ff,#e74c3c);clip-path:circle(50%);display:flex;align-items:center;justify-content:center;color:#fff}
+  svg{width:100px;height:60px}
+</style></head>
+<body>
+<h1>🧪 CSS 前沿技术 Day1 演示</h1>
+
+<h2>1️⃣ SVG 矢量图形</h2>
+<div class="demo-box">
+  <svg><rect x="10" y="10" width="80" height="40" fill="#6c63ff" rx="6"/><circle cx="50" cy="30" r="15" fill="#fff" opacity=".5"/></svg>
+</div>
+
+<h2>2️⃣ clip-path 裁剪</h2>
+<div class="demo-box demo-flex">
+  <div class="clip">圆形</div>
+  <div style="width:120px;height:120px;background:linear-gradient(135deg,#27ae60,#2ecc71);clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);display:flex;align-items:center;justify-content:center;color:#fff;">菱形</div>
+</div>
+
+<h2>3️⃣ filter 滤镜</h2>
+<div class="demo-box demo-flex">
+  <img src="https://via.placeholder.com/120x80/6c63ff/fff?text=原图" class="filter-img">
+  <img src="https://via.placeholder.com/120x80/e74c3c/fff?text=灰度" class="filter-img" style="filter:grayscale(1)">
+  <img src="https://via.placeholder.com/120x80/27ae60/fff?text=模糊" class="filter-img" style="filter:blur(2px)">
+</div>
+
+<h2>4️⃣ 毛玻璃效果 backdrop-filter</h2>
+<div class="demo-box" style="background:linear-gradient(135deg,#6c63ff,#a29bfe,#e74c3c);padding:2rem;">
+  <div class="glass">✨ 毛玻璃效果</div>
+</div>
+
+<h2>5️⃣ SVG 描边动画</h2>
+<div class="demo-box">
+  <svg viewBox="0 0 100 50" style="width:200px;height:100px;">
+    <path d="M10 25 Q30 5 50 25 T90 25" fill="none" stroke="#6c63ff" stroke-width="3" stroke-dasharray="200" stroke-dashoffset="200" style="animation:draw 2s ease forwards"/>
+  </svg>
+  <style>@keyframes draw{to{stroke-dashoffset:0}}</style>
+</div>
+<hr><p style="text-align:center"><a href="#" class="back-top" style="color:#6c63ff">⬆ 回到顶部</a></p>
+</body></html>

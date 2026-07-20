@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>响应式布局 · 演示</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:system-ui,"Microsoft YaHei",sans-serif;color:#333}
+  h1{color:#6c63ff;text-align:center;padding:1rem;font-size:clamp(1.2rem,4vw,2rem)}
+  h2{padding:0 1rem;margin-top:1rem}
+  code{background:#f0f0f0;padding:.15rem .4rem;border-radius:3px;font-size:.9em}
+  pre{background:#f4f4f4;padding:.8rem;border-radius:4px;font-size:.85rem;overflow-x:auto;margin:1rem}
+  .note{background:#fff3cd;border-left:4px solid #ffc107;padding:.5rem 1rem;margin:1rem;border-radius:0 4px 4px 0;font-size:.9rem}
+  .back-top{display:inline-block;margin:2rem 1rem;padding:.5rem 1rem;background:#6c63ff;color:#fff;border-radius:6px;text-decoration:none}
+
+  /* 响应式卡片 */
+  .container{max-width:1200px;margin:0 auto;padding:0 15px}
+  .row{display:flex;flex-wrap:wrap;gap:15px}
+  .card{flex:1 1 100%;background:#f8f9fa;border-radius:8px;padding:1rem;text-align:center;border:1px solid #e9ecef}
+
+  /* 平板 ≥ 768px */
+  @media(min-width:768px){.card{flex:1 1 calc(50% - 15px)}}
+
+  /* 桌面 ≥ 992px */
+  @media(min-width:992px){.card{flex:1 1 calc(25% - 15px)}}
+</style></head>
+<body>
+<h1>📐 响应式布局演示</h1>
+<p style="text-align:center;padding:0 1rem;color:#888;">← 调整窗口宽度，卡片列数自动变化 →</p>
+
+<div class="container">
+  <h2>响应式卡片</h2>
+  <div class="row" style="margin-top:.5rem">
+    <div class="card"><h3>卡片 1</h3><p>手机: 1列<br>平板: 2列<br>桌面: 4列</p></div>
+    <div class="card"><h3>卡片 2</h3><p>自适应列数</p></div>
+    <div class="card"><h3>卡片 3</h3><p>无需 JS</p></div>
+    <div class="card"><h3>卡片 4</h3><p>纯 CSS</p></div>
+  </div>
+</div>
+
+<h2 style="padding:0 1rem;">核心代码</h2>
+<pre>.card { flex: 1 1 100%; }                    /* 手机: 1列 */
+
+@media (min-width: 768px) {
+  .card { flex: 1 1 calc(50% - 15px); }     /* 平板: 2列 */
+}
+
+@media (min-width: 992px) {
+  .card { flex: 1 1 calc(25% - 15px); }     /* 桌面: 4列 */
+}</pre>
+
+<h2 style="padding:0 1rem;">Bootstrap 网格</h2>
+<pre>&lt;div class="container"&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="col-12 col-md-6 col-lg-3"&gt;列&lt;/div&gt;
+    &lt;div class="col-12 col-md-6 col-lg-3"&gt;列&lt;/div&gt;
+    &lt;div class="col-12 col-md-6 col-lg-3"&gt;列&lt;/div&gt;
+    &lt;div class="col-12 col-md-6 col-lg-3"&gt;列&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+
+<div class="note"><strong>💡 响应式三要素：</strong>媒体查询 @media + 弹性单位 + 流式布局</div>
+<p style="text-align:center"><a href="#" class="back-top">⬆ 回到顶部</a></p>
+</body></html>

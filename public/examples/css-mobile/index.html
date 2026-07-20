@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>移动端适配 · 演示</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:system-ui,-apple-system,Helvetica,sans-serif;color:#333;padding:1rem}
+  h1{color:#6c63ff;font-size:5vw}
+  h2{margin-top:2rem;border-bottom:2px solid #e9ecef;padding-bottom:.3rem;font-size:4vw}
+  code{background:#f0f0f0;padding:.15rem .4rem;border-radius:3px;font-size:.9em}
+  .demo-box{background:#fff;border:1px solid #e9ecef;border-radius:8px;padding:1.5rem;margin:1rem 0}
+  pre{background:#f4f4f4;padding:.8rem;border-radius:4px;font-size:.85rem;overflow-x:auto}
+  .note{background:#fff3cd;border-left:4px solid #ffc107;padding:.5rem 1rem;margin:1rem 0;border-radius:0 4px 4px 0;font-size:.85rem}
+
+  .vw-box{width:50vw;height:20vw;background:linear-gradient(135deg,#6c63ff,#a29bfe);color:#fff;display:flex;align-items:center;justify-content:center;border-radius:6px;font-size:4vw}
+  .rem-box{width:5rem;height:3rem;background:#e74c3c;color:#fff;display:flex;align-items:center;justify-content:center;border-radius:6px;font-size:.8rem}
+  .grid{display:flex;gap:2vw;flex-wrap:wrap}
+  .grid .item{width:calc(50vw - 2vw);height:20vw;background:#6c63ff;color:#fff;display:flex;align-items:center;justify-content:center;border-radius:2vw}
+  .grid .item:nth-child(2n){background:#e74c3c}
+</style></head>
+<body>
+<h1>📱 移动端适配演示</h1>
+<p style="font-size:3.5vw;color:#888;">调整浏览器窗口宽度查看效果（vw 单位自适应）</p>
+
+<h2>1️⃣ vw 单位</h2>
+<div class="demo-box">
+  <div class="vw-box">50vw × 20vw</div>
+  <p style="font-size:.85rem;color:#888;margin-top:.5rem;">宽度始终是视口的一半</p>
+</div>
+
+<h2>2️⃣ rem 单位</h2>
+<div class="demo-box">
+  <div class="rem-box">5rem × 3rem</div>
+  <p style="font-size:.85rem;color:#888;margin-top:.5rem;">rem 相对 html 字号，需配合 JS 动态设置</p>
+</div>
+
+<h2>3️⃣ 两列自适应</h2>
+<div class="demo-box">
+  <div class="grid">
+    <div class="item">1</div><div class="item">2</div><div class="item">3</div><div class="item">4</div>
+  </div>
+</div>
+
+<div class="note"><strong>移动端必加：</strong><br>
+<code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code></div>
+</body></html>
