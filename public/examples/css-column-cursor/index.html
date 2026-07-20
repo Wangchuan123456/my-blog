@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>多栏布局与鼠标样式 · 综合演示</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { max-width:720px; margin:0 auto; padding:1.5rem; font-family:system-ui,"Microsoft YaHei",sans-serif; line-height:1.8; color:#333; }
+    h1 { color:#6c63ff; } h2 { margin-top:2.5rem; border-bottom:2px solid #e9ecef; padding-bottom:.3rem; }
+    code { background:#f0f0f0; padding:.15rem .4rem; border-radius:3px; font-size:.9em; }
+    .demo-box { background:#fff; border:1px solid #e9ecef; border-radius:8px; padding:1.5rem; margin:1.5rem 0; }
+    pre { background:#f4f4f4; padding:.8rem; border-radius:4px; font-size:.85rem; overflow-x:auto; }
+    .note { background:#fff3cd; border-left:4px solid #ffc107; padding:.5rem 1rem; margin:1rem 0; border-radius:0 4px 4px 0; font-size:.9rem; }
+    .back-top { display:inline-block; margin-top:2rem; padding:.5rem 1rem; background:#6c63ff; color:#fff; border-radius:6px; text-decoration:none; }
+    .back-top:hover { opacity:.9; }
+
+    .multi-col {
+      column-count: 3; column-gap: 20px; column-rule: 1px dashed #6c63ff;
+      text-align: justify; text-indent: 2em;
+    }
+  </style>
+</head>
+<body>
+  <h1>📰 多栏布局与鼠标样式</h1>
+
+  <h2>1️⃣ 多栏布局 column</h2>
+  <div class="demo-box">
+    <div class="multi-col">
+      <p>CSS 多栏布局（Multi-column Layout）允许将内容分成多栏排列，就像报纸和杂志的排版方式一样。它通过 column-count 属性指定栏数，通过 column-gap 控制栏间距，通过 column-rule 添加栏之间的分割线。</p>
+      <p>这种布局方式特别适合大段文字内容，比如文章正文、用户协议、产品介绍等。将长文本分成多栏可以提高阅读效率，减少眼睛左右扫视的距离。</p>
+      <p>需要注意的是，如果子元素有固定高度或包含图片，可能需要使用 break-inside: avoid-column 来防止内容被分割到不同栏中。</p>
+    </div>
+  </div>
+  <pre>.box { column-count: 3; column-gap: 20px; column-rule: 1px dashed red; }</pre>
+
+  <h2>2️⃣ 鼠标样式 cursor</h2>
+  <div class="demo-box">
+    <table style="width:100%;border-collapse:collapse;text-align:center;">
+      <tr><th style="background:#6c63ff;color:#fff;padding:.5rem;">样式</th><th style="background:#6c63ff;color:#fff;padding:.5rem;">CSS</th><th style="background:#6c63ff;color:#fff;padding:.5rem;">效果</th></tr>
+      <tr><td style="border-bottom:1px solid #e9ecef;padding:.3rem;">默认</td><td style="border-bottom:1px solid #e9ecef;padding:.3rem;"><code>default</code></td><td style="border-bottom:1px solid #e9ecef;padding:.3rem;cursor:default;">↖ 默认箭头</td></tr>
+      <tr><td style="border-bottom:1px solid #e9ecef;padding:.3rem;">手型</td><td style="border-bottom:1px solid #e9ecef;padding:.3rem;"><code>pointer</code></td><td style="border-bottom:1px solid #e9ecef;padding:.3rem;cursor:pointer;">👆 手型（可点击）</td></tr>
+      <tr><td style="border-bottom:1px solid #e9ecef;padding:.3rem;">文本</td><td style="border-bottom:1px solid #e9ecef;padding:.3rem;"><code>text</code></td><td style="border-bottom:1px solid #e9ecef;padding:.3rem;cursor:text;">I 型竖线</td></tr>
+      <tr><td style="border-bottom:1px solid #e9ecef;padding:.3rem;">禁止</td><td style="border-bottom:1px solid #e9ecef;padding:.3rem;"><code>not-allowed</code></td><td style="border-bottom:1px solid #e9ecef;padding:.3rem;cursor:not-allowed;">🚫 禁止点击</td></tr>
+      <tr><td style="border-bottom:1px solid #e9ecef;padding:.3rem;">抓取</td><td style="border-bottom:1px solid #e9ecef;padding:.3rem;"><code>grab</code></td><td style="border-bottom:1px solid #e9ecef;padding:.3rem;cursor:grab;">✊ 可拖拽</td></tr>
+      <tr><td style="padding:.3rem;">等待</td><td style="padding:.3rem;"><code>wait</code></td><td style="padding:.3rem;cursor:wait;">⏳ 加载中</td></tr>
+    </table>
+  </div>
+  <pre>/* 最常用的两个 */
+button { cursor: pointer; }
+button:disabled { cursor: not-allowed; }</pre>
+
+  <div class="note"><strong>💡 最常用的 cursor：</strong>pointer（可点击）和 not-allowed（禁用）。工作中 80% 的场景就这两个。</div>
+  <hr><p style="text-align:center;"><a href="#" class="back-top">⬆ 回到顶部</a></p>
+</body>
+</html>

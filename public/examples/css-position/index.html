@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>定位布局 · 综合演示</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { max-width:720px; margin:0 auto; padding:1.5rem; font-family:system-ui,"Microsoft YaHei",sans-serif; line-height:1.8; color:#333; }
+    h1 { color:#6c63ff; } h2 { margin-top:2.5rem; border-bottom:2px solid #e9ecef; padding-bottom:.3rem; }
+    code { background:#f0f0f0; padding:.15rem .4rem; border-radius:3px; font-size:.9em; }
+    .demo-box { background:#fff; border:1px solid #e9ecef; border-radius:8px; padding:1.5rem; margin:1.5rem 0; }
+    pre { background:#f4f4f4; padding:.8rem; border-radius:4px; font-size:.85rem; overflow-x:auto; }
+    .note { background:#fff3cd; border-left:4px solid #ffc107; padding:.5rem 1rem; margin:1rem 0; border-radius:0 4px 4px 0; font-size:.9rem; }
+    .back-top { display:inline-block; margin-top:2rem; padding:.5rem 1rem; background:#6c63ff; color:#fff; border-radius:6px; text-decoration:none; }
+    .back-top:hover { opacity:.9; }
+
+    .rel-box { position:relative; top:30px; left:30px; width:120px; height:80px; background:pink; display:flex; align-items:center; justify-content:center; border-radius:4px; }
+    .rel-next { width:120px; height:80px; background:#87ceeb; display:flex; align-items:center; justify-content:center; border-radius:4px; margin-top:20px; }
+
+    .abs-father { position:relative; width:300px; height:200px; background:#f0f0f0; border-radius:4px; margin-top:.5rem; }
+    .abs-child { position:absolute; right:20px; bottom:30px; width:100px; height:50px; background:#6c63ff; color:#fff; display:flex; align-items:center; justify-content:center; border-radius:4px; }
+
+    .fixed-demo { position:fixed; left:50%; margin-left:-150px; bottom:20px; width:300px; height:50px; background:rgba(108,99,255,0.9); color:#fff; display:flex; align-items:center; justify-content:center; border-radius:8px; font-size:14px; z-index:99; }
+
+    .sticky-nav { position:sticky; top:0; width:100%; height:50px; background:linear-gradient(135deg,#6c63ff,#a29bfe); color:#fff; display:flex; align-items:center; justify-content:center; border-radius:6px; z-index:10; }
+    .sticky-content { height:600px; background:#f8f9fa; padding:1rem; margin-top:.5rem; border-radius:6px; }
+
+    .z-box { position:relative; height:120px; }
+    .z-box img { position:absolute; width:80px; border-radius:4px; transition:all .3s; }
+    .z-box img:hover { z-index:1; transform:scale(1.1); cursor:pointer; }
+  </style>
+</head>
+<body>
+  <h1>📍 CSS 定位布局综合演示</h1>
+
+  <h2>1️⃣ 相对定位 relative</h2>
+  <div class="demo-box">
+    <div class="rel-box">相对定位<br>top:30 left:30</div>
+    <div class="rel-next">后面的盒子（不受影响）</div>
+  </div>
+  <pre>position: relative;
+top: 30px; left: 30px;  /* 相对自己原来位置偏移 */</pre>
+
+  <h2>2️⃣ 绝对定位 absolute</h2>
+  <div class="demo-box">
+    <p>子绝父相：父 relative，子 absolute</p>
+    <div class="abs-father">
+      <div class="abs-child">子绝</div>
+    </div>
+  </div>
+  <pre>.father { position: relative; }
+.child { position: absolute; right: 20px; bottom: 30px; }</pre>
+
+  <h2>3️⃣ 固定定位 fixed</h2>
+  <div class="demo-box">
+    <p>页面底部固定条（试试滚动页面）：</p>
+  </div>
+  <div class="fixed-demo">⬇ 固定底部 fixed（滚动也不动）</div>
+  <pre>position: fixed;
+left: 50%; margin-left: -150px;  /* 居中 */
+bottom: 20px;</pre>
+
+  <h2>4️⃣ 粘性定位 sticky</h2>
+  <div class="demo-box" style="overflow:hidden;">
+    <div class="sticky-nav">粘性导航 — 滚动到顶部就粘住</div>
+    <div class="sticky-content">
+      <p>向下滚动看看导航栏的效果……</p>
+      <p style="margin-top:1rem;">当页面滚动到导航栏到达顶部时，它会粘住不动。</p>
+      <p style="margin-top:1rem;">继续滚动……</p>
+      <p style="margin-top:1rem;">导航栏依然固定在顶部。</p>
+    </div>
+  </div>
+  <pre>position: sticky;
+top: 0;   /* 到达顶部时固定 */</pre>
+
+  <h2>5️⃣ z-index 叠放次序</h2>
+  <div class="demo-box">
+    <p>鼠标悬停图片，z-index 放大盖住其他：</p>
+    <div class="z-box">
+      <img src="https://via.placeholder.com/80x80/e74c3c/fff?text=1" style="left:10px;z-index:0;">
+      <img src="https://via.placeholder.com/80x80/2980b9/fff?text=2" style="left:50px;z-index:0;">
+      <img src="https://via.placeholder.com/80x80/27ae60/fff?text=3" style="left:90px;z-index:0;">
+    </div>
+  </div>
+  <pre>img:hover { z-index: 1; }  /* 值越大越靠上 */</pre>
+
+  <div class="note"><strong>💡 核心口诀：</strong>子绝父相。z-index 只对定位元素生效。</div>
+  <hr><p style="text-align:center;"><a href="#" class="back-top">⬆ 回到顶部</a></p>
+</body>
+</html>
