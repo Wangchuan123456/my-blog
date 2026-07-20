@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>3D 变换与动画 · 综合演示</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{max-width:720px;margin:0 auto;padding:1.5rem;font-family:system-ui,"Microsoft YaHei",sans-serif;line-height:1.8;color:#333;perspective:800px}
+    h1{color:#6c63ff}h2{margin-top:2.5rem;border-bottom:2px solid #e9ecef;padding-bottom:.3rem}
+    code{background:#f0f0f0;padding:.15rem .4rem;border-radius:3px;font-size:.9em}
+    .demo-box{background:#fff;border:1px solid #e9ecef;border-radius:8px;padding:1.5rem;margin:1.5rem 0}
+    pre{background:#f4f4f4;padding:.8rem;border-radius:4px;font-size:.85rem;overflow-x:auto}
+    .note{background:#fff3cd;border-left:4px solid #ffc107;padding:.5rem 1rem;margin:1rem 0;border-radius:0 4px 4px 0;font-size:.9rem}
+    .back-top{display:inline-block;margin-top:2rem;padding:.5rem 1rem;background:#6c63ff;color:#fff;border-radius:6px;text-decoration:none}
+    .back-top:hover{opacity:.9}
+
+    .demo-flex{display:flex;gap:1.5rem;flex-wrap:wrap}
+    .d-box{width:100px;height:100px;background:linear-gradient(135deg,#6c63ff,#a29bfe);color:#fff;display:flex;align-items:center;justify-content:center;border-radius:6px;transition:all .5s;cursor:pointer}
+
+    /* animation 动画 */
+    @keyframes move {
+      0%{transform:translateX(0)}
+      100%{transform:translateX(200px);border-radius:50%}
+    }
+    @keyframes spin {
+      0%{transform:rotate(0)}
+      100%{transform:rotate(360deg)}
+    }
+    @keyframes bounce {
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-30px)}
+    }
+    @keyframes flow {
+      0%{background-position:0% 50%}
+      100%{background-position:200% 50%}
+    }
+
+    .ani-move{animation:move 2s linear infinite alternate}
+    .ani-spin{animation:spin 1s linear infinite}
+    .ani-bounce{animation:bounce .6s ease infinite}
+    .ani-flow{background:linear-gradient(90deg,gold,#ff6b6b,gold) 0 0/200% 100%;animation:flow 3s linear infinite}
+  </style>
+</head>
+<body>
+  <h1>🎭 3D 变换与 animation 动画</h1>
+
+  <h2>1️⃣ 3D 旋转</h2>
+  <div class="demo-box demo-flex">
+    <div class="d-box" onmouseover="this.style.transform='rotateX(180deg)'" onmouseout="this.style.transform=''">rotateX</div>
+    <div class="d-box" onmouseover="this.style.transform='rotateY(180deg)'" onmouseout="this.style.transform=''">rotateY</div>
+  </div>
+  <pre>transform: rotateX(180deg);  /* X轴翻转 */
+transform: rotateY(180deg);  /* Y轴翻转 */</pre>
+
+  <h2>2️⃣ animation 动画</h2>
+  <div class="demo-box demo-flex">
+    <div class="d-box ani-move">来回移动</div>
+    <div class="d-box ani-spin">旋转</div>
+    <div class="d-box ani-bounce">弹跳</div>
+    <div class="d-box ani-flow" style="width:160px">流光边框</div>
+  </div>
+  <pre>@keyframes move {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(200px); border-radius: 50%; }
+}
+.box { animation: move 2s linear infinite alternate; }</pre>
+
+  <h2>3️⃣ animation 完整写法</h2>
+  <pre>.box {
+  animation: move 2s ease 0s infinite alternate;
+  /*          ↑名称 ↑时长 ↑曲线 ↑延迟 ↑次数 ↑方向 */
+}</pre>
+
+  <div class="note"><strong>💡 区别：</strong>transition 需要鼠标触发，animation 自动播放。复杂动画用 @keyframes + animation。</div>
+  <hr><p style="text-align:center"><a href="#" class="back-top">⬆ 回到顶部</a></p>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>2D 变换 · 综合演示</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{max-width:720px;margin:0 auto;padding:1.5rem;font-family:system-ui,"Microsoft YaHei",sans-serif;line-height:1.8;color:#333}
+    h1{color:#6c63ff}h2{margin-top:2.5rem;border-bottom:2px solid #e9ecef;padding-bottom:.3rem}
+    code{background:#f0f0f0;padding:.15rem .4rem;border-radius:3px;font-size:.9em}
+    .demo-box{background:#fff;border:1px solid #e9ecef;border-radius:8px;padding:1.5rem;margin:1.5rem 0}
+    pre{background:#f4f4f4;padding:.8rem;border-radius:4px;font-size:.85rem;overflow-x:auto}
+    .note{background:#fff3cd;border-left:4px solid #ffc107;padding:.5rem 1rem;margin:1rem 0;border-radius:0 4px 4px 0;font-size:.9rem}
+    .back-top{display:inline-block;margin-top:2rem;padding:.5rem 1rem;background:#6c63ff;color:#fff;border-radius:6px;text-decoration:none}
+    .back-top:hover{opacity:.9}
+
+    .t-box{width:120px;height:80px;background:linear-gradient(135deg,#6c63ff,#a29bfe);color:#fff;display:flex;align-items:center;justify-content:center;border-radius:6px;margin:1rem 0;transition:all .5s;cursor:pointer}
+    .demo-flex{display:flex;gap:2rem;flex-wrap:wrap}
+  </style>
+</head>
+<body>
+  <h1>🔄 CSS 2D 变换综合演示</h1>
+  <p>鼠标悬停到色块上查看变换效果（搭配 transition 平滑过渡）。</p>
+
+  <h2>1️⃣ 位移 translate</h2>
+  <div class="demo-box">
+    <div class="t-box" onmouseover="this.style.transform='translateY(50px)'" onmouseout="this.style.transform=''">translateY(50px)</div>
+  </div>
+
+  <h2>2️⃣ 旋转 rotate</h2>
+  <div class="demo-box">
+    <div class="t-box" onmouseover="this.style.transform='rotate(45deg)'" onmouseout="this.style.transform=''">rotate(45deg)</div>
+  </div>
+
+  <h2>3️⃣ 缩放 scale</h2>
+  <div class="demo-box demo-flex">
+    <div class="t-box" onmouseover="this.style.transform='scale(1.3)'" onmouseout="this.style.transform=''">scale(1.3)</div>
+    <div class="t-box" onmouseover="this.style.transform='scale(0.7)'" onmouseout="this.style.transform=''">scale(0.7)</div>
+  </div>
+
+  <h2>4️⃣ 斜切 skew</h2>
+  <div class="demo-box">
+    <div class="t-box" onmouseover="this.style.transform='skew(10deg)'" onmouseout="this.style.transform=''">skew(10deg)</div>
+  </div>
+
+  <h2>5️⃣ 组合变换</h2>
+  <div class="demo-box">
+    <div class="t-box" onmouseover="this.style.transform='translateX(100px) rotate(360deg) scale(1.2)'" onmouseout="this.style.transform=''">组合效果</div>
+  </div>
+
+  <pre>/* 组合：顺序影响结果 */
+transform: translateX(100px) rotate(360deg) scale(1.2);
+
+/* 搭配 transition 实现平滑动画 */
+.box { transition: all .5s; }
+.box:hover { transform: scale(1.1); }</pre>
+
+  <div class="note"><strong>💡 提示：</strong>transform 不会影响其他元素的位置，搭配 transition 是做悬停动效的黄金组合。</div>
+  <hr><p style="text-align:center"><a href="#" class="back-top">⬆ 回到顶部</a></p>
+</body>
+</html>
