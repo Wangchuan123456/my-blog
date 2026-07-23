@@ -1,0 +1,232 @@
+---
+// Hero 区动态粒子背景
+// 使用 Canvas 实现轻量粒子系统 + 鼠标交互
+---
+
+<div class="hero-bg" id="hero-bg">
+  <canvas id="particle-canvas"></canvas>
+  <div class="hero-bg-glow"></div>
+</div>
+
+<script>
+// @ts-nocheck
+  (function () {
+    const canvas = document.getElementById('particle-canvas');
+    if (!canvas) return;
+    const container = document.getElementById('hero-bg');
+    if (!container) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    let particles = [];
+    let mouse = { x: -1000, y: -1000 };
+    let animationId = null;
+    let isDark = document.documentElement.classList.contains('dark');
+
+    // ---------- 配置 ----------
+    const CONFIG = {
+      particleCount: 65,
+      connectionDistance: 120,
+      particleSpeed: 0.3,
+      particleSize: 2,
+      mouseRadius: 180,
+      mouseForce: 0.5,
+    };
+
+    // ---------- 尺寸适配 ----------
+    function resize() {
+      const rect = container.getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+    }
+
+    // ---------- 粒子类 ----------
+    class Particle {
+      constructor() {
+        this.x = 0;
+        this.y = 0;
+        this.vx = 0;
+        this.vy = 0;
+        this.size = 2;
+        this.alpha = 0.5;
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.vx = (Math.random() - 0.5) * CONFIG.particleSpeed;
+        this.vy = (Math.random() - 0.5) * CONFIG.particleSpeed;
+        this.size = Math.random() * 1.5 + CONFIG.particleSize * 0.5;
+        this.alpha = Math.random() * 0.5 + 0.3;
+      }
+      update() {
+        // 随机微调方向，产生漂浮感
+        if (Math.random() < 0.01) {
+          this.vx += (Math.random() - 0.5) * 0.2;
+          this.vy += (Math.random() - 0.5) * 0.2;
+        }
+        // 速度阻尼
+        this.vx *= 0.99;
+        this.vy *= 0.99;
+        // 鼠标排斥
+        const dx = this.x - mouse.x;
+        const dy = this.y - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < CONFIG.mouseRadius && dist > 0) {
+          const force = (CONFIG.mouseRadius - dist) / CONFIG.mouseRadius * CONFIG.mouseForce;
+          this.vx += (dx / dist) * force;
+          this.vy += (dy / dist) * force;
+        }
+        this.x += this.vx;
+        this.y += this.vy;
+        // 边界回弹
+        if (this.x < 0 || this.x > canvas.width) { this.vx *= -1; this.x = Math.max(0, Math.min(canvas.width, this.x)); }
+        if (this.y < 0 || this.y > canvas.height) { this.vy *= -1; this.y = Math.max(0, Math.min(canvas.height, this.y)); }
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = isDark
+          ? `rgba(245, 158, 11, ${this.alpha * 0.6})`
+          : `rgba(180, 83, 9, ${this.alpha * 0.5})`;
+        ctx.fill();
+      }
+    }
+
+    // ---------- 初始化 ----------
+    function init() {
+      resize();
+      particles = [];
+      for (let i = 0; i < CONFIG.particleCount; i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    // ---------- 连线 ----------
+    function drawConnections() {
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < CONFIG.connectionDistance) {
+            const alpha = (1 - dist / CONFIG.connectionDistance) * 0.2;
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = isDark
+              ? `rgba(245, 158, 11, ${alpha})`
+              : `rgba(180, 83, 9, ${alpha})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    // ---------- 动画循环 ----------
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      drawConnections();
+      animationId = requestAnimationFrame(animate);
+    }
+
+    // ---------- 事件绑定 ----------
+    function onMouseMove(e) {
+      const rect = container.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+    }
+    function onMouseLeave() {
+      mouse.x = -1000;
+      mouse.y = -1000;
+    }
+    function onDarkModeChange() {
+      isDark = document.documentElement.classList.contains('dark');
+    }
+
+    // ---------- 启动 ----------
+    function start() {
+      init();
+      animate();
+      window.addEventListener('resize', () => {
+        resize();
+        // 粒子位置重新映射
+        particles.forEach(p => {
+          p.x = Math.random() * canvas.width;
+          p.y = Math.random() * canvas.height;
+        });
+      });
+      container.addEventListener('mousemove', onMouseMove);
+      container.addEventListener('mouseleave', onMouseLeave);
+      // 监听暗色模式变化
+      const observer = new MutationObserver(onDarkModeChange);
+      observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    }
+
+    // 等 DOM 准备好
+    if (document.readyState === 'complete') {
+      start();
+    } else {
+      window.addEventListener('load', start);
+    }
+
+    // 页面离开时清理
+    document.addEventListener('astro:before-swap', () => {
+      if (animationId !== null) cancelAnimationFrame(animationId);
+    });
+  })();
+</script>
+
+<style>
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .hero-bg canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .hero-bg-glow {
+    position: absolute;
+    inset: -50%;
+    background: radial-gradient(
+      ellipse 60% 50% at 50% 40%,
+      var(--accent-light) 0%,
+      transparent 70%
+    );
+    opacity: 0.4;
+    animation: glow-pulse 6s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+  html.dark .hero-bg-glow {
+    opacity: 0.15;
+  }
+
+  @keyframes glow-pulse {
+    0% {
+      transform: scale(1) rotate(0deg);
+      opacity: 0.3;
+    }
+    100% {
+      transform: scale(1.15) rotate(3deg);
+      opacity: 0.5;
+    }
+  }
+  html.dark .hero-bg-glow {
+    animation: glow-pulse-dark 6s ease-in-out infinite alternate;
+  }
+  @keyframes glow-pulse-dark {
+    0% { transform: scale(1) rotate(0deg); opacity: 0.1; }
+    100% { transform: scale(1.2) rotate(4deg); opacity: 0.2; }
+  }
+</style>

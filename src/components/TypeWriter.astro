@@ -1,0 +1,89 @@
+---
+// 打字机效果组件
+// 用法：<TypeWriter text="要打字的文字" />
+const { text = '' } = Astro.props;
+const id = `tw-${Math.random().toString(36).slice(2, 8)}`;
+---
+
+<span class="typewriter-wrapper" id={id}>
+  <span class="typewriter-text" data-text={text}></span>
+  <span class="typewriter-cursor">|</span>
+</span>
+
+<script>
+// @ts-nocheck
+  (function () {
+    const wrapper = document.getElementById('{id}');
+    if (!wrapper) return;
+    const textEl = wrapper.querySelector('.typewriter-text');
+    const cursorEl = wrapper.querySelector('.typewriter-cursor');
+    if (!textEl || !cursorEl) return;
+
+    const text = textEl.getAttribute('data-text') || '';
+    let index = 0;
+    let isDeleting = false;
+    let timer = null;
+
+    function type() {
+      if (!isDeleting) {
+        // 打字阶段
+        textEl.textContent = text.slice(0, index + 1);
+        index++;
+        if (index >= text.length) {
+          // 打完了，暂停，然后开始删除
+          if (timer !== null) clearTimeout(timer);
+          timer = window.setTimeout(() => {
+            isDeleting = true;
+            type();
+          }, 3000);
+          return;
+        }
+        timer = window.setTimeout(type, 80 + Math.random() * 50);
+      } else {
+        // 删除阶段
+        textEl.textContent = text.slice(0, index - 1);
+        index--;
+        if (index <= 0) {
+          // 删完了，重新开始
+          isDeleting = false;
+          timer = window.setTimeout(type, 500);
+          return;
+        }
+        timer = window.setTimeout(type, 30 + Math.random() * 20);
+      }
+    }
+
+    // 页面加载后延迟启动
+    const startDelay = window.setTimeout(() => {
+      type();
+    }, 800);
+
+    // Astro View Transitions 清理
+    document.addEventListener('astro:before-swap', () => {
+      if (timer !== null) clearTimeout(timer);
+      clearTimeout(startDelay);
+    });
+  })();
+</script>
+
+<style>
+  .typewriter-wrapper {
+    display: inline;
+    white-space: nowrap;
+  }
+  .typewriter-text {
+    display: inline;
+  }
+  .typewriter-cursor {
+    display: inline;
+    margin-left: 2px;
+    font-weight: 300;
+    color: var(--accent);
+    animation: blink 0.7s step-end infinite;
+    font-family: var(--font-mono);
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+</style>

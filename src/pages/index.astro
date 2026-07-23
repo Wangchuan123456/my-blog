@@ -1,5 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import HeroBackground from '../components/HeroBackground.astro';
+import TypeWriter from '../components/TypeWriter.astro';
 import { getCollection } from 'astro:content';
 
 const blogPosts = await getCollection('blog');
@@ -11,8 +13,9 @@ const featuredProjects = projects.filter(p => p.data.featured);
 <Layout title="前端日志 · 记录学习与成长">
   <!-- Hero 区 -->
   <section class="hero-section">
+    <HeroBackground />
     <div class="container hero-content">
-      <h1 class="hero-greeting">👋 你好，我是 <span class="highlight">前端学习者</span></h1>
+      <h1 class="hero-greeting">👋 你好，我是 <span class="highlight"><TypeWriter text="前端学习者" /></span></h1>
       <p class="hero-sub">
         这里是我学习前端的 <strong>成长记录</strong>。<br />
         从 HTML 到框架，从 demo 到完整项目——每一步都留下脚印。
@@ -25,12 +28,12 @@ const featuredProjects = projects.filter(p => p.data.featured);
   </section>
 
   <!-- 最新文章 -->
-  <section class="section">
+  <section class="section reveal">
     <div class="container-wide">
       <h2 class="section-title">📝 最新文章</h2>
       <div class="card-list">
-        {recentPosts.map(post => (
-          <a href={`/blog/${post.id}`} class="card">
+        {recentPosts.map((post, i) => (
+          <a href={`/blog/${post.id}`} class="card reveal" style={`transition-delay: ${i * 0.1}s`}>
             <div class="card-meta">
               <time>{post.data.pubDate.toLocaleDateString('zh-CN')}</time>
               <span class="card-category">{post.data.category}</span>
@@ -55,12 +58,12 @@ const featuredProjects = projects.filter(p => p.data.featured);
 
   <!-- 精选项目 -->
   {featuredProjects.length > 0 && (
-    <section class="section bg-alt">
+    <section class="section bg-alt reveal reveal-delay-1">
       <div class="container-wide">
         <h2 class="section-title">🌟 精选项目</h2>
         <div class="card-list">
-          {featuredProjects.map(project => (
-            <a href={`/projects/${project.id}`} class="card">
+          {featuredProjects.map((project, i) => (
+            <a href={`/projects/${project.id}`} class="card reveal" style={`transition-delay: ${(i + 3) * 0.1}s`}>
               <h3 class="card-title">{project.data.title}</h3>
               <p class="card-desc">{project.data.description}</p>
               {project.data.techStack.length > 0 && (
@@ -76,7 +79,7 @@ const featuredProjects = projects.filter(p => p.data.featured);
   )}
 
   <!-- 关于我简版 -->
-  <section class="section">
+  <section class="section reveal reveal-delay-2">
     <div class="container about-box">
       <h2>🧑‍💻 关于这个博客</h2>
       <p>
@@ -90,14 +93,41 @@ const featuredProjects = projects.filter(p => p.data.featured);
 <style>
   /* ===== Hero ===== */
   .hero-section {
+    position: relative;
     padding: 4rem 0 3rem;
     text-align: center;
+    overflow: hidden;
+    min-height: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 1;
   }
   .hero-greeting {
     font-family: var(--font-serif);
     font-size: 2.5rem;
     font-weight: 700;
     margin-bottom: 1rem;
+    animation: hero-fade-in 0.8s ease-out both;
+  }
+  .hero-sub {
+    animation: hero-fade-in 0.8s ease-out 0.15s both;
+  }
+  .hero-actions {
+    animation: hero-fade-in 0.8s ease-out 0.3s both;
+  }
+  @keyframes hero-fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
   .highlight {
     color: var(--accent);
@@ -245,3 +275,28 @@ const featuredProjects = projects.filter(p => p.data.featured);
     line-height: 1.7;
   }
 </style>
+
+<!-- 卡片 3D 倾斜效果 -->
+<script>
+// @ts-nocheck
+  (function () {
+    const cardNodes = document.querySelectorAll('.card');
+    const cards = Array.from(cardNodes);
+    if (cards.length === 0 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    cards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -6;
+        const rotateY = ((x - centerX) / centerX) * 6;
+        card.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
+  })();
+</script>

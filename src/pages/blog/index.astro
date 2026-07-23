@@ -16,7 +16,7 @@ const hiddenTags = sortedByFreq.slice(MAX_VISIBLE_TAGS);
 ---
 
 <Layout title="文章 · 前端日志">
-  <div class="container-wide page-header">
+  <div class="container-wide page-header reveal">
     <h1>📚 全部文章</h1>
     <p class="page-desc">共 {sortedPosts.length} 篇文章 · 持续更新中</p>
 
@@ -45,8 +45,8 @@ const hiddenTags = sortedByFreq.slice(MAX_VISIBLE_TAGS);
       </div>
     ) : (
       <div class="blog-grid" id="blog-grid">
-        {sortedPosts.map(post => (
-          <a href={`/blog/${post.id}`} class="blog-card" data-tags={post.data.tags.join(',')}>
+        {sortedPosts.map((post, i) => (
+          <a href={`/blog/${post.id}`} class="blog-card reveal" style={`transition-delay: ${(i % 10) * 0.08}s`} data-tags={post.data.tags.join(',')}>
             <div class="blog-card-meta">
               <time>{post.data.pubDate.toLocaleDateString('zh-CN', { year: 'numeric', month: 'short', day: 'numeric' })}</time>
               <span class="blog-card-category">{post.data.category}</span>
