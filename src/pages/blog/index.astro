@@ -180,9 +180,10 @@ const hiddenTags = sortedByFreq.slice(MAX_VISIBLE_TAGS);
   .blog-card {
     display: block;
     padding: 1.5rem;
-    transition: box-shadow 0.25s, transform 0.25s;
+    transition: box-shadow 0.25s;
     color: var(--text);
     /* 毛玻璃 */
+    will-change: transform;
     background: rgba(255, 255, 255, 0.4);
     -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);

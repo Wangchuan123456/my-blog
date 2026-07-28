@@ -207,9 +207,10 @@ const featuredProjects = projects.filter(p => p.data.featured);
   .card {
     display: block;
     padding: 1.5rem;
-    transition: box-shadow 0.25s, transform 0.25s;
+    transition: box-shadow 0.25s;
     color: var(--text);
     /* 毛玻璃 */
+    will-change: transform;
     background: rgba(255, 255, 255, 0.4);
     -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
@@ -293,25 +294,43 @@ const featuredProjects = projects.filter(p => p.data.featured);
   }
 </style>
 
-<!-- 卡片 3D 倾斜效果 -->
+<!-- 卡片 3D 倾斜效果（优化版：requestAnimationFrame 节流） -->
 <script>
 // @ts-nocheck
   (function () {
     const cardNodes = document.querySelectorAll('.card');
     const cards = Array.from(cardNodes);
     if (cards.length === 0 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
     cards.forEach(card => {
+      let rafId = null;
+      let currentTransform = '';
+
       card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = ((y - centerY) / centerY) * -6;
-        const rotateY = ((x - centerX) / centerX) * 6;
-        card.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+        if (rafId) return;
+        rafId = requestAnimationFrame(() => {
+          rafId = null;
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          const rotateX = ((y - centerY) / centerY) * -5;
+          const rotateY = ((x - centerX) / centerX) * 5;
+          const t = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-3px)`;
+          if (t !== currentTransform) {
+            currentTransform = t;
+            card.style.transform = t;
+          }
+        });
       });
+
       card.addEventListener('mouseleave', () => {
+        if (rafId) {
+          cancelAnimationFrame(rafId);
+          rafId = null;
+        }
+        currentTransform = '';
         card.style.transform = '';
       });
     });
