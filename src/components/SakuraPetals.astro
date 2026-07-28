@@ -30,7 +30,7 @@
 
   // ---------- 配置 ----------
   const CONFIG = {
-    petalCount: 28,        // 45→28，性能大降视觉几乎不变
+    petalCount: 36,        // 28→36，平衡性能与密度
     minSize: 5,
     maxSize: 11,
     fallSpeed: 0.35,
@@ -38,6 +38,12 @@
     swayFrequency: 0.012,
     windStrength: 0.25,
     windInterval: 4000,
+    // 鼠标吸引
+    attractRadius: 200,
+    attractForce: 0.12,
+    maxAttractSpeed: 3.0,
+    maxAttractFrames: 100,  // 被吸引多久后弹走（≈1.6秒）
+    repelForce: 1.5,        // 弹走力度
   };
 
   // ---------- 花瓣颜色（5 种粉色调） ----------
@@ -61,7 +67,10 @@
 
   // ---------- 花瓣类 ----------
   class Petal {
-    constructor() { this.reset(); }
+    constructor() {
+      this.attractFrames = 0;
+      this.reset();
+    }
     reset() {
       this.x = Math.random() * canvas.width;
       this.y = -Math.random() * canvas.height - 20;
@@ -74,9 +83,17 @@
       this.colorIndex = Math.floor(Math.random() * PETAL_COLORS.length);
       this.swayOffset = Math.random() * 1000;
       this.time = Math.random() * 1000;
+      this.attractFrames = 0;
     }
     update() {
       this.time++;
+      // 被吸引太久就弹走，保证花瓣循环
+      if (this.attractFrames > CONFIG.maxAttractFrames) {
+        const angle = Math.random() * Math.PI * 2;
+        this.speedX += Math.cos(angle) * CONFIG.repelForce;
+        this.speedY += Math.sin(angle) * CONFIG.repelForce - 0.5; // 额外向上飘
+        this.attractFrames = 0;
+      }
       const sway = Math.sin(this.time * CONFIG.swayFrequency + this.swayOffset) * CONFIG.swayAmplitude;
       this.speedX += wind * 0.04;
       this.speedX *= 0.98;
@@ -104,24 +121,22 @@
   }
 
   // ---------- 鼠标吸引 ----------
-  const ATTRACT_RADIUS = 220;  // 吸引范围（px）
-  const ATTRACT_FORCE = 0.15;  // 吸引力强度
-  const MAX_SPEED = 3.5;       // 花瓣被吸引时的最大速度
-
   function applyMouseAttraction(petal) {
     const dx = mouseX - petal.x;
     const dy = mouseY - petal.y;
     const dist = Math.sqrt(dx * dx + dy * dy);
-    if (dist < ATTRACT_RADIUS && dist > 1) {
-      const strength = (1 - dist / ATTRACT_RADIUS) * ATTRACT_FORCE;
+    if (dist < CONFIG.attractRadius && dist > 1) {
+      petal.attractFrames++;
+      const strength = (1 - dist / CONFIG.attractRadius) * CONFIG.attractForce;
       petal.speedX += (dx / dist) * strength;
       petal.speedY += (dy / dist) * strength;
-      // 限速
       const spd = Math.sqrt(petal.speedX * petal.speedX + petal.speedY * petal.speedY);
-      if (spd > MAX_SPEED) {
-        petal.speedX = (petal.speedX / spd) * MAX_SPEED;
-        petal.speedY = (petal.speedY / spd) * MAX_SPEED;
+      if (spd > CONFIG.maxAttractSpeed) {
+        petal.speedX = (petal.speedX / spd) * CONFIG.maxAttractSpeed;
+        petal.speedY = (petal.speedY / spd) * CONFIG.maxAttractSpeed;
       }
+    } else {
+      petal.attractFrames = Math.max(0, petal.attractFrames - 2);
     }
   }
 
