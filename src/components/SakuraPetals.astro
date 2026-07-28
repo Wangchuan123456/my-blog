@@ -25,6 +25,8 @@
   let windTimer = 0;
   let isPageVisible = true;
   let resizeTimer = null;
+  let mouseX = -9999;
+  let mouseY = -9999;
 
   // ---------- 配置 ----------
   const CONFIG = {
@@ -101,6 +103,28 @@
     }
   }
 
+  // ---------- 鼠标吸引 ----------
+  const ATTRACT_RADIUS = 220;  // 吸引范围（px）
+  const ATTRACT_FORCE = 0.15;  // 吸引力强度
+  const MAX_SPEED = 3.5;       // 花瓣被吸引时的最大速度
+
+  function applyMouseAttraction(petal) {
+    const dx = mouseX - petal.x;
+    const dy = mouseY - petal.y;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    if (dist < ATTRACT_RADIUS && dist > 1) {
+      const strength = (1 - dist / ATTRACT_RADIUS) * ATTRACT_FORCE;
+      petal.speedX += (dx / dist) * strength;
+      petal.speedY += (dy / dist) * strength;
+      // 限速
+      const spd = Math.sqrt(petal.speedX * petal.speedX + petal.speedY * petal.speedY);
+      if (spd > MAX_SPEED) {
+        petal.speedX = (petal.speedX / spd) * MAX_SPEED;
+        petal.speedY = (petal.speedY / spd) * MAX_SPEED;
+      }
+    }
+  }
+
   // ---------- 初始化 ----------
   function init() {
     resize();
@@ -129,6 +153,7 @@
     // for 循环比 forEach 快 2-3 倍
     for (let i = 0; i < petals.length; i++) {
       petals[i].update();
+      applyMouseAttraction(petals[i]);
       petals[i].draw();
     }
     animationId = requestAnimationFrame(animate);
@@ -144,6 +169,14 @@
     init();
     animate();
     window.addEventListener('resize', debouncedResize);
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+    document.addEventListener('mouseleave', () => {
+      mouseX = -9999;
+      mouseY = -9999;
+    });
   }
 
   if (document.readyState === 'complete') start();
