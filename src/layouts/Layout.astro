@@ -125,7 +125,7 @@ import { ClientRouter } from 'astro:transitions';
       })();
     </script>
 
-    <!-- 全局微交互：滚动渐入动画 -->
+    <!-- 全局微交互：滚动进出动画（入口渐入 + 出口渐出） -->
     <script>
       (function () {
         if ('IntersectionObserver' in window === false) return;
@@ -133,13 +133,23 @@ import { ClientRouter } from 'astro:transitions';
           entries.forEach(entry => {
             if (entry.isIntersecting) {
               entry.target.classList.add('reveal-visible');
-              observer.unobserve(entry.target);
+              entry.target.classList.remove('reveal-exit');
+            } else {
+              // 只在曾经可见过的元素上触发退场
+              if (entry.target.classList.contains('reveal-visible')) {
+                entry.target.classList.remove('reveal-visible');
+                entry.target.classList.add('reveal-exit');
+                // 动画结束后清理 exit 类，以便下次进入重新触发
+                entry.target.addEventListener('transitionend', () => {
+                  entry.target.classList.remove('reveal-exit');
+                }, { once: true });
+              }
             }
           });
-        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        }, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
 
         function observeReveal() {
-          document.querySelectorAll('.reveal:not(.reveal-visible)').forEach(el => {
+          document.querySelectorAll('.reveal').forEach(el => {
             observer.observe(el);
           });
         }
