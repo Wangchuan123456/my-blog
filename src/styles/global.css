@@ -1,29 +1,38 @@
 /* ===== CSS 变量（切换暗色模式只需改 html 的 class） ===== */
 :root {
-  --bg: #faf8f5;
-  --bg-secondary: #f5f0eb;
-  --text: #2d2d2d;
-  --text-secondary: #6b6258;
-  --accent: #b45309;     /* 暗橙色，保证在暖白底上对比度 ≥ 4.5:1 */
-  --accent-light: #fef3c7;
-  --border: #e5ddd3;
-  --card-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
-  --radius: 12px;
+  /* 背景 */
+  --bg: #f8f7ff;
+  --bg-secondary: #f0effa;
+  /* 文字 */
+  --text: #1e1b2e;
+  --text-secondary: #6b6580;
+  /* 强调色 - 紫粉体系 (Kirameku inspired) */
+  --accent: #7c3aed;
+  --accent-light: #ede9fe;
+  --accent-muted: #a18cd1;
+  /* 边框 & 阴影 */
+  --border: rgba(124, 58, 237, 0.15);
+  --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  /* 尺寸 */
+  --radius: 16px;
+  --radius-sm: 12px;
   --max-width: 720px;
+  /* 字体 */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-serif: 'Noto Serif SC', 'Source Han Serif SC', 'STSong', 'Georgia', serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 }
 
 html.dark {
-  --bg: #1a1a1a;
-  --bg-secondary: #252525;
-  --text: #e0ddd7;
-  --text-secondary: #9e9488;
-  --accent: #f59e0b;
-  --accent-light: #2a2418;
-  --border: #33302b;
-  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --bg: #0f0b2e;
+  --bg-secondary: #1a1145;
+  --text: #e8e4f0;
+  --text-secondary: #a89fc0;
+  --accent: #a78bfa;
+  --accent-light: rgba(167, 139, 250, 0.12);
+  --accent-muted: #818cf8;
+  --border: rgba(255, 255, 255, 0.08);
+  --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
 /* ===== Reset & Base ===== */
@@ -42,6 +51,22 @@ body {
   line-height: 1.8;
   transition: background 0.3s, color 0.3s;
   -webkit-font-smoothing: antialiased;
+  /* 禁用页面文字选中（输入框和代码块除外） */
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+input, textarea, [contenteditable], .prose, code, pre {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+/* 暗色模式渐变背景 */
+html.dark body {
+  background: linear-gradient(135deg, #0f0b2e 0%, #1a1145 25%, #0d1b3e 50%, #1e1145 75%, #0f0b2e 100%);
+  background-size: 400% 400%;
+  animation: gradient-flow 20s ease infinite;
+  background-attachment: fixed;
 }
 
 a {
@@ -50,7 +75,7 @@ a {
   transition: opacity 0.2s;
 }
 a:hover {
-  opacity: 0.75;
+  opacity: 0.8;
 }
 
 img {
@@ -94,16 +119,109 @@ pre code {
   padding: 0 1.5rem;
 }
 
-/* ===== 页面滚动条美化 ===== */
+/* ===== Kirameku Style: 自定义滚动条 ===== */
 ::-webkit-scrollbar {
   width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: 3px;
+  background: rgba(124, 58, 237, 0.25);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(124, 58, 237, 0.6);
+}
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(124, 58, 237, 0.25) transparent;
+}
+
+/* ===== Kirameku Style: 毛玻璃卡片 ===== */
+.glass-card {
+  background: rgba(255, 255, 255, 0.45);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: var(--card-shadow);
+  border-radius: var(--radius);
+}
+
+html.dark .glass-card {
+  background: rgba(30, 41, 59, 0.5);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== Kirameku Style: 毛玻璃按钮 ===== */
+.glass-button {
+  background: rgba(255, 255, 255, 0.3);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius-sm);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.glass-button:hover {
+  background: rgba(255, 255, 255, 0.5);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+html.dark .glass-button {
+  background: rgba(51, 65, 85, 0.4);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+html.dark .glass-button:hover {
+  background: rgba(71, 85, 105, 0.5);
+}
+
+/* ===== Kirameku Style: 毛玻璃输入框 ===== */
+.glass-input {
+  background: rgba(255, 255, 255, 0.3);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+.glass-input:focus {
+  border-color: rgba(124, 58, 237, 0.4);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+}
+html.dark .glass-input {
+  background: rgba(51, 65, 85, 0.4);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+html.dark .glass-input:focus {
+  border-color: rgba(167, 139, 250, 0.4);
+  box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.1);
+}
+
+/* ===== Kirameku Style: 渐变动画 ===== */
+@keyframes gradient-flow {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ===== Kirameku Style: 图标果冻弹跳 ===== */
+@keyframes icon-jelly {
+  0%   { transform: rotate(0deg) scale(1); }
+  15%  { transform: rotate(8deg) scale(1.05); transform-origin: bottom right; }
+  30%  { transform: rotate(-10deg) scale(1.08); transform-origin: bottom left; }
+  45%  { transform: rotate(5deg) scale(1.04); transform-origin: bottom right; }
+  60%  { transform: rotate(-4deg) scale(1.02); transform-origin: bottom left; }
+  75%  { transform: rotate(2deg) scale(1.01); transform-origin: bottom right; }
+  100% { transform: rotate(0deg) scale(1); }
+}
+.icon-jelly {
+  display: inline-block;
+  animation: icon-jelly 0.6s ease;
 }
 
 /* ===== 尊重用户运动偏好 ===== */
@@ -125,7 +243,6 @@ pre code {
   opacity: 1;
   transform: translateY(0);
 }
-/* 不同的延迟变体 */
 .reveal-delay-1 { transition-delay: 0.1s; }
 .reveal-delay-2 { transition-delay: 0.2s; }
 .reveal-delay-3 { transition-delay: 0.3s; }

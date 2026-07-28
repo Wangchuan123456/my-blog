@@ -254,8 +254,17 @@ const hasHiddenTags = tags.length > MAX_VISIBLE_TAGS;
     flex: 1;
     display: block;
     padding: 0.8rem 1rem;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     transition: background 0.2s;
+    /* 毛玻璃 */
+    background: rgba(255, 255, 255, 0.3);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  html.dark .post-nav-link {
+    background: rgba(30, 41, 59, 0.4);
+    border-color: rgba(255, 255, 255, 0.06);
   }
   .post-nav-link.next {
     text-align: right;

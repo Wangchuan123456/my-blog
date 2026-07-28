@@ -53,16 +53,24 @@ const sorted = projects.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate
   }
   .project-card {
     display: block;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 10px;
     padding: 1.5rem;
     transition: box-shadow 0.25s, transform 0.25s;
     color: var(--text);
+    /* 毛玻璃 */
+    background: rgba(255, 255, 255, 0.4);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: var(--radius);
+    box-shadow: var(--card-shadow);
+  }
+  html.dark .project-card {
+    background: rgba(30, 41, 59, 0.5);
+    border-color: rgba(255, 255, 255, 0.08);
   }
   .project-card:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
     opacity: 1;
   }
   .project-title {
