@@ -205,19 +205,24 @@
     };
   }
 
-  // ---------- 鼠标吸引 ----------
+  // ---------- 鼠标吸引（向鼠标方向拉） ----------
   function applyMouseAttraction(p) {
     const dx = mouseX - p.x, dy = mouseY - p.y;
     const dist = Math.sqrt(dx * dx + dy * dy);
-    if (dist < CONFIG.attractRadius && dist > 1) {
+    if (dist < CONFIG.attractRadius && dist > 5) {
       p.attractFrames++;
       const strength = (1 - dist / CONFIG.attractRadius) * CONFIG.attractForce;
-      p.fallSpeed -= strength * 0.3;
-      p.x += (dx / dist) * strength * 2;
+      // 向鼠标方向拉
+      p.x += (dx / dist) * strength * 3;
+      // y 方向也向鼠标靠近，但不直接用 attractForce 避免过于生硬
       p.y += (dy / dist) * strength * 2;
+      // 接近鼠标时稍微减速下落，模拟被"托住"
+      if (dist < 80) p.fallSpeed *= 0.98;
+      // 被吸引太久弹走
       if (p.attractFrames > CONFIG.maxAttractFrames) {
         p.x += (Math.random() - 0.5) * CONFIG.repelForce * 5;
         p.y -= CONFIG.repelForce * 3;
+        p.fallSpeed = rand(CONFIG.fallSpeed.min, CONFIG.fallSpeed.max);
         p.attractFrames = 0;
       }
     } else {
