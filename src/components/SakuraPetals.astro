@@ -46,14 +46,18 @@
     repelForce: 1.5,        // 弹走力度
   };
 
-  // ---------- 花瓣颜色（5 种粉色调） ----------
-  const PETAL_COLORS = [
-    'rgba(255, 182, 193, ALPHA)',
-    'rgba(255, 155, 170, ALPHA)',
-    'rgba(252, 182, 193, ALPHA)',
-    'rgba(255, 200, 210, ALPHA)',
-    'rgba(245, 175, 185, ALPHA)',
-  ];
+  // ---------- 花瓣颜色 ----------
+  const PETAL_BASE = '#702038';
+  // 用不同透明度和微调来产生变化
+  function petalColor(alpha) {
+    return `rgba(112, 32, 56, ${alpha})`;
+  }
+  function petalColorLight(alpha) {
+    return `rgba(130, 50, 70, ${alpha})`;
+  }
+  function petalColorDark(alpha) {
+    return `rgba(90, 20, 40, ${alpha})`;
+  }
 
   // ---------- 尺寸适配（防抖） ----------
   function resize() {
@@ -80,7 +84,6 @@
       this.rotation = Math.random() * Math.PI * 2;
       this.rotationSpeed = (Math.random() - 0.5) * 0.015;
       this.opacity = Math.random() * 0.35 + 0.3;
-      this.colorIndex = Math.floor(Math.random() * PETAL_COLORS.length);
       this.swayOffset = Math.random() * 1000;
       this.time = Math.random() * 1000;
       this.attractFrames = 0;
@@ -110,12 +113,49 @@
       ctx.save();
       ctx.translate(this.x, this.y);
       ctx.rotate(this.rotation);
+
       const w = this.size;
-      const h = this.size * 0.55;
+      const h = this.size * 0.65;
+
+      // 不规则樱花花瓣 — 贝塞尔曲线
       ctx.beginPath();
-      ctx.ellipse(0, 0, w, h, 0, 0, Math.PI * 2);
-      ctx.fillStyle = PETAL_COLORS[this.colorIndex].replace('ALPHA', this.opacity);
+      ctx.moveTo(0, h * 0.5);               // 底部中心
+
+      // 左半边：从底部到左上，再到顶部缺口
+      ctx.bezierCurveTo(
+        -w * 0.4, h * 0.15,                 // 控制点1：向左上方
+        -w * 0.45, -h * 0.05,               // 控制点2：向左展开
+        -w * 0.05, -h * 0.4                 // 终点：顶部左缺口
+      );
+      // 顶部 V 形缺口
+      ctx.lineTo(w * 0.05, -h * 0.38);      // 缺口底部
+      ctx.lineTo(w * 0.05, -h * 0.4);       // 缺口右端
+
+      // 右半边：从顶部到右下，回到底部
+      ctx.bezierCurveTo(
+        w * 0.45, -h * 0.05,                // 控制点1：向右展开
+        w * 0.4, h * 0.15,                  // 控制点2：向右下方
+        0, h * 0.5                          // 终点：底部中心
+      );
+
+      ctx.closePath();
+
+      // 填充 — 渐变增加立体感
+      const grad = ctx.createRadialGradient(0, -h * 0.1, 0, 0, 0, w * 0.6);
+      grad.addColorStop(0, petalColorLight(this.opacity));
+      grad.addColorStop(0.6, petalColor(this.opacity));
+      grad.addColorStop(1, petalColorDark(this.opacity));
+      ctx.fillStyle = grad;
       ctx.fill();
+
+      // 花瓣纹理线（一条细中线）
+      ctx.beginPath();
+      ctx.moveTo(0, h * 0.4);
+      ctx.lineTo(0, -h * 0.3);
+      ctx.strokeStyle = `rgba(255, 255, 255, ${this.opacity * 0.15})`;
+      ctx.lineWidth = 0.5;
+      ctx.stroke();
+
       ctx.restore();
     }
   }
