@@ -1,6 +1,5 @@
 ---
-// 全屏樱花花瓣飘落（性能优化版）
-// Canvas 轻量花瓣粒子系统，覆盖全页
+// 3D 樱花花瓣飘落 — 贝塞尔花瓣 + 三维旋转透视
 ---
 
 <div class="sakura-bg" id="sakura-bg">
@@ -10,7 +9,6 @@
 <script>
 // @ts-nocheck
 (function () {
-  // 防 View Transitions 双实例：全局锁
   if (window.__sakuraLoaded) return;
   window.__sakuraLoaded = true;
 
@@ -21,43 +19,36 @@
 
   let petals = [];
   let animationId = null;
-  let wind = 0;
-  let windTimer = 0;
   let isPageVisible = true;
   let resizeTimer = null;
-  let mouseX = -9999;
-  let mouseY = -9999;
+  let mouseX = -9999, mouseY = -9999;
+  let lastTime = performance.now();
 
   // ---------- 配置 ----------
   const CONFIG = {
-    petalCount: 36,
-    minSize: 8,
-    maxSize: 17,
-    fallSpeed: 0.35,
-    swayAmplitude: 1.0,
-    swayFrequency: 0.012,
-    windStrength: 0.25,
-    windInterval: 4000,
+    petalCount: 35,
+    petalSize: { min: 14, max: 30 },
+    fallSpeed: { min: 0.3, max: 1.2 },
+    swaySpeed: { min: 0.003, max: 0.012 },
+    opacity: { min: 0.55, max: 0.95 },
+    depthRange: 400,
+    focalLength: 500,
     // 鼠标吸引
-    attractRadius: 200,
-    attractForce: 0.12,
-    maxAttractSpeed: 3.0,
-    maxAttractFrames: 100,  // 被吸引多久后弹走（≈1.6秒）
-    repelForce: 1.5,        // 弹走力度
+    attractRadius: 220,
+    attractForce: 0.08,
+    maxAttractFrames: 120,
+    repelForce: 1.2,
   };
 
-  // ---------- 花瓣颜色 (#E53543) ----------
-  function petalColor(alpha) {
-    return `rgba(229, 53, 67, ${alpha})`;
-  }
-  function petalColorLight(alpha) {
-    return `rgba(240, 90, 100, ${alpha})`;
-  }
-  function petalColorDark(alpha) {
-    return `rgba(180, 30, 45, ${alpha})`;
-  }
+  // ---------- 颜色 (#E53543 系) ----------
+  const BASE = { r: 229, g: 53, b: 67 };
+  function rgba(r, g, b, a) { return `rgba(${r},${g},${b},${a})`; }
+  function colorAlpha(alpha) { return rgba(BASE.r, BASE.g, BASE.b, alpha); }
+  function colorLight(alpha) { return rgba(Math.min(255, BASE.r+40), Math.min(255, BASE.g+50), Math.min(255, BASE.b+50), alpha); }
+  function colorDark(alpha) { return rgba(Math.max(0, BASE.r-40), Math.max(0, BASE.g-15), Math.max(0, BASE.b-15), alpha); }
+  function colorVein(alpha) { return rgba(Math.max(0, BASE.r-30), Math.max(0, BASE.g-10), Math.max(0, BASE.b-10), alpha); }
 
-  // ---------- 尺寸适配（防抖） ----------
+  // ---------- 尺寸 ----------
   function resize() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -66,223 +57,225 @@
     if (resizeTimer) cancelAnimationFrame(resizeTimer);
     resizeTimer = requestAnimationFrame(resize);
   }
+  window.addEventListener('resize', debouncedResize);
+  resize();
 
-  // ---------- 花瓣类 ----------
-  class Petal {
-    constructor() {
-      this.attractFrames = 0;
-      this.reset();
-    }
-    reset() {
-      this.x = Math.random() * canvas.width;
-      this.y = -Math.random() * canvas.height - 20;
-      this.size = Math.random() * (CONFIG.maxSize - CONFIG.minSize) + CONFIG.minSize;
-      this.speedY = Math.random() * 0.3 + CONFIG.fallSpeed;
-      this.speedX = (Math.random() - 0.5) * 0.2;
-      this.rotation = Math.random() * Math.PI * 2;
-      this.rotationSpeed = (Math.random() - 0.5) * 0.025;
-      this.rotationPhase = Math.random() * Math.PI * 2; // 翻滚相位
-      this.style = Math.floor(Math.random() * 4); // 0-3 四种花瓣形状
-      this.stretch = 0.55 + Math.random() * 0.25;  // 宽高比 0.55~0.80
-      this.opacity = Math.random() * 0.35 + 0.3;
-      this.swayOffset = Math.random() * 1000;
-      this.time = Math.random() * 1000;
-      this.attractFrames = 0;
-    }
-    update() {
-      this.time++;
-      // 被吸引太久就弹走，保证花瓣循环
-      if (this.attractFrames > CONFIG.maxAttractFrames) {
-        const angle = Math.random() * Math.PI * 2;
-        this.speedX += Math.cos(angle) * CONFIG.repelForce;
-        this.speedY += Math.sin(angle) * CONFIG.repelForce - 0.5; // 额外向上飘
-        this.attractFrames = 0;
-      }
-      const sway = Math.sin(this.time * CONFIG.swayFrequency + this.swayOffset) * CONFIG.swayAmplitude;
-      this.speedX += wind * 0.04;
-      this.speedX *= 0.98;
-      this.x += this.speedX + sway;
-      this.y += this.speedY;
-      // 真实旋转：正弦波变速 + 偶尔翻转
-      const rotMod = Math.sin(this.time * 0.03 + this.rotationPhase) * 0.7 + 0.3;
-      this.rotation += this.rotationSpeed * rotMod;
-      // 风吹时旋转加快
-      this.rotation += wind * 0.002;
-      if (this.y > canvas.height + 20 || this.x < -40 || this.x > canvas.width + 40) {
-        this.reset();
-        this.x = Math.random() * canvas.width;
-        this.y = -20;
-      }
-    }
-    draw() {
-      ctx.save();
-      ctx.translate(this.x, this.y);
-      ctx.rotate(this.rotation);
+  function rand(a, b) { return Math.random() * (b - a) + a; }
+  function randColor() { return colorAlpha(1); }
 
-      const w = this.size;
-      const h = this.size * this.stretch;
+  // ====== 3D 旋转 ======
+  function rotateX(p, a) {
+    const c = Math.cos(a), s = Math.sin(a);
+    return { x: p.x, y: p.y * c - p.z * s, z: p.y * s + p.z * c };
+  }
+  function rotateY(p, a) {
+    const c = Math.cos(a), s = Math.sin(a);
+    return { x: p.x * c + p.z * s, y: p.y, z: -p.x * s + p.z * c };
+  }
+  function rotateZ(p, a) {
+    const c = Math.cos(a), s = Math.sin(a);
+    return { x: p.x * c - p.y * s, y: p.x * s + p.y * c, z: p.z };
+  }
 
-      // ---- 多风格花瓣路径 ----
-      ctx.beginPath();
+  // ---------- 3D 投影 ----------
+  function project3D(px, py, petal, time) {
+    let p = { x: px, y: py, z: 0 };
+    p = rotateX(p, petal.rotX + petal.spinX * time);
+    p = rotateY(p, petal.rotY + petal.spinY * time);
+    p = rotateZ(p, petal.rotZ + petal.spinZ * time);
+    p.z += petal.worldZ;
+    const scale = CONFIG.focalLength / (CONFIG.focalLength + p.z);
+    return { x: p.x * scale, y: p.y * scale, scale, z: p.z };
+  }
 
-      switch (this.style) {
-        case 0:
-          // 经典 V 形缺口
-          this.drawClassicPetal(ctx, w, h);
-          break;
-        case 1:
-          // 圆润花瓣（缺口浅）
-          this.drawRoundPetal(ctx, w, h);
-          break;
-        case 2:
-          // 狭长花瓣
-          this.drawNarrowPetal(ctx, w, h);
-          break;
-        case 3:
-          // 波浪边缘花瓣
-          this.drawWavyPetal(ctx, w, h);
-          break;
-      }
+  // ---------- 绘制花瓣（3D 贝塞尔） ----------
+  function drawPetal(petal, time) {
+    const s = petal.size;
+    const d = petal.d;
 
-      ctx.closePath();
+    // 贝塞尔控制点（局部坐标）→ 3D 投影
+    const p0  = project3D(0,           s * 0.5,          petal, time);
+    const p1a = project3D(s*0.15*d[0], s*0.35*d[1],      petal, time);
+    const p1b = project3D(s*0.45*d[2], s*0.15*d[3],      petal, time);
+    const p1  = project3D(s*0.42*d[4], -s*0.05*d[5],     petal, time);
+    const p2a = project3D(s*0.48*d[6], -s*0.25*d[7],     petal, time);
+    const p2b = project3D(s*0.35*d[8], -s*0.42*d[9],     petal, time);
+    const p2  = project3D(s*0.12,       -s*0.48,          petal, time);
+    const nR  = project3D(s*0.03,       -s*0.38,          petal, time);
+    const nC  = project3D(0,           -s*0.42,          petal, time);
+    const nL  = project3D(-s*0.03,      -s*0.38,          petal, time);
+    const p3  = project3D(-s*0.12,      -s*0.48,          petal, time);
+    const p4a = project3D(-s*0.35*d[10], -s*0.42*d[11],  petal, time);
+    const p4b = project3D(-s*0.48*d[12], -s*0.25*d[13],  petal, time);
+    const p4  = project3D(-s*0.42*d[14], -s*0.05*d[15],  petal, time);
+    const p5a = project3D(-s*0.45*d[16], s*0.15*d[17],   petal, time);
+    const p5b = project3D(-s*0.15*d[18], s*0.35*d[19],   petal, time);
 
-      // 径向渐变填充
-      const grad = ctx.createRadialGradient(0, -h * 0.1, 0, 0, 0, w * 0.6);
-      grad.addColorStop(0, petalColorLight(this.opacity));
-      grad.addColorStop(0.6, petalColor(this.opacity));
-      grad.addColorStop(1, petalColorDark(this.opacity));
-      ctx.fillStyle = grad;
-      ctx.fill();
+    // 深度 & 朝向计算
+    const all = [p0,p1,p1a,p1b,p2,p2a,p2b,p3,p4,p4a,p4b,p5a,p5b,nR,nC,nL];
+    const avgZ = all.reduce((s,p)=>s+p.z,0) / all.length;
+    const depthFade = 1 - (avgZ / CONFIG.depthRange) * 0.5;
+    const v1 = {x:p1.x-p0.x, y:p1.y-p0.y};
+    const v2 = {x:p4.x-p0.x, y:p4.y-p0.y};
+    const cross = v1.x*v2.y - v1.y*v2.x;
+    const facing = Math.abs(cross) / (Math.hypot(v1.x,v1.y)*Math.hypot(v2.x,v2.y)+0.001);
+    const alpha = petal.opacity * depthFade * (0.35 + 0.65 * facing);
+    if (alpha < 0.02) return;
 
-      // 细中线
-      ctx.beginPath();
-      ctx.moveTo(0, h * 0.35);
-      ctx.lineTo(0, -h * 0.25);
-      ctx.strokeStyle = `rgba(255, 255, 255, ${this.opacity * 0.12})`;
-      ctx.lineWidth = 0.5;
-      ctx.stroke();
+    ctx.save();
+    ctx.translate(petal.x, petal.y);
+    ctx.globalAlpha = alpha;
 
-      ctx.restore();
-    }
+    // 渐变
+    const mnX = Math.min(p0.x,p1.x,p2.x,p3.x,p4.x);
+    const mxX = Math.max(p0.x,p1.x,p2.x,p3.x,p4.x);
+    const mnY = Math.min(p0.y,p1.y,p2.y,p3.y,p4.y);
+    const mxY = Math.max(p0.y,p1.y,p2.y,p3.y,p4.y);
+    const grad = ctx.createLinearGradient(mnX, mnY, mxX, mxY);
+    grad.addColorStop(0, colorLight(1));
+    grad.addColorStop(0.5, colorAlpha(1));
+    grad.addColorStop(1, colorDark(1));
+    ctx.fillStyle = grad;
 
-    // ---- 四种花瓣形状 ----
+    ctx.beginPath();
+    ctx.moveTo(p0.x, p0.y);
+    ctx.bezierCurveTo(p1a.x,p1a.y, p1b.x,p1b.y, p1.x,p1.y);
+    ctx.bezierCurveTo(p2a.x,p2a.y, p2b.x,p2b.y, p2.x,p2.y);
+    ctx.lineTo(nR.x, nR.y);
+    ctx.quadraticCurveTo(nC.x, nC.y, nL.x, nL.y);
+    ctx.lineTo(p3.x, p3.y);
+    ctx.bezierCurveTo(p4a.x,p4a.y, p4b.x,p4b.y, p4.x,p4.y);
+    ctx.bezierCurveTo(p5a.x,p5a.y, p5b.x,p5b.y, p0.x,p0.y);
+    ctx.closePath();
+    ctx.fill();
 
-    // ① 经典 V 形缺口
-    drawClassicPetal(ctx, w, h) {
-      ctx.moveTo(0, h * 0.5);
-      ctx.bezierCurveTo(-w * 0.4, h * 0.15, -w * 0.5, -h * 0.05, -w * 0.05, -h * 0.42);
-      ctx.lineTo(w * 0.05, -h * 0.40);
-      ctx.lineTo(w * 0.05, -h * 0.42);
-      ctx.bezierCurveTo(w * 0.5, -h * 0.05, w * 0.4, h * 0.15, 0, h * 0.5);
-    }
+    // 主脉
+    const vTop = project3D(0, -s*0.38, petal, time);
+    const vBot = project3D(0, s*0.42, petal, time);
+    ctx.strokeStyle = colorVein(1);
+    ctx.lineWidth = 0.5 * all.reduce((s,p)=>s+p.scale,0)/all.length;
+    ctx.globalAlpha = alpha * 0.3;
+    ctx.beginPath();
+    ctx.moveTo(vBot.x, vBot.y);
+    ctx.quadraticCurveTo((vBot.x+vTop.x)/2+1, (vBot.y+vTop.y)/2, vTop.x, vTop.y);
+    ctx.stroke();
 
-    // ② 圆润花瓣（浅缺口）
-    drawRoundPetal(ctx, w, h) {
-      ctx.moveTo(0, h * 0.5);
-      ctx.bezierCurveTo(-w * 0.45, h * 0.2, -w * 0.55, -h * 0.1, -w * 0.08, -h * 0.35);
-      ctx.quadraticCurveTo(0, -h * 0.32, w * 0.08, -h * 0.35);
-      ctx.bezierCurveTo(w * 0.55, -h * 0.1, w * 0.45, h * 0.2, 0, h * 0.5);
-    }
-
-    // ③ 狭长花瓣
-    drawNarrowPetal(ctx, w, h) {
-      ctx.moveTo(0, h * 0.5);
-      ctx.bezierCurveTo(-w * 0.25, h * 0.1, -w * 0.35, -h * 0.1, -w * 0.04, -h * 0.48);
-      ctx.lineTo(w * 0.04, -h * 0.46);
-      ctx.lineTo(w * 0.04, -h * 0.48);
-      ctx.bezierCurveTo(w * 0.35, -h * 0.1, w * 0.25, h * 0.1, 0, h * 0.5);
+    // 侧脉
+    for (let i = 1; i <= 3; i++) {
+      const t = i / 4;
+      const vy = s*0.42 - t*s*0.8;
+      const spd = s*0.2 * (1 - t*0.5);
+      const vb = project3D(0, vy, petal, time);
+      const vr = project3D(spd, vy+s*0.02, petal, time);
+      const vl = project3D(-spd, vy+s*0.02, petal, time);
+      const vrc = project3D(spd*0.6, vy-s*0.04, petal, time);
+      const vlc = project3D(-spd*0.6, vy-s*0.04, petal, time);
+      ctx.beginPath(); ctx.moveTo(vb.x,vb.y); ctx.quadraticCurveTo(vrc.x,vrc.y,vr.x,vr.y); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(vb.x,vb.y); ctx.quadraticCurveTo(vlc.x,vlc.y,vl.x,vl.y); ctx.stroke();
     }
 
-    // ④ 波浪边缘花瓣
-    drawWavyPetal(ctx, w, h) {
-      ctx.moveTo(0, h * 0.5);
-      ctx.bezierCurveTo(-w * 0.3, h * 0.25, -w * 0.5, h * 0.05, -w * 0.35, -h * 0.15);
-      ctx.bezierCurveTo(-w * 0.5, -h * 0.25, -w * 0.3, -h * 0.35, -w * 0.05, -h * 0.38);
-      ctx.lineTo(w * 0.05, -h * 0.36);
-      ctx.lineTo(w * 0.05, -h * 0.38);
-      ctx.bezierCurveTo(w * 0.3, -h * 0.35, w * 0.5, -h * 0.25, w * 0.35, -h * 0.15);
-      ctx.bezierCurveTo(w * 0.5, h * 0.05, w * 0.3, h * 0.25, 0, h * 0.5);
-    }
+    // 高光
+    const hl = project3D(s*0.05, -s*0.1, petal, time);
+    ctx.globalAlpha = alpha * 0.12 * facing;
+    ctx.fillStyle = '#FFFFFF';
+    ctx.beginPath();
+    ctx.ellipse(hl.x, hl.y, s*0.18*hl.scale, s*0.12*hl.scale, 0, 0, Math.PI*2);
+    ctx.fill();
+
+    ctx.restore();
+  }
+
+  // ---------- 创建花瓣 ----------
+  function createPetal(startFromTop) {
+    const size = rand(CONFIG.petalSize.min, CONFIG.petalSize.max);
+    const d = [];
+    for (let i = 0; i < 20; i++) d.push(rand(0.75, 1.25));
+    return {
+      x: rand(-80, canvas.width + 80),
+      y: startFromTop ? rand(-200, -20) : rand(-canvas.height, canvas.height),
+      size, d,
+      rotX: rand(0, Math.PI*2), rotY: rand(0, Math.PI*2), rotZ: rand(0, Math.PI*2),
+      spinX: rand(-0.0015, 0.0015), spinY: rand(-0.002, 0.002), spinZ: rand(-0.001, 0.001),
+      worldZ: rand(-CONFIG.depthRange*0.3, CONFIG.depthRange*0.7),
+      fallSpeed: rand(CONFIG.fallSpeed.min, CONFIG.fallSpeed.max),
+      swaySpeed: rand(CONFIG.swaySpeed.min, CONFIG.swaySpeed.max),
+      swayOffset: rand(0, Math.PI*2),
+      opacity: rand(CONFIG.opacity.min, CONFIG.opacity.max),
+      attractFrames: 0,
+    };
   }
 
   // ---------- 鼠标吸引 ----------
-  function applyMouseAttraction(petal) {
-    const dx = mouseX - petal.x;
-    const dy = mouseY - petal.y;
+  function applyMouseAttraction(p) {
+    const dx = mouseX - p.x, dy = mouseY - p.y;
     const dist = Math.sqrt(dx * dx + dy * dy);
     if (dist < CONFIG.attractRadius && dist > 1) {
-      petal.attractFrames++;
+      p.attractFrames++;
       const strength = (1 - dist / CONFIG.attractRadius) * CONFIG.attractForce;
-      petal.speedX += (dx / dist) * strength;
-      petal.speedY += (dy / dist) * strength;
-      const spd = Math.sqrt(petal.speedX * petal.speedX + petal.speedY * petal.speedY);
-      if (spd > CONFIG.maxAttractSpeed) {
-        petal.speedX = (petal.speedX / spd) * CONFIG.maxAttractSpeed;
-        petal.speedY = (petal.speedY / spd) * CONFIG.maxAttractSpeed;
+      p.fallSpeed -= strength * 0.3;
+      p.x += (dx / dist) * strength * 2;
+      p.y += (dy / dist) * strength * 2;
+      if (p.attractFrames > CONFIG.maxAttractFrames) {
+        p.x += (Math.random() - 0.5) * CONFIG.repelForce * 5;
+        p.y -= CONFIG.repelForce * 3;
+        p.attractFrames = 0;
       }
     } else {
-      petal.attractFrames = Math.max(0, petal.attractFrames - 2);
+      p.attractFrames = Math.max(0, p.attractFrames - 2);
+    }
+  }
+
+  // ---------- 更新花瓣 ----------
+  function updatePetal(p, dt) {
+    p.y += p.fallSpeed * dt * 0.06;
+    p.x += Math.sin(performance.now() * p.swaySpeed + p.swayOffset) * 0.4 * dt * 0.06;
+    p.fallSpeed += 0.00008 * dt;
+    if (p.y > canvas.height + 80 || p.x < -150 || p.x > canvas.width + 150) {
+      Object.assign(p, createPetal(true));
+      p.x = rand(-80, canvas.width + 80);
+      p.y = rand(-120, -20);
     }
   }
 
   // ---------- 初始化 ----------
   function init() {
-    resize();
     petals = [];
-    for (let i = 0; i < CONFIG.petalCount; i++) {
-      const p = new Petal();
-      p.y = Math.random() * canvas.height;
-      petals.push(p);
-    }
+    for (let i = 0; i < CONFIG.petalCount; i++) petals.push(createPetal(false));
   }
 
   // ---------- 动画循环 ----------
   function animate() {
-    if (!isPageVisible) {
-      // 页面不可见时仅空转 rAF 不绘制，节省 GPU
-      animationId = requestAnimationFrame(animate);
-      return;
-    }
+    if (!isPageVisible) { animationId = requestAnimationFrame(animate); return; }
+    const now = performance.now();
+    const dt = Math.min(now - lastTime, 50);
+    lastTime = now;
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    windTimer++;
-    if (windTimer > CONFIG.windInterval / 16) {
-      wind = (Math.random() - 0.5) * CONFIG.windStrength * 2;
-      windTimer = 0;
-    }
-    wind *= 0.995;
-    // for 循环比 forEach 快 2-3 倍
+
+    // 深度排序
+    petals.sort((a, b) => b.worldZ - a.worldZ);
+
     for (let i = 0; i < petals.length; i++) {
-      petals[i].update();
+      updatePetal(petals[i], dt);
       applyMouseAttraction(petals[i]);
-      petals[i].draw();
+      drawPetal(petals[i], now);
     }
+
     animationId = requestAnimationFrame(animate);
   }
 
-  // ---------- 页面可见性（切标签页时暂停） ----------
-  document.addEventListener('visibilitychange', () => {
-    isPageVisible = !document.hidden;
-  });
+  document.addEventListener('visibilitychange', () => { isPageVisible = !document.hidden; });
 
-  // ---------- 启动 ----------
   function start() {
     init();
     animate();
-    window.addEventListener('resize', debouncedResize);
-    document.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    });
-    document.addEventListener('mouseleave', () => {
-      mouseX = -9999;
-      mouseY = -9999;
-    });
+    document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+    document.addEventListener('mouseleave', () => { mouseX = -9999; mouseY = -9999; });
   }
 
   if (document.readyState === 'complete') start();
   else window.addEventListener('load', start);
 
-  // View Transitions 清理
   document.addEventListener('astro:before-swap', () => {
     if (animationId !== null) cancelAnimationFrame(animationId);
     window.__sakuraLoaded = false;
@@ -305,7 +298,6 @@
     height: 100%;
     display: block;
   }
-
   @media (prefers-reduced-motion: reduce) {
     .sakura-bg { display: none; }
   }
