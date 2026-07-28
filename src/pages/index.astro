@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import HeroBackground from '../components/HeroBackground.astro';
 import TypeWriter from '../components/TypeWriter.astro';
 import { getCollection } from 'astro:content';
 
@@ -13,7 +12,6 @@ const featuredProjects = projects.filter(p => p.data.featured);
 <Layout title="前端日志 · 记录学习与成长">
   <!-- Hero 区 -->
   <section class="hero-section">
-    <HeroBackground />
     <div class="container hero-content">
       <h1 class="hero-greeting">👋 你好，我是 <span class="highlight"><TypeWriter text="前端学习者" /></span></h1>
       <p class="hero-sub">

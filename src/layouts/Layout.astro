@@ -6,6 +6,7 @@ export interface Props {
 
 const { title, description } = Astro.props;
 import '../styles/global.css';
+import SakuraPetals from '../components/SakuraPetals.astro';
 import { ClientRouter } from 'astro:transitions';
 ---
 
@@ -25,6 +26,7 @@ import { ClientRouter } from 'astro:transitions';
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   </head>
   <body>
+    <SakuraPetals />
     <!-- 导航栏 -->
     <nav class="navbar glass-card" style="border-top: none; border-left: none; border-right: none; border-radius: 0;">
       <div class="container nav-inner">

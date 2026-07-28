@@ -1,0 +1,199 @@
+---
+// 全屏樱花花瓣飘落
+// 使用 Canvas 绘制轻量花瓣粒子系统，覆盖全页
+---
+
+<div class="sakura-bg" id="sakura-bg">
+  <canvas id="sakura-canvas"></canvas>
+</div>
+
+<script>
+// @ts-nocheck
+(function () {
+  const canvas = document.getElementById('sakura-canvas');
+  if (!canvas) return;
+  const container = document.getElementById('sakura-bg');
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  let petals = [];
+  let animationId = null;
+  let wind = 0;
+  let windTimer = 0;
+
+  // ---------- 配置 ----------
+  const CONFIG = {
+    petalCount: 45,
+    minSize: 6,
+    maxSize: 14,
+    fallSpeed: 0.4,
+    swayAmplitude: 1.2,
+    swayFrequency: 0.01,
+    windStrength: 0.3,
+    windInterval: 3000, // 每 3 秒一阵风
+  };
+
+  // ---------- 花瓣颜色（5 种粉色调） ----------
+  const PETAL_COLORS = [
+    'rgba(255, 182, 193, ALPHA)',   // 浅粉
+    'rgba(255, 155, 170, ALPHA)',   // 粉红
+    'rgba(252, 182, 193, ALPHA)',   // 樱花粉
+    'rgba(255, 200, 210, ALPHA)',   // 淡粉
+    'rgba(245, 175, 185, ALPHA)',   // 暖粉
+  ];
+
+  // ---------- 尺寸适配 ----------
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  // ---------- 花瓣类 ----------
+  class Petal {
+    constructor() {
+      this.reset();
+    }
+    reset() {
+      this.x = Math.random() * canvas.width;
+      this.y = -Math.random() * canvas.height - 30;
+      this.size = Math.random() * (CONFIG.maxSize - CONFIG.minSize) + CONFIG.minSize;
+      this.speedY = Math.random() * 0.4 + CONFIG.fallSpeed;
+      this.speedX = (Math.random() - 0.5) * 0.3;
+      this.rotation = Math.random() * Math.PI * 2;
+      this.rotationSpeed = (Math.random() - 0.5) * 0.02;
+      this.opacity = Math.random() * 0.4 + 0.35;
+      this.colorIndex = Math.floor(Math.random() * PETAL_COLORS.length);
+      this.swayOffset = Math.random() * 1000;
+      this.time = Math.random() * 1000;
+    }
+    update() {
+      // 时间累积
+      this.time++;
+
+      // 左右摇摆（正弦波）
+      const sway = Math.sin(this.time * CONFIG.swayFrequency + this.swayOffset) * CONFIG.swayAmplitude;
+
+      // 风
+      this.speedX += wind * 0.05;
+      this.speedX *= 0.98; // 阻尼
+
+      // 位置更新
+      this.x += this.speedX + sway;
+      this.y += this.speedY;
+
+      // 旋转
+      this.rotation += this.rotationSpeed;
+
+      // 超出底部或两侧太远则重置
+      if (this.y > canvas.height + 30 ||
+          this.x < -50 ||
+          this.x > canvas.width + 50) {
+        this.reset();
+        this.x = Math.random() * canvas.width;
+        this.y = -30;
+      }
+    }
+    draw() {
+      ctx.save();
+      ctx.translate(this.x, this.y);
+      ctx.rotate(this.rotation);
+
+      // 花瓣形状：扁椭圆
+      const w = this.size;
+      const h = this.size * 0.6;
+
+      ctx.beginPath();
+      ctx.ellipse(0, 0, w, h, 0, 0, Math.PI * 2);
+      ctx.fillStyle = PETAL_COLORS[this.colorIndex].replace('ALPHA', this.opacity);
+      ctx.fill();
+
+      // 花瓣纹理线（一条细中线）
+      ctx.beginPath();
+      ctx.moveTo(0, -h * 0.6);
+      ctx.lineTo(0, h * 0.6);
+      ctx.strokeStyle = `rgba(255, 255, 255, ${this.opacity * 0.3})`;
+      ctx.lineWidth = 0.5;
+      ctx.stroke();
+
+      ctx.restore();
+    }
+  }
+
+  // ---------- 初始化 ----------
+  function init() {
+    resize();
+    petals = [];
+    for (let i = 0; i < CONFIG.petalCount; i++) {
+      const p = new Petal();
+      // 初始散布在整个屏幕
+      p.y = Math.random() * canvas.height;
+      p.time = Math.random() * 1000;
+      petals.push(p);
+    }
+  }
+
+  // ---------- 动画循环 ----------
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // 风的变化
+    windTimer++;
+    if (windTimer > CONFIG.windInterval / 16) {
+      wind = (Math.random() - 0.5) * CONFIG.windStrength * 2;
+      windTimer = 0;
+    }
+    wind *= 0.995; // 风逐渐减弱
+
+    petals.forEach(p => {
+      p.update();
+      p.draw();
+    });
+
+    animationId = requestAnimationFrame(animate);
+  }
+
+  // ---------- 启动 ----------
+  function start() {
+    init();
+    animate();
+    window.addEventListener('resize', () => {
+      resize();
+    });
+  }
+
+  // DOM 准备好后启动
+  if (document.readyState === 'complete') {
+    start();
+  } else {
+    window.addEventListener('load', start);
+  }
+
+  // Astro View Transitions 清理
+  document.addEventListener('astro:before-swap', () => {
+    if (animationId !== null) cancelAnimationFrame(animationId);
+  });
+})();
+</script>
+
+<style>
+  .sakura-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .sakura-bg canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sakura-bg {
+      display: none;
+    }
+  }
+</style>
