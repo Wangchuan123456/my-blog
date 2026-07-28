@@ -28,7 +28,7 @@ import { ClientRouter } from 'astro:transitions';
   <body>
     <div class="bg-wallpaper"></div>
     <SakuraPetals />
-    <!-- 导航栏 -->
+    <!-- 导航�?-->
     <nav class="navbar glass-card" style="border-top: none; border-left: none; border-right: none; border-radius: 0;">
       <div class="container nav-inner">
         <a href="/" class="logo">📖 前端日志</a>
@@ -37,7 +37,7 @@ import { ClientRouter } from 'astro:transitions';
           <a href="/blog">文章</a>
           <a href="/projects">项目</a>
           <button id="theme-toggle" class="theme-btn" aria-label="切换暗色模式">
-            <span class="icon-light">☀️</span>
+            <span class="icon-light">☀�?/span>
             <span class="icon-dark">🌙</span>
           </button>
         </div>
@@ -51,7 +51,7 @@ import { ClientRouter } from 'astro:transitions';
     <!-- 页脚 -->
     <footer class="footer glass-card" style="border-radius: 16px 16px 0 0; border-bottom: none; border-left: none; border-right: none;">
       <div class="container">
-        <p>© {new Date().getFullYear()} 前端日志 · 用 ❤️ 和 Markdown 构建</p>
+        <p>© {new Date().getFullYear()} 前端日志 · �?❤️ �?Markdown 构建</p>
         <p class="footer-links">
           <a href="/">首页</a>
           <span class="sep">·</span>
@@ -116,7 +116,7 @@ import { ClientRouter } from 'astro:transitions';
           btn.appendChild(ripple);
           setTimeout(() => ripple.remove(), 600);
         });
-        // 动态注入 ripple 关键帧（只注入一次）
+        // 动态注�?ripple 关键帧（只注入一次）
         if (!document.getElementById('ripple-style')) {
           const style = document.createElement('style');
           style.id = 'ripple-style';
@@ -126,7 +126,7 @@ import { ClientRouter } from 'astro:transitions';
       })();
     </script>
 
-    <!-- 全局微交互：滚动进出动画（入口渐入 + 出口渐出） -->
+    <!-- 全局微交互：滚动进出动画（入口渐�?+ 出口渐出�?-->
     <script>
       (function () {
         if ('IntersectionObserver' in window === false) return;
@@ -136,11 +136,11 @@ import { ClientRouter } from 'astro:transitions';
               entry.target.classList.add('reveal-visible');
               entry.target.classList.remove('reveal-exit');
             } else {
-              // 只在曾经可见过的元素上触发退场
+              // 只在曾经可见过的元素上触发退�?
               if (entry.target.classList.contains('reveal-visible')) {
                 entry.target.classList.remove('reveal-visible');
                 entry.target.classList.add('reveal-exit');
-                // 动画结束后清理 exit 类，以便下次进入重新触发
+                // 动画结束后清�?exit 类，以便下次进入重新触发
                 entry.target.addEventListener('transitionend', () => {
                   entry.target.classList.remove('reveal-exit');
                 }, { once: true });
@@ -160,7 +160,7 @@ import { ClientRouter } from 'astro:transitions';
         } else {
           window.addEventListener('load', observeReveal);
         }
-        // 监听 Astro 页面切换后的新元素
+        // 监听 Astro 页面切换后的新元�?
         document.addEventListener('astro:page-load', observeReveal);
       })();
     </script>
@@ -168,7 +168,7 @@ import { ClientRouter } from 'astro:transitions';
 </html>
 
 <style>
-  /* ===== 导航栏 ===== */
+  /* ===== 导航�?===== */
   .navbar {
     position: sticky;
     top: 0;
@@ -179,12 +179,12 @@ import { ClientRouter } from 'astro:transitions';
     position: fixed;
     inset: 0;
     z-index: 0;
-    background: url('/bg.png') center / cover no-repeat;
+    background: url('/bg.jpg') center / cover no-repeat;
     pointer-events: none;
   }
   html.dark .bg-wallpaper {
-    /* 暗色模式下盖一层半透明黑，让内容可读 */
-    background: url('/bg.png') center / cover no-repeat, rgba(0, 0, 0, 0.55);
+    /* 暗色模式下盖一层半透明黑，让内容可�?*/
+    background: url('/bg.jpg') center / cover no-repeat, rgba(0, 0, 0, 0.55);
     background-blend-mode: overlay;
   }
   .nav-inner {
